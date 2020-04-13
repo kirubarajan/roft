@@ -5,3 +5,8 @@ This repository contains a web application that is used to load generated/writte
 1. Clone the repository.
 2. Install dependencies.
 3. Run `main.py` to start the application.
+
+## Screenshots
+
+![screenshot](https://i.imgur.com/l0Uxjku.png)
+
