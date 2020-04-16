@@ -12,24 +12,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script>
-      const sentences = {{ sentences|tojson }};
+      const all_sentences = {{ sentences|tojson }};
 
-      $(document).ready(function() {
-        $("#machine" ).click(function() {
-          alert("selected machine");
-        });
-
-        $("#next" ).click(function() {
-          alert("selected next sentence");
-        });
-
+      function redraw_sentences(sentences) {
         let cards_html = "";
         sentences.forEach(sentence => {
-          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '</div> </div> ';
+          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '.</div> </div> ';
           cards_html += card;
         });
 
         $("#cards").html(cards_html);
+      }
+
+      $(document).ready(function() {
+        let current_sentence = 1;
+
+        $("#machine" ).click(function() {
+          alert("selected machine");
+        });
+
+        // adding new sentence
+        $("#next" ).click(function() {
+          current_sentence += 1;
+          const sentences = all_sentences.slice(0, current_sentence);
+          redraw_sentences(sentences);
+        });
+
+        // initial population
+        const sentences = all_sentences.slice(0, current_sentence);
+        redraw_sentences(sentences);  
       });
     </script>
   </head>
