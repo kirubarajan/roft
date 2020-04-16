@@ -22,26 +22,27 @@
         $("#next" ).click(function() {
           alert("selected next sentence");
         });
+
+        let cards_html = "";
+        sentences.forEach(sentence => {
+          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '</div> </div> ';
+          cards_html += card;
+        });
+
+        $("#cards").html(cards_html);
       });
     </script>
-
   </head>
   <body>
-
     <div class="container">
       <div class="row">
         <div class="col-md" />
         <div class="col-md" style="padding: 2rem">
           <h2 class="text-muted"> <strong>Is the following text human or machine generated?</strong> </h2>
-          <hr />
-          
-          {% for sentence in sentences %}
-            <div class="card" style="margin-bottom: 0.5rem">
-              <div class="card-body">
-                {{ sentence }}.
-              </div>
-            </div>
-          {% endfor %}
+          <p class="text-muted">Please select the option that blah blah blah. Things are not uniformly distributed. Use your best judgement, and evil AI is bad.</p>
+
+          <div style="margin-top: 1.5rem" id="cards"></div>
+
           <div class="card" style="margin-top: 1rem">
             <div class="card-body">
               <p class="text-muted">Select An Option:</p>
