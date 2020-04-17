@@ -51,18 +51,29 @@
       <div class="row">
         <div class="col-md" />
         <div class="col-md" style="padding: 2rem">
-          <h2 class="text-muted"> <strong>Is the following text human or machine generated?</strong> </h2>
-          <p class="text-muted">Please select the option that blah blah blah. Things are not uniformly distributed. Use your best judgement, and evil AI is bad.</p>
+          <br /> 
+          <h2 class="text-muted"> <strong>Is the following text human written or machine generated?</strong> </h2>
+          <p class="text-muted" style="margin-bottom: 2rem;">
+            Your task is to decide at what point (if at all) the sample text begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
+            The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.
+          </p>
 
-          <div style="margin-top: 1.5rem" id="cards"></div>
-
-          <div class="card" style="margin-top: 1rem">
+          <div class="card" style="margin-bottom: 2rem">
             <div class="card-body">
               <p class="text-muted">Select An Option:</p>
               <button id="machine" type="button" class="btn btn-info">It's a machine.</button>
               <button id="next" type="button" class="btn btn-secondary">I need another sentence.</button>
             </div>
           </div>
+
+          <small class="text-muted">Human-Written Prompt:</small>
+
+          <p style="margin-top: 0.5rem">{{prompt}}.</p>
+
+          <small class="text-muted">Sample Text:</small>
+
+          <div style="margin-top: 0.5rem" id="cards"></div>
+         
         </div>
         <div class="col-md" />
       </div>
