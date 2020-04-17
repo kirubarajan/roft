@@ -5,7 +5,8 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     dataset = Dataset("sample.txt")
-    return render_template("index.html", sentences=dataset.sentences)
+    dataset.prompt = ""
+    return render_template("index.html", prompt=dataset.sentences[0], sentences=dataset.sentences[1:])
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
