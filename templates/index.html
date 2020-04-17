@@ -14,8 +14,11 @@
     <script>
       const all_sentences = {{ sentences|tojson }};
 
-      function redraw_sentences(sentences) {
+      // helper function for adding new sentences
+      redraw_sentences = current_sentence => {
         let cards_html = "";
+        const sentences = all_sentences.slice(0, current_sentence);
+
         sentences.forEach(sentence => {
           const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '.</div> </div> ';
           cards_html += card;
@@ -24,27 +27,25 @@
         $("#cards").html(cards_html);
       }
 
-      $(document).ready(function() {
+      // user interaction logic
+      $(document).ready(() => {
         let current_sentence = 1;
-
-        $("#machine" ).click(function() {
-          // do some logic here to save with current_sentence
-          alert("Logging your current timestep of " + current_sentence + "!");
-        });
+        redraw_sentences(current_sentence);  
 
         // adding new sentence
-        $("#next" ).click(function() {
+        $("#next").click(() => {
           current_sentence += 1;
-          const sentences = all_sentences.slice(0, current_sentence);
-          redraw_sentences(sentences);
+          redraw_sentences(current_sentence);
         });
 
-        // initial population
-        const sentences = all_sentences.slice(0, current_sentence);
-        redraw_sentences(sentences);  
+        // processing annotator decision
+        $("#machine").click(() => {
+          alert("Logging your current timestep of " + current_sentence + "!");
+        });
       });
     </script>
   </head>
+  
   <body>
     <div class="container">
       <div class="row">
