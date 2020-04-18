@@ -40,7 +40,13 @@
 
         // processing annotator decision
         $("#machine").click(() => {
-          console.log(current_sentence);
+          // get checkbox values and reset
+          grammar = $('#grammar').val();
+          repetition = $('#repetition').val();
+          entailment = $('#entailment').val();
+          sense = $('#sense').val();
+          
+          // todo: make ajax request to log annotation
         });
       });
     </script>
@@ -88,7 +94,7 @@
                 </div>
                 <div class="modal-body">
                   <p>What made the text sound machine-generated?</p>
-                  <div class="form-check">
+                  <form class="form-check">
                     <input type="checkbox" class="form-check-input" id="grammar">
                     <label class="form-check-label" for="grammar">Grammatical Error</label>
                     <br />
@@ -100,7 +106,7 @@
                     <br />
                     <input type="checkbox" class="form-check-input" id="sense">
                     <label class="form-check-label" for="sense">Common-Sense Error</label>
-                  </div>
+                  </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button"  data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Submit</button>
