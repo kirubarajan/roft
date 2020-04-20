@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Annotation Tool</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md" />
+        <div class="col-md" style="padding: 2rem">
+          <br /> 
+          <h2 class="text-muted"> <strong> Welcome and thank you! </strong> </h2>
+          <p class="text-muted" style="margin-bottom: 2rem;">
+            The goal of this research project is to understand what makes human-written text sound good and what makes computer-generated text sound bad.
+            To do this, you will read a passage of text, sentence-by-sentence and tell us when you think the passage is being written by a computer. 
+            Some signs of computer-generated text include poor grammar, non-sensical meaning, and frequent repetition.
+            <br /> <br />
+            If you're familiar with the Turing Test, then you will be playing our subject! 
+            Feel free to ask questions if you are having difficulty with completing the experiment, or if there were any trials in particular that you thought were notable.
+          </p>
+          <form action="/annotate" method="GET">
+            <div class="input-group mb-3" style="width: 30rem">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">What's your first name?</span>
+              </div>
+              <input type="text" name="name" class="form-control" placeholder="type your name here..." aria-label="name" aria-describedby="basic-addon1">
+            </div>
+            <input type="submit" class="btn btn-info" value="Begin Annotating" />
+          </form>
+        </div>
+        <div class="col-md" />
+      </div>
+    </div>
+  </body>
+</html>
