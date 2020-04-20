@@ -12,6 +12,7 @@ Annotations are recorded in the following JSON format:
 ```javascript
 {
     prompt_id: Integer,
+    text_id: Integer,
     annotator_name: String, 
     prediction: Integer, 
     label: Integer, 
@@ -24,4 +25,3 @@ Annotations are recorded in the following JSON format:
 ## Screenshots
 
 ![screenshot](https://i.imgur.com/l0Uxjku.png)
-
