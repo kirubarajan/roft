@@ -49,10 +49,9 @@
           const repetition = $('#repetition').is(":checked");
           const entailment = $('#entailment').is(":checked");
           const sense = $('#sense').is(":checked");
-
-          console.log(grammar)
-          console.log(repetition)
+          const note = $("#note").val();
           
+          $("#note").val('');
           $('input[type=checkbox]').each(function() { 
             this.checked = false; 
           }); 
@@ -70,10 +69,9 @@
               "repetition": repetition,
               "entailment": entailment,
               "sense": sense,
-              "note": $("#note").val()
+              "note": note
             },
             success: function (response) {
-              console.log(response);
               location.reload();
             }
           });

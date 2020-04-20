@@ -26,7 +26,7 @@ def save(request):
     entailment = request.POST['entailment'] == 'true'
     sense = request.POST['sense'] == 'true'
 
-    print(grammar, repetition, entailment, sense)
+    print(grammar, repetition, entailment, sense, note)
 
     annotation = Annotation.objects.create(
         annotator=name,
