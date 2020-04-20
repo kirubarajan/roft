@@ -69,7 +69,8 @@
               "grammar": grammar,
               "repetition": repetition,
               "entailment": entailment,
-              "sense": sense
+              "sense": sense,
+              "note": $("#note").val()
             },
             success: function (response) {
               console.log(response);
@@ -125,16 +126,19 @@
                   <p>What made the text sound machine-generated?</p>
                   <form class="form-check">
                     <input type="checkbox" class="form-check-input" id="grammar">
-                    <label class="form-check-label" for="grammar">Grammatical Error</label>
+                    <label class="form-check-label text-muted" for="grammar">Grammatical Error</label>
                     <br />
                     <input type="checkbox" class="form-check-input" id="repetition">
-                    <label class="form-check-label" for="repetition">Repetition Error</label>
+                    <label class="form-check-label text-muted" for="repetition">Repetition Error</label>
                     <br />
                     <input type="checkbox" class="form-check-input" id="entailment">
-                    <label class="form-check-label" for="entailment">Entailment Error</label>
+                    <label class="form-check-label text-muted" for="entailment">Entailment Error</label>
                     <br />
                     <input type="checkbox" class="form-check-input" id="sense">
-                    <label class="form-check-label" for="sense">Common-Sense Error</label>
+                    <label class="form-check-label text-muted" for="sense">Common-Sense Error</label>
+                    <hr />
+                    <p>Anything else to mention?</p>
+                    <input type="text" id="note" class="form-control" placeholder="extra notes go here..." aria-label="note" aria-describedby="basic-addon1">
                   </form>
                 </div>
                 <div class="modal-footer">
