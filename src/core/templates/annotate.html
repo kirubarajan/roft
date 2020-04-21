@@ -13,6 +13,7 @@
 
     <script>
       const all_sentences = {{ sentences|safe }};
+      const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
       const name = "{{ name }}";
 
@@ -20,6 +21,7 @@
       redraw_sentences = current_sentence => {
         let cards_html = "";
         const sentences = all_sentences.slice(0, current_sentence);
+        $("#human").hide();
 
         sentences.forEach(sentence => {
           const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '.</div> </div> ';
@@ -37,7 +39,20 @@
         // adding new sentence
         $("#next").click(function() {
           current_sentence += 1;
-          redraw_sentences(current_sentence);
+
+          if (current_sentence <= max_sentences) {
+            redraw_sentences(current_sentence);
+
+            if (current_sentence == max_sentences) {
+              $("#next").hide();
+              $("#human").show();
+            }
+          }
+        });
+
+        $("#human").click(function() {
+          current_sentence = -1;
+          $(".modal-body").hide()
         });
 
         // processing annotator decision
@@ -56,6 +71,8 @@
             this.checked = false; 
           }); 
 
+          console.log("got here")
+
           // make ajax request to log annotation
           const url = '{% url "save" %}';
           $.ajax({
@@ -73,6 +90,9 @@
             },
             success: function (response) {
               location.reload();
+            }, 
+            error: function (error) {
+              console.log(error);
             }
           });
         });
@@ -99,6 +119,9 @@
                 It's a machine.
               </button>
               <button id="next" type="button" class="btn btn-secondary">I need another sentence.</button>
+              <button type="button" id="human" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                It's a human.
+              </button>
             </div>
           </div>
 
@@ -116,12 +139,9 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Thank you for your response!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
                 </div>
                 <div class="modal-body">
-                  <p>What made the text sound machine-generated?</p>
+                  <p>Select some options to describe the presented text:</p>
                   <form class="form-check">
                     <input type="checkbox" class="form-check-input" id="grammar">
                     <label class="form-check-label text-muted" for="grammar">Grammatical Error</label>
@@ -140,7 +160,7 @@
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" id="submit" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Submit</button>
+                  <button type="button" id="submit" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Continue</button>
                 </div>
               </div>
             </div>

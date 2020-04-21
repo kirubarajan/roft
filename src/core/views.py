@@ -5,20 +5,22 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from core.models import Prompt, Tag, EvaluationText, Annotation
 
+MAX_SENTENCES = 5
+
 def onboard(request):
     return render(request, "onboard.html", {})
 
 def annotate(request):
     text = random.choice(EvaluationText.objects.all())
     sentences = text.body.split(".")
-    args = {"prompt": text.prompt, "text_id": text.pk, "sentences": json.dumps(sentences), "name": request.GET['name']}
+    args = {"prompt": text.prompt, "text_id": text.pk, "sentences": json.dumps(sentences), "name": request.GET['name'], "max_sentences": MAX_SENTENCES}
     return render(request, "annotate.html", args)
 
 @csrf_exempt
 def save(request):  
     text = int(request.POST['text'][0])
     name = request.POST['name']
-    boundary = int(request.POST['boundary'][0])
+    boundary = int(request.POST['boundary'])
     note = request.POST['note']
 
     grammar = request.POST['grammar'] == 'true'
