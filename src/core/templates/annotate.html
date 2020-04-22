@@ -24,7 +24,7 @@
         $("#human").hide();
 
         sentences.forEach(sentence => {
-          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '.</div> </div> ';
+          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '</div> </div> ';
           cards_html += card;
         });
 
@@ -52,7 +52,7 @@
 
         $("#human").click(function() {
           current_sentence = -1;
-          $(".modal-body").hide()
+          $(".form-check").hide();
         });
 
         // processing annotator decision
@@ -70,8 +70,6 @@
           $('input[type=checkbox]').each(function() { 
             this.checked = false; 
           }); 
-
-          console.log("got here")
 
           // make ajax request to log annotation
           const url = '{% url "save" %}';
@@ -138,11 +136,12 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Thank you for your response!</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Thank you for your response!</h5> <br />
                 </div>
                 <div class="modal-body">
-                  <p>Select some options to describe the presented text:</p>
+                  <p>The true boundary was sentence number {{boundary}}.</p>
                   <form class="form-check">
+                    <p>Select some options to describe the presented text:</p>
                     <input type="checkbox" class="form-check-input" id="grammar">
                     <label class="form-check-label text-muted" for="grammar">Grammatical Error</label>
                     <br />
@@ -154,10 +153,10 @@
                     <br />
                     <input type="checkbox" class="form-check-input" id="sense">
                     <label class="form-check-label text-muted" for="sense">Common-Sense Error</label>
-                    <hr />
-                    <p>Anything else to mention?</p>
-                    <input type="text" id="note" class="form-control" placeholder="extra notes go here..." aria-label="note" aria-describedby="basic-addon1">
                   </form>
+                  <br />
+                  <p>Anything else to mention?</p>
+                  <input type="text" id="note" class="form-control" placeholder="extra notes go here..." aria-label="note" aria-describedby="basic-addon1">
                 </div>
                 <div class="modal-footer">
                   <button type="button" id="submit" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Continue</button>
