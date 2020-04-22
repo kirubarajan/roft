@@ -1,7 +1,7 @@
 [
     {
-        prompt: "> You surrender.",
-        text: [
+        "prompt": "> You surrender.",
+        "text": [
             "Surrounded by the warriors and realizing that you will probably not survive this fight, you drop your sword and raise your hands.",
             "The warriors grin and, under the careful watch of the crossbowmen, the swordsmen circle, one to the front and one behind.",
             "Suddenly, your hair is gripped and you are pulled to your knees.",
@@ -13,11 +13,11 @@
             "For that is a noble thing to do and you would surely be able to prove to the King that you have truly given your all.",
             "You are taken back to the village of the village's owner.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "You scan the bar, which doesn’t take long considering its almost empty.",
-        text: [
+        "prompt": "You scan the bar, which doesn’t take long considering its almost empty.",
+        "text": [
             "And you’ll be damned you see not one, but THREE people from the old days; you’re surprised you didn’t notice them before.",
             "At a nearby table you see Dr. Henry Jekyll and Dr. Jack Griffin.",
             "Jack normally would be difficult to see in this dark lighting at the best of times, since he’s invisible, but he’s perfectly noticeable enough when he wears clothing.",
@@ -29,11 +29,11 @@
             "While you’re not surprised to see all these humans still alive (Mad scientists ALWAYS figure out how to extend their life spans past the normal human limit) you’re just surprised that they all want to see you and it makes you suspicious.",
             "You’ve always been mistrustful of Mad Scientist types ever since your run in with Dr. Victor Frankenstein.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "In that moment, her body turned into a shadowy silhouette and started horribly disfiguring itself.",
-        text: [
+        "prompt": "In that moment, her body turned into a shadowy silhouette and started horribly disfiguring itself.",
+        "text": [
             "She slowly turned again, this time in a spiral, and began to walk towards me.",
             "Her skin had turned to a more even darker shade of purple, her hair becoming a darker shade of black.",
             "Her eyes, which had been like a deep crimson, were now like a deep black.",
@@ -45,11 +45,11 @@
             "I stood, my body light.",
             "Her atmosphere was chilling, and I knew she would soon reach the city limits.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "“A clown?",
-        text: [
+        "prompt": "“A clown?",
+        "text": [
             "Heh, well I’m not sure how successful that’s going to work out for you, but luckily for you the owner of this fine circus is also a clown, so you’ll need to speak with him either way.",
             "He’s in the tent over there.",
             "Roofie is probably still hung over so try to speak quietly.”\n“Roofie?”\n“Yeah, that’s his clown name… actually it mean be his real name as well.",
@@ -61,11 +61,11 @@
             "Leave me alone, shit!” Roofie shouts not even looking up and continuing to hold his head.",
             "“Uh Mr. Roofie, I was told to speak to you.”\nRoofie turns and looks at you.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "Another explosion takes a building out and it collapses showering stone and mortar over the street.",
-        text: [
+        "prompt": "Another explosion takes a building out and it collapses showering stone and mortar over the street.",
+        "text": [
             "You are caught be a falling piece of rubble the size of a horse and it lands on your leg.",
             "You try to free it but another explosion demolishes the next building and it collapses and sprays more stone upon you.",
             "You are killed by a falling brick  that turns your head into a read smear.",
@@ -77,11 +77,11 @@
             "The walls of the city are gone and the entire place is a giant hole.",
             "You walk over to the window to look outside.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "There are no natural magnets in your bag; however, there is enough equipment to make electromagnets.",
-        text: [
+        "prompt": "There are no natural magnets in your bag; however, there is enough equipment to make electromagnets.",
+        "text": [
             "You place your largest battery aside for the power source.",
             "Looping insulated wire around the anvil and claymore before hooking them up to the batteries will let you make two: one to hold Excalibur, and one to anchor the anvil.",
             "Wrapping the wire is the most crucial part.",
@@ -93,11 +93,11 @@
             "Your next choice is to make a long, thick chain like a bow, with a large hook on the end to hold it in place.",
             "This one is a no go; the metal is too thick, and it will not fit around your anvil.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "Knowing that it's too late for you to just lay down and die, you take a deep breath, focusing your remaining strength of what you can find inside you.",
-        text: [
+        "prompt": "Knowing that it's too late for you to just lay down and die, you take a deep breath, focusing your remaining strength of what you can find inside you.",
+        "text": [
             "You roll to your knees, resting a hand against the cold earth as you relax your tired muscles, looking around the room.",
             "The room must've been a mineshaft intersection at one point.",
             "It's been rigged up with lights and electricity, with a large desk stacked with television screens in the corner of the room.",
@@ -109,11 +109,11 @@
             "Hans Hirsh is even less so, his upper body entirely missing, only a pair of legs in gray trousers with black, polished boots.",
             "You recognize him from his boots, and his boots alone.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "The passage outside the cockpit was somehow before the jump took place, and here in the cockpit is somehow at the current time frame... Actually, you would only be guessing that you were in the current time frame - how would you even know what was the past.",
-        text: [
+        "prompt": "The passage outside the cockpit was somehow before the jump took place, and here in the cockpit is somehow at the current time frame... Actually, you would only be guessing that you were in the current time frame - how would you even know what was the past.",
+        "text": [
             "For all you know, the cockpit could be somewhere in the distant future, or - or who knows what?",
             "> You start walking down the passageway, again.",
             "You step out of the cockpit and into the passageway.",
@@ -125,11 +125,11 @@
             "A few metres along, you reach door hatches on both sides of the passage.",
             "One is your sleeping quarters, the other is Karl's.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "> You hang up and go to the bar in town\nFuck it, you don’t feel like putting up with Erik’s whining.",
-        text: [
+        "prompt": "> You hang up and go to the bar in town\nFuck it, you don’t feel like putting up with Erik’s whining.",
+        "text": [
             "You’ll talk to him later when you’re in the mood.",
             "You hang up and decide to engage in one of your favorite past time ever since you became part of “society”.",
             "Drinking.",
@@ -141,11 +141,11 @@
             "You look at the barman, and you see that he’s apparently a bit of a softie.",
             "“You see that one over there?",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "Mustering all my strength, I placed a powerful kick right on his chest.",
-        text: [
+        "prompt": "Mustering all my strength, I placed a powerful kick right on his chest.",
+        "text": [
             "He didn't have time to react and was sent flying about ten feet in the other direction.",
             "\"Let's see your new friend, Kusanagi-kun!\"",
             "I called out.",
@@ -157,11 +157,11 @@
             "Indeed, I think he would have fallen on some car before he could have stopped.",
             "He was more or less dumb and I guess that suited him.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "> You kill Edmond and inform Hans of the plan",
-        text: [
+        "prompt": "> You kill Edmond and inform Hans of the plan",
+        "text": [
             "\"Alright, Hans.",
             "I'll be going,\" you say.",
             "\"Good.",
@@ -173,11 +173,11 @@
             "I have a lot to teach you, and it'd be a shame to lose the last two of us,\" Edmond says.",
             "\"Well, I suppose you should know that the last two of the Twins have been missing for weeks now, and I've been trying to track them down,\" Hans says.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "\"Your son has decided to join my cause,\" I told him, \"Maybe, you should too so that I won't have to kill you.\"",
-        text: [
+        "prompt": "\"Your son has decided to join my cause,\" I told him, \"Maybe, you should too so that I won't have to kill you.\"",
+        "text": [
             "Ares smile was full of anger and hate, \"That is no son of mine!",
             "He couldn't even beat me with his own sword.",
             "He will die along with you even if I have to kill him myself.\"",
@@ -189,16 +189,16 @@
             "But, I pushed on.",
             "The spear, by magic, flew right back to Ares's hand and he blocked my initial sword slash with the wooden handle.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "Parley: Weak (Your ability to make friends, bluff, and barter (charm))\nSpot: Weak (Your ability to notice and search for things (brains))\nStealth: Weak (Your ability to avoid being seen and heard (brains))\nStat Points: 5 / Skill Points: 12\n> You increase BODY\nYour Health: 49; You are Raven, a fourteen year old BOY\nYour Stats\nBody: Excellent; Brains: Weak; Charm: Weak\nYour Skills",
-        text: [],
-        boundary: 0,
+        "prompt": "Parley: Weak (Your ability to make friends, bluff, and barter (charm))\nSpot: Weak (Your ability to notice and search for things (brains))\nStealth: Weak (Your ability to avoid being seen and heard (brains))\nStat Points: 5 / Skill Points: 12\n> You increase BODY\nYour Health: 49; You are Raven, a fourteen year old BOY\nYour Stats\nBody: Excellent; Brains: Weak; Charm: Weak\nYour Skills",
+        "text": [],
+        "boundary": 0,
     },
     {
-        prompt: "You walk down the hallways alongside your four Chaos Marine guards.",
-        text: [
+        "prompt": "You walk down the hallways alongside your four Chaos Marine guards.",
+        "text": [
             "You head towards the war room, where Kyros is planning the first strike against the Imperium, taking over a Hive World, to secure a huge population that can be recruited from to bolster Kyros' forces ten times.",
             "You hum a tune, some old Uwais war chant that you find quite catchy.",
             "You feel a wave of nausea hit you, and you pause, as you feel a heavy weight lifted off your soul, and your cloudy mind is cleared.",
@@ -210,11 +210,11 @@
             "Kyros looks over to you, and you shrug.",
             "\"Fine, I'll have them search the buildings, and keep an eye on you for now.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "\"I've never known any tailors.\"",
-        text: [
+        "prompt": "\"I've never known any tailors.\"",
+        "text": [
             "\"Well then trust me, I am the best.",
             "I was the one who made the suits for all the lords and ladies.\"",
             "\"What do you care what the man thinks?\"",
@@ -226,11 +226,11 @@
             "Eventually you find a tailor to buy the outfit, and you wait for him to enter.",
             "He walks in and you find out that he isn't a student, and that he is a local resident.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "\"Spanish,\" Carter replies.",
-        text: [
+        "prompt": "\"Spanish,\" Carter replies.",
+        "text": [
             "\"Well, maybe you should try,\" Carter says.",
             "\"No, I mean, don't try,\" Mason says.",
             "\"We're trying,\" Mason says.",
@@ -242,11 +242,11 @@
             "And then that's how it is in the jungle, too, if you know what I mean.\"",
             "\"Well, it'll be dark in here, too,\" Mason says.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "You meekly slink back to the basement and leave Kelly alone.",
-        text: [
+        "prompt": "You meekly slink back to the basement and leave Kelly alone.",
+        "text": [
             "You silently mope for a while pondering what the hell you’re going to do next.",
             "You then notice that your phone has been under your couch cushions and on silent all day.",
             "Bobby apparently has been repeatedly trying to contact you.",
@@ -258,11 +258,11 @@
             "You can always take it up the next level.",
             "> You succumb to the dark power\nIt’s a trap, you know.",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "You think for a moment before replying as you watch the infected standing still as the humans shout to make bets based off numbers displayed on a big screen on one wall “But the humans, don’t you eat them?",
-        text: [
+        "prompt": "You think for a moment before replying as you watch the infected standing still as the humans shout to make bets based off numbers displayed on a big screen on one wall “But the humans, don’t you eat them?",
+        "text": [
             "That’s how we get stronger and they are simply prey.”\nYou can almost feel the disapproval of the men beside you and you sense new colour swirling in the glow of their minds “Not at all, it seems the Harbinger of the West has been lying to you.",
             "Eating humans has no effect on your abilities at all.",
             "Only your mind and training does.",
@@ -274,11 +274,11 @@
             "Or perhaps they were just trying to help you become a better fighter?",
             "A closer look reveals they are both using you as a weapon.",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "Buy Potion - Restore 3 Life Points.",
-        text: [
+        "prompt": "Buy Potion - Restore 3 Life Points.",
+        "text": [
             "Costs 2 Money.",
             "Enchant Sword - Add 3 to Combat stat.",
             "Costs 10 Money.",
@@ -290,11 +290,11 @@
             "A second later, a man appears, \"Mr.",
             "Rains, you're looking for the barkeep.\"",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "“I know how you feel, women sure are a pain in the ass.",
-        text: [
+        "prompt": "“I know how you feel, women sure are a pain in the ass.",
+        "text": [
             "Hey new guy, did you hear what Andy’s girlfriends been doing?”\nYou stop blowing on your soup and glance at Herbert.",
             "“I haven’t, what happened?”\n“So this fucking bitch named, what was her name again Andy?”",
             "“That’s right, I got it from an old friend, she lived in Texas.",
@@ -306,11 +306,11 @@
             "You can’t let her keep getting away.",
             "“here, we’ve been trying to talk to the family, but they refuse to talk to us, so we have to use this.”\n\n\nYou look at the bottle in your hands.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "“God damn it.",
-        text: [
+        "prompt": "“God damn it.",
+        "text": [
             "Can you at least tell me why?",
             "I don’t want to be near Connor and Tom right now.",
             "They make me feel inhuman.”\nDoes this guy ever shut up?",
@@ -322,11 +322,11 @@
             "I don’t need to get back home and have three dead bodyguards!”\n“Well, you know what they do, they bribe the mob!” Link says.",
             "“What?",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "“And you must be the inn keeper.",
-        text: [
+        "prompt": "“And you must be the inn keeper.",
+        "text": [
             "I trust you have our rooms ready?”\n“Yes, four of you right?”\n“Two actually, used to be six at one time, but more loot for the rest of us I suppose.",
             "I’m guessing you have a cellar where we can keep the beast?”\n“I have a cellar, but I was told you’d be keeping with you.”",
             "I meant to keep it, but I’ve gotta get rid of a possible old enemy.”\n“Yeah, well you have to get rid of what isn’t yours!”\n“Look, I know you’re just trying to save face, but this is a fucking vampire squid, you know how it works.",
@@ -338,11 +338,11 @@
             "I’ve seen it all!”\n“So you’re not a fucking mammal?",
             "You’re not a mammal!",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "\"Let's go.\"",
-        text: [
+        "prompt": "\"Let's go.\"",
+        "text": [
             "The pair of you begin walking down the street, ready to strike.",
             "You soon come up again to the house once more, walking up the path towards the house.",
             "You know from surveillance that the house has the main entrance as well as a back door.",
@@ -354,11 +354,11 @@
             "\"Who's there?\"",
             "\"It's me, my name is Michael,\" he says.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "The wine sets in as you feel sleep overcome next to the warm fire.",
-        text: [
+        "prompt": "The wine sets in as you feel sleep overcome next to the warm fire.",
+        "text": [
             "Your breathing becomes heavier with the smell of pine crackling in the fire.",
             "> You morning\nSunlight pierces your eyelids as you wake to the bird's morning song.",
             "You grab your sword and ready your gear for the trip.",
@@ -370,11 +370,11 @@
             "\"Morning, Sir,\" she says.",
             "And you find yourself wondering if you should need to make a move.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "\"Shit... that looks miserable beyond belief,\" you say.",
-        text: [
+        "prompt": "\"Shit... that looks miserable beyond belief,\" you say.",
+        "text": [
             "\"Yes, she does,\" Kyros says, grinning from ear to ear as half a dozen more beasts just like the first walk, stumble or crawl into the center of the arena.",
             "\"She?\"",
             "you ask.",
@@ -386,11 +386,11 @@
             "\"You're the only one left.",
             "You'll have the pleasure to be a Ghoul, Karth.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "\"Master, the ovens are already warm.",
-        text: [
+        "prompt": "\"Master, the ovens are already warm.",
+        "text": [
             "All of my chores are done.",
             "I thought perhaps I could go to the fair?\"",
             "you reply.",
@@ -402,11 +402,11 @@
             "\"Safe bet?\"",
             "\"She is the one who is going to die if we go wrong.\"",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "She crawls onto your bed and moves closer to you.",
-        text: [
+        "prompt": "She crawls onto your bed and moves closer to you.",
+        "text": [
             "Her aura is all consuming and you feel your free will being drained away.",
             "Yet, the whole process is extremely pleasing to you.",
             "She moves her mouth to your ear and whispers,\n“Do you want to see everything I have to offer?”\nYou bite your tongue to avoid instinctively shouting yes.",
@@ -418,11 +418,11 @@
             "Her warm body pushes against your bare skin as you are filled with euphoria.",
             "You can’t deny your arousal.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "You shake your head; you tried your best with that fool, now it's time to take what's yours; what the Creations deserve regardless of what the Church or the Professor think of them.",
-        text: [
+        "prompt": "You shake your head; you tried your best with that fool, now it's time to take what's yours; what the Creations deserve regardless of what the Church or the Professor think of them.",
+        "text": [
             "Not weapons, not demons: just people.",
             "David waits for you to start walking again, tapping his foot eagerly.",
             "He doesn't speak much, but you can tell he enjoyed his time with the Wolves.",
@@ -434,11 +434,11 @@
             "With a finger to your lips, you wait until the man's back is turned before you sneak up on him, digging claws into his neck for a quick and silent death.",
             "The man falls to the ground dead, and you lick your bloody nails.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "While the rest of your team is eager to kill him like the rest, you have a slightly better idea for him.",
-        text: [
+        "prompt": "While the rest of your team is eager to kill him like the rest, you have a slightly better idea for him.",
+        "text": [
             "You engage him in singles combat, which is over pretty quickly.",
             "You then subdue him with some rope you have in your pack.",
             "“Why are we taking him as prisoner?",
@@ -450,11 +450,11 @@
             "You tie the kobold leader to a tree near the center of the town and address everyone.",
             "“Citizens of Dalt!",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "It’s possible you could talk with Madam Orbec and get her to convince Randal to change his stance since he follows anything she says; also she’s less likely to throw something at your head when she sees you approach.",
-        text: [
+        "prompt": "It’s possible you could talk with Madam Orbec and get her to convince Randal to change his stance since he follows anything she says; also she’s less likely to throw something at your head when she sees you approach.",
+        "text": [
             "You head towards Madam Orbec’s tent, which has an air of creepiness surrounding it.",
             "You enter the tent and immediately get your usual welcome.",
             "“Geek!",
@@ -466,11 +466,11 @@
             "I am Madam Orbec!",
             "Remember that I am the one who gave you your human soul in the first place!",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "\"Just don't move.",
-        text: [
+        "prompt": "\"Just don't move.",
+        "text": [
             "The only thing you can do is stay still and I'll be done with you.",
             "Now, it's late, so I guess you should hit the road.\"",
             "You're not entirely sure what to make of all this, but you're going to have to figure something out soon.",
@@ -482,11 +482,11 @@
             "You must be really different from the other women.\"",
             "You noticed her fingers had touched the scarred area of her face before, so you don't know if she's actually a virgin or not.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "\"He probably just sends most of them of to the warfront for their first mission,\" you comment.",
-        text: [
+        "prompt": "\"He probably just sends most of them of to the warfront for their first mission,\" you comment.",
+        "text": [
             "\"You could consider us lucky that we don't have a mission like that.\"",
             "You aren't too sure you consider yourself lucky, but if you were Raven, then you don't doubt that she'd rather be finding a lost princess than fighting a war.",
             "\"I'm not so sure about that.\"",
@@ -498,11 +498,11 @@
             "Vitre shakes his head, smiling.",
             "\"I don't think you're actually thinking,\" you say.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "The monks may be very agile, but without any weapons nor armor you figure you or even David could take them out alone.",
-        text: [
+        "prompt": "The monks may be very agile, but without any weapons nor armor you figure you or even David could take them out alone.",
+        "text": [
             "Something tells you the alarms around the buildings weren't for show either-- you need to find the Father, quick!",
             "> You abandon David to search the Church.",
             "\"David, finish off these grunts as I find the big man upstairs.\"",
@@ -514,11 +514,11 @@
             "He continues pushing, but you catch his left arm, and end squeeze-- Crack.",
             "He yells out in pain, and you manage to grab him by the cuff of his robe, only to throw him out of the way and into a wall.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "> You ....go shopping!",
-        text: [
+        "prompt": "> You ....go shopping!",
+        "text": [
             "You exit your house and look back.",
             "The tiny, eroded stone structure looks like it could collapse in on itself at any moment.... home sweet home.",
             "You make the long, arduous journey of walking to the captial city, and after a grueling thirty-second-long hike you've finally made it to the gates.",
@@ -530,11 +530,11 @@
             "\"You might be a knight in shining armor, but you are a peasant boy.",
             "I want you to know that.\"",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "After about an hour, the undead conga line shows no signs of stopping.",
-        text: [
+        "prompt": "After about an hour, the undead conga line shows no signs of stopping.",
+        "text": [
             "The commander is just about to give the order to pause and reload when his walkie-talkie begins to crackle.",
             "He answers, and proceeds to shout to his colleagues that a large section of the blockade down south just broke.",
             "Hundreds are already dead and the zombies have made it to civilian territory.",
@@ -546,11 +546,11 @@
             "> You surrender\nYou raise your hands and surrender.",
             "The zombies don't seem to like you, but you're too old to be an appropriate target, so you surrender anyway.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "Finally, Elios walks in, pausing, and looking around the room, taken aback.",
-        text: [
+        "prompt": "Finally, Elios walks in, pausing, and looking around the room, taken aback.",
+        "text": [
             "\"What... what happened?\"",
             "he asks, turning even paler than his chalk-white makeup.",
             "\"It seems our good friend Calpurnia has been attacked in the dead of night,\" Kyros says.",
@@ -562,11 +562,11 @@
             "\"I...",
             "I...\"\n\n\"You'll always know what you're doing if you don't try to make things up to me!\"",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "He smirks but answers you, \"My name is Ash.\"",
-        text: [
+        "prompt": "He smirks but answers you, \"My name is Ash.\"",
+        "text": [
             "\"Nice name.",
             "What brings you here?\"",
             "you question him wondering if it was the food or something else.",
@@ -578,11 +578,11 @@
             "\"Is that why we are going to run this whole 'kingdom' thing?\"",
             "\"What...\"\n\"Would you like to see me on the inside?\"",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "\"Medium.\"",
-        text: [
+        "prompt": "\"Medium.\"",
+        "text": [
             "\"Yeah, I know.",
             "I'm not sure if I'd go though, I mean I'd have to do something drastic.\"",
             "\"You could just push forward with it.\"",
@@ -594,11 +594,11 @@
             "It's a matter of time.\"",
             "\"What do you mean?\"",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Serena side steps your question and continues.",
-        text: [
+        "prompt": "Serena side steps your question and continues.",
+        "text": [
             "“Look we haven’t much time, but you HAVE the ability to become the greatest Necromancer since the Great Lich Lord who brought the world near the brink of extinction centuries ago, but you cannot do it alone…at least not yet.",
             "You must have allies.",
             "There are others like you on this campus who long to practice the dark arts.",
@@ -610,11 +610,11 @@
             "“It’ll be a good way to make the world a better place, and will teach you many life lessons.",
             "“I suppose you’ll have all the answers, but I doubt I’ll be able to teach you until I teach you how to wield the dark arts.”\n“What?",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "...and fall\nyou go down the hole in the water\n> Down the hole in the water\nThere is rushing water all around you.",
-        text: [
+        "prompt": "...and fall\nyou go down the hole in the water\n> Down the hole in the water\nThere is rushing water all around you.",
+        "text": [
             "You scream and scream but you know no one can hear you.",
             "Terror creeps in to your body as you continue to fall.",
             "You feel so afraid that you get lightheaded.",
@@ -626,11 +626,11 @@
             "The hole is shallow.",
             "You simply haven't been down this deep before.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "You watch the three surviving dogs feast on the shamblers before heading back down the fire escape and disappearing South again out of the alleyway.",
-        text: [
+        "prompt": "You watch the three surviving dogs feast on the shamblers before heading back down the fire escape and disappearing South again out of the alleyway.",
+        "text": [
             "You finally relax and rest until first light when you head down into the alley again and start off North, you've got to be within a few hours of the stadium district now.",
             "> You into the stadium district\nYou can tell by the changing architecture that you are nearing the stadium, just a few hours walking at most before you'll reach it.",
             "You aren’t too confident about finding food and supplies there but between the holdouts and the military trying to keep the stadium safe, as a refuge you think there shouldn’t be many dead up here.",
@@ -642,11 +642,11 @@
             "Their regimented daily armored patrols, scavenging squads and clearance teams had, over the years, given way to weekly lightly armed excursions and missed guard duties.",
             "You were about to ask why they weren’t doing some real guard duty when you noticed one of the men you saw was carrying a bullhorn and a bat.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "You pretend to head to sleep for the night and wait for several hours.",
-        text: [
+        "prompt": "You pretend to head to sleep for the night and wait for several hours.",
+        "text": [
             "About 2am most people get sleepy whether or not they slept during the day so you wait until then and finally sneak out of your tent, heading towards the right-hand balcony Grabbing a combat knife along the way.",
             "Some fallen rubble means that your horde should easily be able to climb in there and there aren’t usually too many guards.",
             "You get close and almost get onto the balcony itself before you are challenged by the guards there.",
@@ -658,11 +658,11 @@
             "“I know I know, but I can’t sleep forever.",
             "I need to get some sleep.”\n“Okay, but you got a real feeling you know what we’re doing here.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "“But I thought you thought it was a bad idea.”\n“Well, I still sort of do, but I guess if this is a major crisis and the end of civilization, I’d rather be with you.",
-        text: [
+        "prompt": "“But I thought you thought it was a bad idea.”\n“Well, I still sort of do, but I guess if this is a major crisis and the end of civilization, I’d rather be with you.",
+        "text": [
             "So if you believe we’ll be safe there, then I believe we’ll be safe there.”\nRoger smiles at that remark.",
             "He immediately goes to hug you, which you weren’t quite expecting, but you hug back.",
             "You suppose you are getting attached to him.",
@@ -674,11 +674,11 @@
             "Well I wish you luck on that.",
             "Too bad you’re not staying though, could use a few more people to guard this place and help out around here.”\n“Yeah, well I wish we were staying too, but well he wants to go to Fort Timons so that means we’re both going.”\n“Heh, well love for another always has a way of making you act out of character.”\n“Y…eah something like that I guess.” You say reluctantly.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"Magos Cern,\" you say, preparing to strike her with a bolt of energy or simply tear her head clean off.",
-        text: [
+        "prompt": "\"Magos Cern,\" you say, preparing to strike her with a bolt of energy or simply tear her head clean off.",
+        "text": [
             "Magos Cern continues scuttling around the room, as the robotic head slowly turns to stare at you.",
             "\"You're a robot.",
             "What are you doing here?\"",
@@ -690,11 +690,11 @@
             "\"Even I find it romantic.",
             "But, I'm a robot.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "7: Jim Younger: Gunfights: 3, Killed: 1, Injured: 1, Robberies: 5, Score: $2,200 - Imprisoned.",
-        text: [
+        "prompt": "7: Jim Younger: Gunfights: 3, Killed: 1, Injured: 1, Robberies: 5, Score: $2,200 - Imprisoned.",
+        "text": [
             "8: John Jarette: Gunfights: 3, Killed: 0, Injured: 1, Robberies: 3, Score: $10,600 - Killed.",
             "9: Charlie Pitts: Gunfights: 2, Killed: 0, Injured: 1, Robberies: 5, Score: $3,400 - Killed.",
             "10: Wood Hite: Gunfights: 2, Killed: 0, Injured: 1, Robberies: 4, Score: $2,400 - Killed.",
@@ -706,11 +706,11 @@
             "16: Dick Liddil: Robberies: 0, Injured: 0, Robbers: 0, Stolen: 0 - Imprisoned.",
             "17: Jim Younger: Robberies: 0, Injured: 0, Robbers: 0, Stolen: 0 - Imprisoned.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "“Do you really want to make that choice?” Count Grey asks, baring his fangs.",
-        text: [
+        "prompt": "“Do you really want to make that choice?” Count Grey asks, baring his fangs.",
+        "text": [
             "They remind you of long, curved thin ivory daggers, ready to strike at any given moment\n“Yes,” you say.",
             "“So be it,” he says.",
             "“You’ve shown courage by refusing an order.",
@@ -722,11 +722,11 @@
             "The next room is much cleaner, with a cracked floor and a collapsed window on one side.",
             "The room is empty except for the two men on the floor, one a farmer and the other a soldier.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "\"Yeah...",
-        text: [
+        "prompt": "\"Yeah...",
+        "text": [
             "I just came from there... but I don't think you want to go back that way, you won't get far.\"",
             "\"Look, I don't wish to be rude, but my family is in danger and I need your help NOW!\"",
             "At this point, the man turns and runs down the path.",
@@ -738,11 +738,11 @@
             "> You speak to him\n\"You are a lost soul.",
             "I did not see you coming.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "You travel slowly, and time has no meaning.",
-        text: [
+        "prompt": "You travel slowly, and time has no meaning.",
+        "text": [
             "You can hardly move your body at all, or what passes for your body at this point.",
             "Your limbs feel numb, but there is a certain freedom which envelops your mind.",
             "There is no change in the surrounding climate.",
@@ -754,11 +754,11 @@
             "You feel your heart race in your chest.",
             "It’s an unfamiliar sensation.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "You easily remove the chalk around Velzix.",
-        text: [
+        "prompt": "You easily remove the chalk around Velzix.",
+        "text": [
             "“Ah yes, another lack of vision, if they had been smarter they would’ve also placed a magical barrier around the chalk circle and bound me in magic chains.",
             "Well, now they shall pay for their arrogance!”\nVelzix now free from his prison lets out an unearthly roar and pushes you aside to take revenge on his captors.",
             "As you recover and get off the floor, you can already hear the sounds of battle, followed by screams.",
@@ -770,11 +770,11 @@
             "You reach your hand out and touch the shadowy barrier.",
             "“It is yours, no need to take it from me.”\n“What an ungrateful fool!”\n\nThe demon’s hand shakes and you know it is powerful enough to rip out the magical barrier.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "Whoa, what the hell is going on?",
-        text: [
+        "prompt": "Whoa, what the hell is going on?",
+        "text": [
             "Organa Mel Fy’s body and freshly decapitated head melt into what appears to be water and seeps into the ground.",
             "That is not normal.",
             "Perhaps now would be a good time to get out of here.",
@@ -786,11 +786,11 @@
             "Will the mysterious magic bitch or bastard please stand up?”\n“If you insist.” A mysterious magic bitch with bountiful breasts appears before you out of thin air wearing low-cut red robes.",
             "She reeks of magic and virility.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "“Will one of you go with me?” Ant pleads.",
-        text: [
+        "prompt": "“Will one of you go with me?” Ant pleads.",
+        "text": [
             "“Spin the bottle, and whoever it lands on has to go with you,” Lucy suggests.",
             "“Look, I really don’t know what I'm doing, but what the hell, I say go with Ant.",
             "You know he’s probably a lot better looking than you are, so you definitely should go.",
@@ -802,11 +802,11 @@
             "I mean you got the news going on about how great you are.",
             "I dunno if I want to go with you, but I feel like joining you would be a good idea.”\n\n“Well, I don’t know.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "You steer the Adventurer alongside the Sea Ghost and fire a volley of cannon shots at point blank range into her side.",
-        text: [
+        "prompt": "You steer the Adventurer alongside the Sea Ghost and fire a volley of cannon shots at point blank range into her side.",
+        "text": [
             "The enemy ship lists alarmingly and dragging the Retribution down with her the ship that was once the greatest ship of all your people sinks below the sea.",
             "The Monarch of the Sea turns to fire a volley of cannon shots at you which kills three of your sailors and finally admitting defeat she turns away from the Vengeance and sails away from the battle towards the west.",
             "Both your Adventurer and the Vengeance are too battered to immediately pursue.",
@@ -818,11 +818,11 @@
             "She's the best of all of us...\"\nHe falls back with a sigh and dies moments later.",
             "That evening you guide the Adventurer, Vengeance and the last of the Lapau into the harbor of Golden Sands.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "“Razor and some of the others got into an argument with Phil and his friends.” Klepto says.",
-        text: [
+        "prompt": "“Razor and some of the others got into an argument with Phil and his friends.” Klepto says.",
+        "text": [
             "“I thought it was just the rock he was looking for.",
             "What happened next?”\n\n“He went to the Rogers house, found out that he wasn’t there, went back to the house, and found out that Phil was there, then went out to the house and found Phil lying on the floor with a shotgun in his hands.",
             "He had been shot in the back of the head and taken into custody.",
@@ -834,11 +834,11 @@
             "The two men walk off and Klepto grabs the shotgun, looks at it, and looks at Klepto.",
             "“Well, I suppose the only good thing is, Klepto, you said it yourself, did your best to save Phil.” Klepto says.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "He looks up at you then waves the other soldier out leaving the two of you alone.",
-        text: [
+        "prompt": "He looks up at you then waves the other soldier out leaving the two of you alone.",
+        "text": [
             "“So what can I help you with?” He asks, having already turned back to his map.",
             "“Well, before I came here I stashed a few things of importance to me, memento’s and the like.",
             "I want to go retrieve them.",
@@ -850,11 +850,11 @@
             "It’s your choice, please send Harry back in.”\nYou shrug and head outside, finding a soldier waiting outside “The Capt.",
             "said to go back in now.” You tell him as you head off back to you tent.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"No,\" Selena answers, \"But let's do it anyway.\"",
-        text: [
+        "prompt": "\"No,\" Selena answers, \"But let's do it anyway.\"",
+        "text": [
             "You soar off.",
             "You'll be watching from the pool.",
             "Still, you feel like you're missing out on some of the action.",
@@ -866,11 +866,11 @@
             "\"I'm good to go now.\"",
             "The pair walk right up to the massive gates of the castle.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "The cool, female voice is back, \"Err, hello?\"",
-        text: [
+        "prompt": "The cool, female voice is back, \"Err, hello?\"",
+        "text": [
             "\"This is Wolf-leader Gideon, Ma'am.",
             "I need you to call off the Zealots attacking our base, for your own sake.\"",
             "\"Um, we don't negotiate with evil, sir.\"",
@@ -882,11 +882,11 @@
             "You aren't able to identify her tone that well, but you hope it isn't sarcasm.",
             "Either way, she doesn't respond to Gideon's next reply, \"Thank you.\"",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "Some moments are seared in people's memories forever.",
-        text: [
+        "prompt": "Some moments are seared in people's memories forever.",
+        "text": [
             "Every one of your senses seemed to be extra sensitive.",
             "The sun was shining brightly through the trees above casting light that made you squint your eyes.",
             "Alessa stood half turned back to you with a question in her eyes.",
@@ -898,11 +898,11 @@
             "You won't harm us unless we attack you,\" you say.",
             "The realization that you've been lying to Alesa for a long time now hits you.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "> You spit Acid Goop\nYour eyes widen as does your mouth, as the acidic vomit leaves your face, the rat yelp in surprise.",
-        text: [
+        "prompt": "> You spit Acid Goop\nYour eyes widen as does your mouth, as the acidic vomit leaves your face, the rat yelp in surprise.",
+        "text": [
             "Their flesh sizzles as the spear wielders leg burns to the bone, and he falls to the ground.",
             "The other rat holds his face and writhes out in agony before falling still.",
             "You lunge forward your tentacles, grabbing the surviving rat-man of the two and drag him closer.",
@@ -914,11 +914,11 @@
             "The next one you wrap a tentacle around his ankle and force him into the shitty waters about a foot below him, sending another tentacle down to keep him under.",
             "The last one you force into his back, breaking his spine and sending him sprawling to the ground.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "You both approach Madam Orbec’s tent which has an air of creepiness about it.",
-        text: [
+        "prompt": "You both approach Madam Orbec’s tent which has an air of creepiness about it.",
+        "text": [
             "Pervus has a look of crazed lust in his eyes.",
             "He’s starting to breathe heavily and doing a lot of slurping.",
             "“Oh fuck yeah, this is gonna be soooooooo good.”\nHe said he wasn’t going to do anything excessive, but now you’re not so sure…\n> You continue with the plan\nAll that really concerns you is getting that book, because if you don’t get Randal’s help, the Ring Master is certainly going to kill you when she finds out you’ve turned traitor.",
@@ -930,11 +930,11 @@
             "You’re going to pay me though!",
             "You’re going to pay me for this!",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "\"Be calm.",
-        text: [
+        "prompt": "\"Be calm.",
+        "text": [
             "If you stand still it is surprisingly safe.",
             "The Tailor's rooms are on the third floor, so it was unnecessary to take the lift.",
             "The others reside near the top though, so unless you would like to go up all those stairs we're taking the lift.\"",
@@ -946,11 +946,11 @@
             "As a new member of our lovely \"family\" you have priority, so don't fret about lines or some such nonsense.",
             "After we visit them all we should go back to the Tailor and pick up the beginning of what will, trust me, become a very large wardrobe .\"",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "“Look friend, I know you.",
-        text: [
+        "prompt": "“Look friend, I know you.",
+        "text": [
             "You’d rather not have to live your life being connected to the underworld, but you were in a tight spot, so you resorted to desperate measures.",
             "Sort of like your father no?”\n“Yeah…I guess so…” you answer not really thinking of that parallel before.",
             "“Well, I sympathize.",
@@ -962,11 +962,11 @@
             "I know all about how the system works.",
             "I know the secret societies, the Illuminati, the Red Skull Society, the fucking Freemasons, all fucking shit.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "\"We have a large amount of people on our side.",
-        text: [
+        "prompt": "\"We have a large amount of people on our side.",
+        "text": [
             "Elios, Elizabeth and Durge are bringing the weight of their war-bands, as well as most, if not all, of the Guardsmen here.",
             "Then there's the Goliaths and the Tribals, both of whom are with us.\"",
             "\"What...?\"",
@@ -978,11 +978,11 @@
             "Then, we'll get the leaders together to plan our to take over, and what to do with once we've actually done so.\"",
             "\"You know... My father says that vampires are the ultimate masters of deceit.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "You pushing him back with a sudden ferocity akin to a demon.",
-        text: [
+        "prompt": "You pushing him back with a sudden ferocity akin to a demon.",
+        "text": [
             "Him, defending as if his life depended on it.",
             "You continuing to press him with attacks despite fatigue starting to come to you.",
             "Him, realizing your fatigue and desperately trying to hold out until your attacks weaken.",
@@ -994,11 +994,11 @@
             "You think this as you barely manage to stay alive against his onslaught of attacks.",
             "Your blessing should be giving you much greater energy than this.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "You're cut off when his fist slams into your jaw.",
-        text: [
+        "prompt": "You're cut off when his fist slams into your jaw.",
+        "text": [
             "Your face is bleeding but you're still alive and alive.",
             "You raise your hands to show his manly manly strength and intimidate him.",
             "\"Take you on by yourself sir,\" the bald one says.",
@@ -1010,11 +1010,11 @@
             "You don't make a move.",
             "\"Do you have something that could help me?\"",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "    “Shit indeed, ” he responds quietly, rubbing his beard, “Well, I suppose the decision has to be yours, then.",
-        text: [
+        "prompt": "    “Shit indeed, ” he responds quietly, rubbing his beard, “Well, I suppose the decision has to be yours, then.",
+        "text": [
             "Far be it beyond me to judge matters of the soul.”  \n    “But you’re the alderman, aren’t you going to tell the men?” you ask worriedly.",
             "You know the local  superstitions; the second you’re suspected of communing with the devil, you’re one of “them”.",
             "“Tell them what?” he says meaningfully.",
@@ -1026,11 +1026,11 @@
             "A man appears before you, a long bearded man with a beard and hair like a true athlete, eyes deep reds and black.",
             "“What are you doing?” you ask nervously.",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "\"Merlin!",
-        text: [
+        "prompt": "\"Merlin!",
+        "text": [
             "I thought we already sorted that out.\"",
             "You laugh and wink at her, a gesture that she has come to understand means you are kidding.",
             "She continues while you sit down to eat, \"They have started calling you 'Merlin the Magician,' which is more fitting than 'The Sorcerer.'\"",
@@ -1042,11 +1042,11 @@
             "You are hoping he has not been keeping any eyes on you.",
             "> You go to the King's man\nYou enter the house of the man you know to be a wizard another name you have heard for, \"The King's Man.\"",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "\"Hey, Hazel.",
-        text: [
+        "prompt": "\"Hey, Hazel.",
+        "text": [
             "You feeling alright?\"",
             "Lucy asks.",
             "\"Yeah,\" you reply.",
@@ -1058,11 +1058,11 @@
             "Dad stares at you.",
             "\"Do you remember what happened last time you went out?",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"And we were standing on top of the mountain, with you about to jump.\"",
-        text: [
+        "prompt": "\"And we were standing on top of the mountain, with you about to jump.\"",
+        "text": [
             "You add.",
             "Gruzub nods, smiling.",
             "\"And you yanked me back when you realized chickens can't fly.\"",
@@ -1074,11 +1074,11 @@
             "I would've panicked and panicked and it was only a matter of time before you would've given up.",
             "But a moment of panic is what I needed to pull you out of this cave. \"",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "Finally Martin and Jeanette come home, Kate walks to over to them, putting on a facade.",
-        text: [
+        "prompt": "Finally Martin and Jeanette come home, Kate walks to over to them, putting on a facade.",
+        "text": [
             "\"How are you two getting along?\"",
             "Martin asks completelyobvious.",
             "\"Doing great\" Kate says with a very convincing fake happiness.",
@@ -1090,11 +1090,11 @@
             "Martin is a big bulky guy and you didn't know him before, a few years back when he was just starting out as a singer.",
             "He doesn't have much muscle to be very muscular, which is why he is able to sing with a very low voice.",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "Just like that, a sprite and shiny ethereal arm appears from your shoulder.",
-        text: [
+        "prompt": "Just like that, a sprite and shiny ethereal arm appears from your shoulder.",
+        "text": [
             "You clench your fist and feel the power pulsing through your… veins?",
             "You just need to hold onto your grip, I guess…\n\nSave it for later, here you are.",
             "Still, the pain from getting stabbed is still very real.",
@@ -1106,11 +1106,11 @@
             "Still, you manage to keep your body from collapsing completely and you manage to keep your mind from collapsing, as you feel the cold steel of a sword cutting into your neck.",
             "You clench your fist and hold on to your sword.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "To bid you act so bleak?”\nThe dragon turns its head and sighs.",
-        text: [
+        "prompt": "To bid you act so bleak?”\nThe dragon turns its head and sighs.",
+        "text": [
             "“I’m such a foolish drake.",
             "Embarrassing to say it, but\nI’ve made a grave mistake.",
             "“While hunting for my little ones,\nA gleam had caught my eye.",
@@ -1122,18 +1122,18 @@
             "“Tell you what, dragon?",
             "What you say?",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "Your Stats\nBody: Superior; Brains: Excellent; Charm: Weak\nYour Skills\nMelee: Average+ (Your skill at close-quarter combat, including offense and defense (body))\nTarget: Below Average+ (Your skill at ranged combat with bows and the like (brains))\nClimb: Average (Your ability to make challenging climbs (body))\nParley: Weak (Your ability to make friends, bluff, and barter (charm))\nSpot: Below Average+ (Your ability to notice and search for things (brains))\nStealth: Below Average+ (Your ability to avoid being seen and heard (brains))",
-        text: [
+        "prompt": "Your Stats\nBody: Superior; Brains: Excellent; Charm: Weak\nYour Skills\nMelee: Average+ (Your skill at close-quarter combat, including offense and defense (body))\nTarget: Below Average+ (Your skill at ranged combat with bows and the like (brains))\nClimb: Average (Your ability to make challenging climbs (body))\nParley: Weak (Your ability to make friends, bluff, and barter (charm))\nSpot: Below Average+ (Your ability to notice and search for things (brains))\nStealth: Below Average+ (Your ability to avoid being seen and heard (brains))",
+        "text": [
             "> You improve their stats\nBody: Superior; Brains: Average; Strength: Strong; Speed: Average; Agility: Average; Balance: Average; Stamina: Weak; Thirst: Low; Intelligence: Low; Perception: Low; Wisdom: Low; Charisma: Low; Talent: Low; Will: Low; Luck: Low; Strength: Low; Agility: Low; Speed: Low; Thirst: Low; Intelligence: Low; Perception: Low; Wisdom: Low; Charisma: Low; Talent: Low; Luck: Low; Strength: Low; Agility: Low; Speed: Low; Thirst: Low; Intelligence: Low; Taste: Low; Taste: Low; Speed: Low; Thirst: Low; Taste: Low; Speed: Low; Thirst: Low; Strength: Low; Agility: Low; Speed: Low; Thirst: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Thirst: Low; Strength: Low; Speed: Low; Strength: Low; Speed: Low; Thirst: Low; Taste: Low; Taste: Low; Taste: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Speed: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Power: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength: Low; Speed: Low; Thirst: Low; Strength:",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Karat laughs, lazily letting his sword's tip fall to the ground.",
-        text: [
+        "prompt": "Karat laughs, lazily letting his sword's tip fall to the ground.",
+        "text": [
             "The man's bravery (or is it bravado?)",
             "astonishes you, \"So, you fear God's might?\"",
             "You shrug, \"Maybe, but I'm not afraid of it.",
@@ -1145,11 +1145,11 @@
             "\"I dunno.",
             "I mean, I've seen him do it before.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "You notice the man is far more relaxed when in the company of this women.",
-        text: [
+        "prompt": "You notice the man is far more relaxed when in the company of this women.",
+        "text": [
             "\"So you're the world famous Linda Niles, I'm Jeanette\" the women introduces herself.",
             "\"Nice to meet you\" you respond.",
             "You suppose being polite will improve your odds of getting out of this situation.",
@@ -1161,11 +1161,11 @@
             "\"The local FBI station.",
             "They are likely to be here in a couple days.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "> You steal weapons from Drake's truck and confront the cultists\n\"We need to get the weapons in Drake's truck.",
-        text: [
+        "prompt": "> You steal weapons from Drake's truck and confront the cultists\n\"We need to get the weapons in Drake's truck.",
+        "text": [
             "We get them and use the advantage of surprise to fend off the rest of the group.\"",
             "Becca nods with determination, and you swivel around in the darkness, heading back towards the truck.",
             "As you head towards the camp, you can hear the sound of Sheriff Buckly berating Lucy.",
@@ -1177,11 +1177,11 @@
             "\"Chances are none,\" Sheriff Buckly says.",
             "\"This is all from one direction.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: " \"Hello?\"",
-        text: [
+        "prompt": " \"Hello?\"",
+        "text": [
             "you call as you knock on the Milkman's door.",
             "There is no reply but the door is open, so you step inside.",
             "\"Great Gods put out that light and stop all this hollerrin'.",
@@ -1193,11 +1193,11 @@
             "Bessa's gone to the fair and I sure as hell ain't doing it in my condition.\"",
             "Just your luck, both the spirits and Bessa are gone.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"Some will live.",
-        text: [
+        "prompt": "\"Some will live.",
+        "text": [
             "Most will die.",
             "All will suffer,\" Taj says.",
             "\"What... what are you?\"",
@@ -1209,11 +1209,11 @@
             "Did you think I was metal through and through?\"",
             "Taj asks.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "As she slides in behind you and holds on, you ask her one more question.",
-        text: [
+        "prompt": "As she slides in behind you and holds on, you ask her one more question.",
+        "text": [
             "“So what’s your name?”\n“Ginger.",
             "What’s your name, you never did tell us.”\n“Wolf.",
             "Just Wolf baby.",
@@ -1225,11 +1225,11 @@
             "It seems Victor has been keeping himself very busy in recent years.",
             "As it begins to rain, a familiar voice calls to you from one of the towers.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "He steps towards you, raising the war-hammer once more, before his entire body begins to shudder as a hail of bullets thud into his back.",
-        text: [
+        "prompt": "He steps towards you, raising the war-hammer once more, before his entire body begins to shudder as a hail of bullets thud into his back.",
+        "text": [
             "He collapses to his knees, as you notice that the entirety of the Undying Reapers are finished off.",
             "Fay and fires a burst of lead into Taj's back.",
             "Castus strolls forward, pointing his sword point at Taj's face before gently slapping him with the sword flat, as Goliath clutches a space marine's throat in his hands, strangling the limo body.",
@@ -1241,11 +1241,11 @@
             "\"You'll find out soon enough.\"",
             "\"Good luck, kid, I think I might need a few more chapters of this.\"",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "\"Maybe.",
-        text: [
+        "prompt": "\"Maybe.",
+        "text": [
             "I mean, there's a distillery back there as well as the lab.",
             "I'd imagine one speed bump and boom!\"",
             "\"That's unnerving,\" Ant says.",
@@ -1257,11 +1257,11 @@
             "But it's just a fancy dress party!",
             "And who knows what the hell else is going on in the ringmaster's life?",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "\"Stop!",
-        text: [
+        "prompt": "\"Stop!",
+        "text": [
             "Move another muscle and I'll blow the brain out of everyone of you!\"",
             "Mason stops, raising his hands.",
             "Sheriff Buckly points his gun at all of you, forcing you to raise your hands into the air.",
@@ -1273,11 +1273,11 @@
             "You killed him you piece of...\"\n\n\"Shut up!\"",
             "Lucy says.",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "> You mercy Kill\nYou approach the elf, stepping lightly.",
-        text: [
+        "prompt": "> You mercy Kill\nYou approach the elf, stepping lightly.",
+        "text": [
             "As you draw your blade from you sheath he looks up at you.",
             "His eyes widen and his breathing become faster.",
             "He feebly tries to raise his arms, probably to ask for mercy.",
@@ -1289,11 +1289,11 @@
             "He rises and bows as you step aside, moving forward as his body turns and starts walking towards the elves.",
             "You open fire at the elves, hitting one elf in the back of the head with your sword, your shot knocking the elf several feet to the ground.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "You elect to go home with your wealthy horde of treasure, as you have every right to do so.",
-        text: [
+        "prompt": "You elect to go home with your wealthy horde of treasure, as you have every right to do so.",
+        "text": [
             "I applaud your resolution.",
             "That takes cajones.",
             "You soon learn that your evil artifact has been destroyed.",
@@ -1305,11 +1305,11 @@
             "> You flee to the city\nYou decide that it is better to flee from the evil that is Elvish Ruin, and you do not have a strong ally to guide you.",
             "You do not know what to do.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "You come back to yourself to find yourself lying in your bed, damp with sweat and feeling very thirsty but entirely aware of yourself.",
-        text: [
+        "prompt": "You come back to yourself to find yourself lying in your bed, damp with sweat and feeling very thirsty but entirely aware of yourself.",
+        "text": [
             "You crawl out of bed, leaving your boots to the engine and prepare for the night's next day's meal.",
             "You have made it to the other side of the building without encountering any trouble since you walked in the door.",
             "You breathe out a sigh of relief as you realize that you have survived your night's ordeal and can now make your way out of this place in the building.",
@@ -1321,11 +1321,11 @@
             "\"What...what the hell am I doing?\"",
             "The police officer standing by you has a very strange look in his eyes.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "\"You should have seen his eyes, the way he spoke, his cryptic message....",
-        text: [
+        "prompt": "\"You should have seen his eyes, the way he spoke, his cryptic message....",
+        "text": [
             "I believe he was possessed.\"",
             "You finish telling her the story of what happened and how you made it here.",
             "\"Let me go with you!!!\"",
@@ -1337,11 +1337,11 @@
             "Wake up and join me!!",
             "I'm going to go with you!!\"",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "Haygarth gently nudges you forward.",
-        text: [
+        "prompt": "Haygarth gently nudges you forward.",
+        "text": [
             "\"Fair girl,\" he says.",
             "\"Just what you were looking for.\"",
             "You nod.",
@@ -1353,11 +1353,11 @@
             "\"Then we'll have to have one!\"",
             "someone says.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "The hot soup burns your tongue as you eat a spoonful.",
-        text: [
+        "prompt": "The hot soup burns your tongue as you eat a spoonful.",
+        "text": [
             "“So what’s this town’s name again?”\n“Ashton, why do you ask?”\n“You might not believe me, but I came face to face with a demon.",
             "When I finally got away, I ran to the city walls.”\n“Trust me, I believe you.",
             "I encountered a demon while on guard duty.”\nYou tell him about how you passed out and met a succubus.",
@@ -1369,11 +1369,11 @@
             "You saved a demon!",
             "You did it!”\n“I told you that was a fucking no brainer.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "“Don’t walk away!” you hear it say,\nAnd spew out fire bright.",
-        text: [
+        "prompt": "“Don’t walk away!” you hear it say,\nAnd spew out fire bright.",
+        "text": [
             "You carry on, and soon it’s gone\nFrom earshot and from sight.",
             "The question now is what to tell\nThe town when you arrive.",
             "To either lie and say it’s died,\nOr bound but still alive?",
@@ -1385,11 +1385,11 @@
             "And what the hell is it?",
             "A bunch of bandits, a bloodsucker, a bloodsucker…look it’s a loner!",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "“Without the ability to do repairs, the ship’s macro cannons and such will work, as well as the sensory equipment.",
-        text: [
+        "prompt": "“Without the ability to do repairs, the ship’s macro cannons and such will work, as well as the sensory equipment.",
+        "text": [
             "We won’t be able to communicate, travel through the Warp, or travel anywhere, to be honest.”\n“Ah.",
             "I guess I won’t fail, then.",
             "How can I get through her?",
@@ -1401,11 +1401,11 @@
             "That’s where you’ll find a small opening to get inside.",
             "You can barely make it through the fortress without getting blasted to smithereens, so you’re going to take what you want.",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "Osprey’s eyes light up.",
-        text: [
+        "prompt": "Osprey’s eyes light up.",
+        "text": [
             "His lips twist into a smirk as he cackles.",
             "“Wizard things.”\n“Oh, Dear God.”\nOsprey’s smile vanishes as he notices you and totters over.",
             "“What just happened?”\n“Oh, you know.",
@@ -1417,11 +1417,11 @@
             "“That’s right, I was going to tell you about this, but I had to have it finished while you got here.”\n“Yeah, you know why?",
             "You were going to run with that old curse I used to use to put on my people?”\n“It was a long time ago, before the curse came.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "\"Remember, just put the channel on.",
-        text: [
+        "prompt": "\"Remember, just put the channel on.",
+        "text": [
             "Listen in and wait for a while, and if nothing turns up then try speaking.",
             "But only then.\"",
             "\"Does it matter?\"",
@@ -1433,11 +1433,11 @@
             "Out.",
             "Nothing but static, for now.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "Your Court Wizard, Dardis is not as wise as Forixis, but he was born in Farnorth and seems to know a lot about legends.",
-        text: [
+        "prompt": "Your Court Wizard, Dardis is not as wise as Forixis, but he was born in Farnorth and seems to know a lot about legends.",
+        "text": [
             "Your last idea is to search the city for clues.",
             "Although there is no guarantee that you will find anything, it may give you a chance to find evidence and talk to your people.",
             "> You go to the Norgurune Library\n\"Maybe the library will be a good place to start,\" you mutter, then begin heading over.",
@@ -1449,11 +1449,11 @@
             "Are you going to tell me where the Library is, my lord?\"",
             "\"As you know, the Library is not the only place where I am ever heard speak by my mentor.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "“Yeah, OK. Let’s do that.”\n“Do you remember which way the truck is?”\nBecca nods, and you begin following her through the dead night.",
-        text: [
+        "prompt": "“Yeah, OK. Let’s do that.”\n“Do you remember which way the truck is?”\nBecca nods, and you begin following her through the dead night.",
+        "text": [
             "The silence is only broken by the trudging of your feet and the occassional hoot from an owl.",
             "Eventually, you near the edge of the woods.",
             "Sure enough, the massive RV sits by the trees at the edge of the forest.",
@@ -1465,11 +1465,11 @@
             "Please hang up I'm on your way home.”\n\nYou hang up, and Becca comes on the line.",
             "“Hello!",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "“Fine so take me as hostage.",
-        text: [
+        "prompt": "“Fine so take me as hostage.",
+        "text": [
             "Here…” you say and drop your rifle and walk over to Mel.",
             "A couple people shout at you, but you just wave a hand at them as if to tell them to calm down.",
             "Meanwhile Mel stands watching you approach.",
@@ -1481,11 +1481,11 @@
             "“No, I want to go to my own home, I want to go to my own house.”\n“Alright alright, but if you want to go to your own house, you’re going to have to get the permission from the host family first.",
             "I’m sure if you’re going to make a scene like you did when you first met, you’re going to need that.”\n“Yeah, well I’m sure you could just run.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "\"Hazel?",
-        text: [
+        "prompt": "\"Hazel?",
+        "text": [
             "Get me out of here!\"",
             "Lucy screams from inside.",
             "You unlock the door, finding Lucy.",
@@ -1497,11 +1497,11 @@
             "\"Mom... Dad...\"\n\nLucy looks up at the door, then looks at you.",
             "\"You... You're alive.\"",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "You relax as you feel the minds of the humans returning and make sure you don't have any blood left below your nose.",
-        text: [
+        "prompt": "You relax as you feel the minds of the humans returning and make sure you don't have any blood left below your nose.",
+        "text": [
             "THe evening passes like before with chatting and telling stories, it's been a while since you enjoyed yourself like this.",
             "> You decision time\nYou wake in the morning and realize that once more you slept through the night instead of the normal few hours \"Must be the mental training\" You think as you test your senses to see what changed while you slept.",
             "But it's no use and you're too tired to notice anything, you don't know if this was just a dream or real.",
@@ -1513,11 +1513,11 @@
             "He smiles and all walks you back home and back to sleep.",
             "You find yourself waking up after a long night of sleep.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "You spy a gruesome sight.",
-        text: [
+        "prompt": "You spy a gruesome sight.",
+        "text": [
             "A corpse, unrecognizable,\nA mess of fur and flesh,\nArrays the earth in pieces torn,\nSoaked through with cruor fresh.",
             "The thing was riven just like that?",
             "So easily ’twas maimed?",
@@ -1529,11 +1529,11 @@
             "“That’s what you think you are, a real beast, a real riven corpse, a real person…”\n\n“There is a difference.",
             "This beast is not a real person.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "“Not at all, I mean surely for a fee he could lend you that ogre for a little while right?”\n“I dunno if it works that way…(Sigh) alright I suppose I could try since I don’t have any other contacts.”\n“Okay.",
-        text: [
+        "prompt": "“Not at all, I mean surely for a fee he could lend you that ogre for a little while right?”\n“I dunno if it works that way…(Sigh) alright I suppose I could try since I don’t have any other contacts.”\n“Okay.",
+        "text": [
             "Oh!",
             "Here take this.” Rita says handing you a small notebook.",
             "“What’s this?”",
@@ -1545,11 +1545,11 @@
             "I want to be a good person.”\n“Don’t you know what you’ve done?",
             "You haven’t been a good mother.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "> You suggest you and Gil just try to do the best training them",
-        text: [
+        "prompt": "> You suggest you and Gil just try to do the best training them",
+        "text": [
             "You are in the middle of training your little brother and you have a good idea he is a better fighter than your brother.",
             "You cannot believe your brother is winning in his fight.",
             "It is almost like your father's dream about you.",
@@ -1561,11 +1561,11 @@
             "You are now used to do even more of the training with Gil.",
             "You are confident that you will win the fight and Gil is confident that you will not be able to hold up Gil at all.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Jeanette is obnoxious and Martin is on another world, quite a pair those two are you think to yourself.",
-        text: [
+        "prompt": "Jeanette is obnoxious and Martin is on another world, quite a pair those two are you think to yourself.",
+        "text": [
             "You and Jeanette spend time eating the leftover pizza and talking for a bit.",
             "You learn Jeanette's father was in the army.",
             "After you are done, Jeanette leaves taking the now empty pizza box.",
@@ -1577,11 +1577,11 @@
             "\"Come in!\"",
             "Jeanette says loud and clear, you open the door and try to sit on the floor.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "\"Alright.",
-        text: [
+        "prompt": "\"Alright.",
+        "text": [
             "Cain?\"",
             "Cain steps forward as Olive and Castus leave.",
             "\"Yes?\"",
@@ -1593,11 +1593,11 @@
             "\"Alright\"\n\n\"Go to see the king and see what you can do to help us.\"",
             "\"Okay\"\n\n\"And what if we don't?\"",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "“OK, it’s not so bad,” you mutter, walking past a row of lockers down the hall.",
-        text: [
+        "prompt": "“OK, it’s not so bad,” you mutter, walking past a row of lockers down the hall.",
+        "text": [
             "\"I just have to find my classes and…”\n“Hey, Hazel!” a voice cries.",
             "You turn to find the familiar, zit stricken face of the pizza cashier, Lucy.",
             "“Hey,” you reply.",
@@ -1609,11 +1609,11 @@
             "Of course we share most classes.",
             "Oh look, Carter’s here.”\nYou turn to see Carter, the kid from the day before, bounding over.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"It's your lucky day, Hunter.",
-        text: [
+        "prompt": "\"It's your lucky day, Hunter.",
+        "text": [
             "Good luck to you.\"",
             "You grab the shotgun, holding it in your hands and aiming it at the suspicious, patch coat man.",
             "\"Who the fuck are you?\"",
@@ -1625,11 +1625,11 @@
             "You're a dull old fellow, aren't you?",
             "Well, you certainly aren't in any mood to be surprised, are you?\"",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "“OK, it’s not so bad,” you mutter, walking past a row of lockers down the hall.",
-        text: [
+        "prompt": "“OK, it’s not so bad,” you mutter, walking past a row of lockers down the hall.",
+        "text": [
             "\"I just have to find my classes and…”\n“Hey, Hazel!” a voice cries.",
             "You turn to find the familiar, zit stricken face of the pizza cashier, Lucy.",
             "“Hey,” you reply.",
@@ -1641,11 +1641,11 @@
             "I thought you were on another floor.",
             "You can't just tell me that I want to walk in on you like this.”\n\n“Don’t be scared, Hazel, I’m just here for the apartment, I don’t want to be here for you to be stupid.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "\"I don't,\" Doctor Kessel admits.",
-        text: [
+        "prompt": "\"I don't,\" Doctor Kessel admits.",
+        "text": [
             "\"It could destroy everything!\"",
             "\"You just need to calm down and listen!\"",
             "he hisses.",
@@ -1657,11 +1657,11 @@
             "Do you go through?\"",
             "\"What the fuck does...?\"",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "All of these thoughts run through your mind just as that guy (whom attacked you seconds ago) steps forward for a second try.",
-        text: [
+        "prompt": "All of these thoughts run through your mind just as that guy (whom attacked you seconds ago) steps forward for a second try.",
+        "text": [
             "It would be his last mistake.",
             "You've always been great at fighting, even without your blessing, but with it you're pretty much unstoppable.",
             "You were even able to surpass Miss Sarrin before you graduated.",
@@ -1673,11 +1673,11 @@
             "You aren't going to make it, but you are leaving with the feeling that you could have done things differently.",
             "> You continue\nYou're going to die here, you just have to, but the assassin is right, and you are pretty sure the back must have jumped out at him because of how you attacked him and he went full bore.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "> You search the floor\nYou begin to crawl across the hard surface.",
-        text: [
+        "prompt": "> You search the floor\nYou begin to crawl across the hard surface.",
+        "text": [
             "Reaching out to see if there is anything of use... anything at all.",
             "Your hands come across a cold cylindric item.",
             "You feel across it to find a button and press it.",
@@ -1689,11 +1689,11 @@
             "You can not see anyone, till now, but now that you are no longer in the dark, you can see the shadowy figures on the floor.",
             "You try to push the button.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "Still, it isn’t like either of your parents are pleased with your recreational criminal activities and have tried to steer you in a different direction with little success.",
-        text: [
+        "prompt": "Still, it isn’t like either of your parents are pleased with your recreational criminal activities and have tried to steer you in a different direction with little success.",
+        "text": [
             "While it tends to go in one ear and out the other with you, sometimes your sister listens occasionally.",
             "And you’re pretty sure that’s the cause of her distraction in-between your jobs.",
             "Something is on her mind and has been for a while now and today is the day she says as much.",
@@ -1705,11 +1705,11 @@
             "Tell my father I said I want to go back to my job!”\n\nYour sister goes into a small room to talk to you, you don’t even have a babysitter, you’re alone in the house.",
             "“I finally got a babysitter!",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "\"Of course we do!",
-        text: [
+        "prompt": "\"Of course we do!",
+        "text": [
             "I will make sure it happens.\"",
             "And with that, you and Raven begin making your way through the castle.",
             "> You head to the bedroom\nYou and Raven walk over to the bedroom and into the room, it's a fairly empty room with no use but it looks pretty much like a normal dorm room except for the two men holding you.",
@@ -1721,11 +1721,11 @@
             "\"Come on we can go ahead\" You think and you and Raven go back to your room.",
             "You walk in the man's room and go to his room while Raven goes back to her room.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "“It looks like they are planning to keep to a main route.” He begins.",
-        text: [
+        "prompt": "“It looks like they are planning to keep to a main route.” He begins.",
+        "text": [
             "“They have been keeping their main scouting to larger open roads which lead directly East so my assumption is that they plan to move through at speed.",
             "Now the tricky thing is, before I brought down the stadium the first time, they had some military jeeps with mounted guns, I had originally presumed that I had destroyed them all however their actions suggest otherwise.",
             "We have to assume at least 1 vehicle so I will be blockading the road here.” He points to the map indicating a section of road just after a large corner.",
@@ -1737,11 +1737,11 @@
             "You can then of course join in the assault from their rear while I handle the front and flanks.”\nThere isn’t much to argue about so again you simply nod along, you’d rather he split his forces with you 50/50 however you know he is still significantly more powerful than you mentally.",
             "You can hold him at bay for a few moments but he can still force his way into your mind whereas you can’t even dent his current defenses you know you are rapidly improving though and you hold out a few seconds longer every time.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "“Sheesh, I know Rita’s a pain in the ass and all, but you really think you should get rid of her?",
-        text: [
+        "prompt": "“Sheesh, I know Rita’s a pain in the ass and all, but you really think you should get rid of her?",
+        "text": [
             "Who’s going to train the new girls?",
             "I noticed the pointy ears, I’m guessing they’re half-breeds.",
             "Elves have terrible work ethics.”\n“I already told them what to do, but I figured you’d be keeping an eye on them most of the time, so you can make sure if they’re working and not goofing off”\n“What?!",
@@ -1753,11 +1753,11 @@
             "Rita is probably in more good times now, she’s probably enjoying the attention.",
             "“I suppose you’ll be correct, but I’m not investing in you anymore.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "Back at the cottage, you make yourself at home.",
-        text: [
+        "prompt": "Back at the cottage, you make yourself at home.",
+        "text": [
             "Whoever owns the place still has yet to show up, so you figure you can claim it; there isn't much to do, though.",
             "You fetch water, start a fire, and try to figure out how people took a bath in medieval times.",
             "After that, you gather some of the supplies and attempt to make dinner.",
@@ -1769,11 +1769,11 @@
             "\"It is I.D.!",
             "I have made you breakfast.\"",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "It didn't took long to recover though and was back on its feet in no time.",
-        text: [
+        "prompt": "It didn't took long to recover though and was back on its feet in no time.",
+        "text": [
             "Slowly then gaining more speed, it started to run towards us again.",
             "An arrow sprouted from one of its four eyes, effectively blinding it and slowing it for a moment.",
             "Then, suddenly, the dog stopped and roared in pain.",
@@ -1785,11 +1785,11 @@
             "He was about the same age as me though he looked a lot taller and darker.",
             "In his hands was the biggest two-handed sword I have ever seen.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"Why the fuck wouldn't we?\"",
-        text: [
+        "prompt": "\"Why the fuck wouldn't we?\"",
+        "text": [
             "\"It wasn't that bad of an idea to do it,\" Aquila says.",
             "\"What happened?\"",
             "\"We went with the idea because we were desperate for something to do, and now we're not sure if it's going to actually work.\"",
@@ -1801,11 +1801,11 @@
             "\"I'm not so sure.",
             "I mean there's no way that magic can work, but you know, this is a cute story I'm trying to tell to my little sister.\"",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "You blush at that comment as Carter nods in agreement.",
-        text: [
+        "prompt": "You blush at that comment as Carter nods in agreement.",
+        "text": [
             "“I agree.",
             "I d-don’t w-want to play spin the bo-bottle,” Carter says.",
             "Briefly glancing at the indifferent Mason, you feel a twinge of annoyance of all possibilities of spin the bottle disappears as Ant suggests a new game.",
@@ -1817,11 +1817,11 @@
             "How was I do know that that painting was worth a fortune?”\n“You shouldn’t have been drawing over paintings in the first place, Ant!”\n“It wasn’t skin off your dad’s nose!",
             "That rich bastard can handle a loss!",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "“Suzy?",
-        text: [
+        "prompt": "“Suzy?",
+        "text": [
             "You still here?” you hear him ask.",
             "“Yeah, I’m still here.",
             "Just stay behind the truck I’m gonna…” you start to say before you’re interrupted\n“NO!",
@@ -1833,11 +1833,11 @@
             "As you try to reload your last assault rifle clip, the truck continues to suffer the impact of shotgun rounds.",
             "In fact they are starting to damage the truck enough that one of them going through and hitting you is a very real possibility.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"The crippled hunchback is no threat, Draven can hunt him down.",
-        text: [
+        "prompt": "\"The crippled hunchback is no threat, Draven can hunt him down.",
+        "text": [
             "The others will have been wiped out by the wulven,\" Mihrab commands.",
             "\"What ab...?",
             "Understood,\" Alexa says, seemingly confused.",
@@ -1849,11 +1849,11 @@
             "You scream in pain, but Draven lets go of Alexa.",
             "You scream as Draven stabs you through the chest with a dagger, but Draven quickly grabs Alexa and begins to overpower you.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "She remained nervous for a few months; later, she admitted it was because of her uncertainty over the whole cannibal thing, but eventually, the two of you started to talk.",
-        text: [
+        "prompt": "She remained nervous for a few months; later, she admitted it was because of her uncertainty over the whole cannibal thing, but eventually, the two of you started to talk.",
+        "text": [
             "Now she cooks you dinner and eats with you every day, today included.",
             "\"Did you hear what they are starting to say about you around town?\"",
             "Viviane asks as she sets the table for two.",
@@ -1865,11 +1865,11 @@
             "\"Well, if you were to be a little more honest than I thought you would, then I might have to kill you.\"",
             "\"If I am a little more honest then are you more willing to eat me?\"",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "Prince Reginald and Lady Jane\nRode swiftly down the mountain way\nAnd his poor horse the Prince did strain\nWhile Lady Jane did naught but pray.",
-        text: [
+        "prompt": "Prince Reginald and Lady Jane\nRode swiftly down the mountain way\nAnd his poor horse the Prince did strain\nWhile Lady Jane did naught but pray.",
+        "text": [
             "They did not fear old Cantaphrax\nFor they knew not 'twas all his scheme\nBut still could neither one relax\nBoth haunted by a waking dream",
             "\"What happened?\"",
             "said the man to himself and went to sleep\nBut they woke up again, this time around the one who answered their state of agitation,\nYou know how it is...\n\nYou fall asleep too much and then you get wakened by something.",
@@ -1881,11 +1881,11 @@
             "\"It is my pleasure to awaken you two.\"",
             "You are all smiles and both of you sleep peacefully until you dreamed a nightmare\nOf your lover dying\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nBut then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\n\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jubilant to you with a smile,\nAnd then one dream\nYou are lying in bed\nAnd then you see the figure of the man come jub",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "Maybe the smartest thing would be to keep them in front of you.",
-        text: [
+        "prompt": "Maybe the smartest thing would be to keep them in front of you.",
+        "text": [
             "After all, your gate is all the way on the other side of the airport, and you only have four hours to get there.",
             "The only way out of this nightmare is to get on that plane to New York.",
             "You wait for them to get about fifty feet ahead, peek out of the store, and, seeing nothing amiss, begin slowly following them, dragging your sore ankle as you walk toward the center of the airport.",
@@ -1897,11 +1897,11 @@
             "The man has a bad limp, and the girl has a bad eye and a horrible tooth, and you see no way that you could talk to someone of those things.",
             "You have none to worry about.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "\"Camelot has grown under King Uther's rules, but the growth gave rise to famine and disease.",
-        text: [
+        "prompt": "\"Camelot has grown under King Uther's rules, but the growth gave rise to famine and disease.",
+        "text": [
             "If we do not have an exceptional harvest this year, people will starve; of course, letting the plague go unchecked will be just as devastating...\"\n> You tell you more about the plague\n\"Tell me more about the plage,\" you say, opening the door to face the knights.",
             "Magically multiplying food does not seem like something you should promise them; you are no doctor, but you know medical knowledge is limited in this era.",
             "\"Our population continues to grow, but as it does, more people get sick,\" Huon responds.",
@@ -1913,11 +1913,11 @@
             "We have to do something to combat the plague, you know.\"",
             "\"We can't just...\"\n\n\"We can't really let the plague go on like this,\" Huon says, scratching at his chin.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "“How long are you going to hide behind THAT ghost?",
-        text: [
+        "prompt": "“How long are you going to hide behind THAT ghost?",
+        "text": [
             "Perhaps she did have influence on you in the beginning as far as motivation was concerned, but nobody, NOBODY that has gotten this far can say they’ve been doing this all this as some sort of monument for the love of a dead woman!",
             "You’re lying to yourself because YOU don’t have the fuckin’ balls to admit you’re a goddamn friendly fascist!",
             "And after you’re dead?",
@@ -1929,11 +1929,11 @@
             "“WHAT?!",
             "You’re not making sense!",
         ],
-        boundary: 8,
+        "boundary": 8,
     },
     {
-        prompt: "The Wolf laughs, \"Call me Gideon.",
-        text: [
+        "prompt": "The Wolf laughs, \"Call me Gideon.",
+        "text": [
             "The cloaked figure on the side is Ragnor, our residential assassin, even if fighting has little place anymore.\"",
             "He brings out a hairy, clawed hand to shakes yours.",
             "You accept it.",
@@ -1945,11 +1945,11 @@
             "\"I want to find out how the Wolves are faring.\"",
             "\"You think we don't know?\"",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "The voices thankfully subside, and you're granted a short break of blissful sleep.",
-        text: [
+        "prompt": "The voices thankfully subside, and you're granted a short break of blissful sleep.",
+        "text": [
             "Unfortunately, this is broken by the door opening.",
             "You look up to see Kyros standing there.",
             "\"Karth, it's time for your... augmentation,\" he says cheerfully.",
@@ -1961,11 +1961,11 @@
             "You wake up, finding yourself lying in bed in a room with a strange bedside table.",
             "The table consists of three chairs, a bed, and a chair, plus a table and chair.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "Mai says, \"You must return once you finish.",
-        text: [
+        "prompt": "Mai says, \"You must return once you finish.",
+        "text": [
             "Return them to the Varon capital and we will announce your new rule.\"",
             "\"And as for you Kai.\"",
             "Haru swipes a claw at her.",
@@ -1977,11 +1977,11 @@
             "She prowls out with anger.",
             "You bow to the dragons.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"I'll begin unpacking, you guys can get settled in or go meet the neighbors or explore,\" Dad says.",
-        text: [
+        "prompt": "\"I'll begin unpacking, you guys can get settled in or go meet the neighbors or explore,\" Dad says.",
+        "text": [
             "> You go to your room\nYou pick up your backpack again and walk up to your new room.",
             "It has a large wardrobe, a large double bed, a desk and chair and two dressers.",
             "You sit on the bed, taking out your laptop, and go on Facebook.",
@@ -1993,11 +1993,11 @@
             "Eventually, you see a friend's house on the way to work and you go to go there.",
             "You head upstairs, and you immediately take a shower.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "You collect what you can for this trip, when Alex enters the room.",
-        text: [
+        "prompt": "You collect what you can for this trip, when Alex enters the room.",
+        "text": [
             "“So, now that you have what you’re looking for, are you going to keep your word?”\n“Well…ah fuck it…what the hell.",
             "Keep in mind though people are going to be pretty mistrustful of you.",
             "Don’t expect a warm welcome.”\n“Didn’t expect one.”\n“Good, now grab the rest of those weapons, so I don’t need to make a round trip down here.”",
@@ -2009,11 +2009,11 @@
             "I know Alex’s pretty, I want you to live, I’m just not about to die if you’re off.",
             "I mean if you want to live then fine, but you need to prove to me that you got this far.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "\"Please my friend, just as I helped you as an injured fledging, I need your help to get out of a deathly situation.\"",
-        text: [
+        "prompt": "\"Please my friend, just as I helped you as an injured fledging, I need your help to get out of a deathly situation.\"",
+        "text": [
             "You begged.",
             "\"I will help, but I cannot get that far.",
             "I can tell you to seek out the wizard Mallark.",
@@ -2025,11 +2025,11 @@
             "Pollux had a whole platoon searching for you.",
             "Looking up, he saw you on Solon's back and glared as you flew away, Sparrow's arms wrapped around your waist...\n                                                           * * * * * * * * * \nPollux's story\nHe never forgot the boy who humiliated him and used the rage to rise in the ranks of Black Hand to a senior apprentice.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "It seems to be working.",
-        text: [
+        "prompt": "It seems to be working.",
+        "text": [
             "The vortex is slowing down, and the Portal is shrinking.",
             "She floats into the circle and looks deep into your eyes.",
             "\"And what, pray tell, would you give me to buy your freedom?\"",
@@ -2041,11 +2041,11 @@
             "You stare at the ground and the girl floats towards the center.",
             "The sound of the music resonates through the air, you float by the music, and she floats by the portal, and the vortex closes with a burst of lightning.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "You take another sip from your cup.",
-        text: [
+        "prompt": "You take another sip from your cup.",
+        "text": [
             "The latest job smuggling cargo for an English merchant paid well, but the damage sustained fleeing from a Spanish Galleon could very well cost the entire payout, or worse, put you in the hole.",
             "The wizard on board the Galleon hit The Sanguine with more than a few nasty spells.",
             "If Victoria didn't fire back with a perfectly aimed fire bolt, the entire ship might be at the bottom of the Caribbean.",
@@ -2057,11 +2057,11 @@
             "Sunlight pours into the poorly lit building through several open windows creating rectangular beams of yellow.",
             "The light is a welcome distraction to Victor and you.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: " \"'Manda!",
-        text: [
+        "prompt": " \"'Manda!",
+        "text": [
             "I'm coming in there!\"",
             "You say furiously as you storm from the kitchen.",
             "The living room's lights are dimmed, so the glare from the telly makes you blink.",
@@ -2073,11 +2073,11 @@
             "Suddenly, you feel pain hit you, and then you feel something like a slap on the back of your head.",
             "You fall to the floor with a thud and then you're blindsided by something sharp.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "When you reach the Western Passage you discover signs that Anne-Marie has indeed passed this way: the watchtowers that guard the Passage are empty and all the wooden buildings burnt down.",
-        text: [
+        "prompt": "When you reach the Western Passage you discover signs that Anne-Marie has indeed passed this way: the watchtowers that guard the Passage are empty and all the wooden buildings burnt down.",
+        "text": [
             "All the men and supplies that were once here have been evacuated, doubtlessly helping to replace the damage the Monarch of the Sea suffered in battle.",
             "Still hoping to catch up with Anne-Marie before she reaches Revel you drive your two ships through the Passage and on westwards.",
             "> You restless Nights\nEntering Elixi waters and with no sign of you catching up with Anne-Marie you and Naomi begin to endure restless nights of no sleep as you debate endlessly whether Saphia will stay loyal or not.",
@@ -2089,11 +2089,11 @@
             "You're in a room of sorts \"Now we'll do this together\" You say as your men escort Anne-Marie to a bed.",
             "Anne-Marie wakes up again and you decide to go back to your cabin and sleep off the dramatic situation known to you.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "Unfortunately, you see one of the werewolves stand in the center of the village.",
-        text: [
+        "prompt": "Unfortunately, you see one of the werewolves stand in the center of the village.",
+        "text": [
             "It's larger than the others, its fur white and its eyes red.",
             "It stares at you for a second, before it lets out a powerful, booming howl.",
             "The other werewolves emerge from the buildings, blood matting their fur and dripping from their claws.",
@@ -2103,11 +2103,11 @@
             "Shit!\"",
             "you hear the Alpha Male howl and howl, howling and howling and howling and howling and howling and howling and howling and howling, and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and howling and",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "“Is something wrong lieutenant?” the general asks\n“I…uh…I don’t….should we be doing this?”",
-        text: [
+        "prompt": "“Is something wrong lieutenant?” the general asks\n“I…uh…I don’t….should we be doing this?”",
+        "text": [
             "I mean if this goes well and you do feel more freedom then I guess so be it.",
             "So what do you say next?",
             "“First off I’m not telling you anything you haven’t told me, and secondly I’m not telling you anything you didn’t tell me either.",
@@ -2119,11 +2119,11 @@
             "I think I should be helping you because it is not a bad thing after all of what you and I have done together.",
             "I know I have to.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "\"Anthony Ceder.\"",
-        text: [
+        "prompt": "\"Anthony Ceder.\"",
+        "text": [
             "\"I remember you.",
             "I remember your people.",
             "I remember seeing your great-great-grand mama.",
@@ -2135,11 +2135,11 @@
             "It'd make you a hell of a lot prettier.\"",
             "He traces the path of a smile along your face with the cold blade.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"Good boy.",
-        text: [
+        "prompt": "\"Good boy.",
+        "text": [
             "I'll make sure special care is taken of the girl.",
             "\"k\n\"Ha!",
             "I'll give your bitch whore \"special care\"!\"",
@@ -2151,11 +2151,11 @@
             "You watch as Duggin is dragged form his tent, growling and yelling.",
             "A large cut goes down his chest, blood having soaked his armor, turning it a deep crimson that shines in the sun.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "“Yes, a proper meal with meat.",
-        text: [
+        "prompt": "“Yes, a proper meal with meat.",
+        "text": [
             "Lots of meat.",
             "Heh heh.” Your second says and walks away.",
             "By the fifth day, you finally come across a large wendigo encampment and it is there where you see some sort of leader.",
@@ -2167,11 +2167,11 @@
             "He swipes you across the chest destroying your breast plate and lands another blow to your head which probably would’ve killed you had you not been wearing a helmet.",
             "It is enough to knock you down however.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "\"So what do you want from me?\"",
-        text: [
+        "prompt": "\"So what do you want from me?\"",
+        "text": [
             "You ask, uncertain of yourself.",
             "Who is my main enemy?",
             "What should I do?",
@@ -2183,11 +2183,11 @@
             "I don't like you!",
             "I don't like you!\"",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "You've grown in the past couple years, and are easily one of the tallest guys in class.",
-        text: [
+        "prompt": "You've grown in the past couple years, and are easily one of the tallest guys in class.",
+        "text": [
             "Aside from Daniel, that is.",
             "You might not be taller than Daniel, but you'd bet your mother's corpse (Muse bless her soul) that you can take more hits than he can.",
             "That being said, you don't particularly fancy getting punched if you can avoid it.",
@@ -2199,11 +2199,11 @@
             "You run away to some place far away from your mother.",
             "A few hours later, your mother arrives at your room with the rest of the family.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "You’re about to sit down in your bed when a chill runs down your spin.",
-        text: [
+        "prompt": "You’re about to sit down in your bed when a chill runs down your spin.",
+        "text": [
             "Your door makes a squeaking noise and a cold breeze rushes towards you.",
             "“Is somebody there?” you ask.",
             "No reply, although you don’t know what you were expecting.",
@@ -2215,11 +2215,11 @@
             "Now I’m just sorry to wake you, but you must have really tired last night.",
             "I’m just glad you woke up, but you must have really been tired.”\n“Now that’s a good question, but I was just about to go to sleep, and then sure enough I was woken up by the wind!”\n\n“I didn’t think anything of that until when you were playing with me.”\n“I guess I was just being a dream-er.”\n“I don’t know what else could have happened between you two.”\n\n“Well I can’t say I blame you, I suppose I would’ve made the same choice anyway.”\n\n“Well I guess that’s what I’m asking you for, if you can go back to sleep and it won’t happen again tomorrow.”\n\n“I dunno if I can, I’ve been up more than you have been able to and since you’re so in love with me, I’d say something like, but I’m getting a little tired.”\n\n“Well that’s the problem with dreams isn’t just waking up, it’s waking up for no reason.”\n\n“Maybe it’s the brain.”\n\n“Yeah I think the more you think about it, the more likely you’re going to wake up again tomorrow.”\n\n“Well then you’ll have to go back to sleep again tomorrow, I’d say that’s the best thing you could do if you do anything else, but I’d say it’s just too much for you and I don’t mean that you’re going to lie down like a normal person, I just don’t think you can do it.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "You may still manipulate the other four, but you can only hope to access the powerful effects with the element of your specialization.",
-        text: [
+        "prompt": "You may still manipulate the other four, but you can only hope to access the powerful effects with the element of your specialization.",
+        "text": [
             "Your major advantage is your ability to raise a massive horde of undead that are entirely undead.",
             "A horde of undead is a mixture of skeletons, zombies, and corpses, and you have over a million undead raised.",
             "You also have a massive advantage because you have far more undead.",
@@ -2231,11 +2231,11 @@
             "So far you have not been damaged by your opponents, but you are certainly not going to take it easy.",
             "Your next few games are going to focus on how to take advantage of this weakness as well as how to best utilize your horde.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "When we finished collecting our things from the stand, he suddenly said \"You've both come a long way haven't you?",
-        text: [
+        "prompt": "When we finished collecting our things from the stand, he suddenly said \"You've both come a long way haven't you?",
+        "text": [
             "Listen, my supplies haven't been coming in as much recently due to a black beast wandering near here.",
             "I've been coming to this town trading goods for awhile and I've learned quite a bit about it.",
             "If you can slay the beast I'll repay you handsomely.\"",
@@ -2247,11 +2247,11 @@
             "\"It's not like I haven't seen you when you've been working at the inn.\"",
             "\"Well I'm not.\"",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "You have your army ready and know the enemy defenses perfectly; they think you are one of their defenders after all.",
-        text: [
+        "prompt": "You have your army ready and know the enemy defenses perfectly; they think you are one of their defenders after all.",
+        "text": [
             "At night the doc often sleeps in his office and there are only two guards so you are sure you can get the 4 shamblers out to go wild inside then all you’ll need is to get some on the ones from outside into the stadium to complete your victory.",
             "You are considering the best way to do this when you sense all the infected you brought close suddenly begin leaving towards the South and you cannot bring them back no matter how hard you concentrate.",
             "The last one pauses and you can feel that it seems to be waving at you for a few minutes, beckoning you after it almost, before it turns and heads South and eventually out of your range to sense it.",
@@ -2263,11 +2263,11 @@
             "At night the doc often sleeps in his office and there are only two guards so you are sure you can get the 4 shamblers out to go wild inside then all you’ll need is to get some on the ones from outside into the stadium to complete your victory.",
             "You are considering the best way to do this when you sense all the infected you brought close suddenly begin leaving towards the South and you cannot bring them back no matter how hard you concentrate.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "“Gentlemen, gentlemen, calm down,” Mason says.",
-        text: [
+        "prompt": "“Gentlemen, gentlemen, calm down,” Mason says.",
+        "text": [
             "“There ain’t no issues!",
             "We’re all friends here!",
             "I say a game of truth and dare would calm us all down.”\n“Fine,” Becca says.",
@@ -2279,11 +2279,11 @@
             "It is the only thing I remember my mom telling us about.",
             "Once you were a young lady, I mean not a young lady, a brash young lady who could talk and dance and sing.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "There are three possible types of alliances you can make: the Arraigned Marriage, an unofficial and informal understanding that each party will wed their children to the other's, and which is usually ignored outside of the enjoined kingdoms; the Peace Agreement, an internationally recognized edict where the parties agree never to attack each other nor each other’s allies, and furthers peace; the Military Alliance, an internationally recognized edict where, in addition to never attacking each other nor each other’s allies, each party also provides troops and other military aid to the other as needed, and tends to increase involvement in war and violent conflict.",
-        text: [
+        "prompt": "There are three possible types of alliances you can make: the Arraigned Marriage, an unofficial and informal understanding that each party will wed their children to the other's, and which is usually ignored outside of the enjoined kingdoms; the Peace Agreement, an internationally recognized edict where the parties agree never to attack each other nor each other’s allies, and furthers peace; the Military Alliance, an internationally recognized edict where, in addition to never attacking each other nor each other’s allies, each party also provides troops and other military aid to the other as needed, and tends to increase involvement in war and violent conflict.",
+        "text": [
             "Securing alliances will earn you much prestige and bring you closer to your goal of uniting China.",
             "Your two biggest rivals whom you will need to win over are General Nahru to the north and Governor Toleron to the east.",
             "Besides Nahru and Toleron, there are also less powerful warlords nearby who may help or hurt your quest depending on your relations.",
@@ -2295,11 +2295,11 @@
             "I’m not that instinctive, I like to be prepared.”\n\n“Then you will be the first to be the first.”\n\n“But I can’t wait!”\n\n“Just be ready in time.”\n\n“Why don’t you do something?”\n\n“If I wait, I’ll be dead!”\n\n“I won’t worry about you being dead, I’ll be the first one to die!”\n\n“Wait a minute!",
             "I thought you said you were not like that!”\n\n“It’s true!",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "Not helpful.",
-        text: [
+        "prompt": "Not helpful.",
+        "text": [
             "“Can I see what else is in the folder?”\n“Of course.”",
             "Down right exhausted.",
             "“Yeah, but everything else is still to be done.”\n\n“Well, I suppose so.”\n\n“As if.",
@@ -2311,11 +2311,11 @@
             "Yeah, it’s a myth that is making its way around the world and it’s coming to a television set near you.",
             "And you may have to go back to your room, you didn’t want to go back to the movie theater and you don’t have to go back to the movie theater to see a movie!",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "Alessa pushes Ashyr back with her sword, and a fight ensues.",
-        text: [
+        "prompt": "Alessa pushes Ashyr back with her sword, and a fight ensues.",
+        "text": [
             "While the two of you are distracted, the other two come out and start attacking.",
             "They're much stronger than you are and they're much more skilled in their own ways, so as you begin to back away, the others attack to pursue.",
             "You attempt to parry most of their attacks, until one of them tackles you.",
@@ -2327,11 +2327,11 @@
             "You try to escape but the other two are there and while you're distracted, the last two are there.",
             "They push you back with their own sword and are much stronger than you are and so you fall back and Ashyr does the same to you.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "The door opens, and two guards walk in.",
-        text: [
+        "prompt": "The door opens, and two guards walk in.",
+        "text": [
             "You can see that they're sad... You guess that the reason is sending a 13-year-old boy to death.",
             "They grab you (gently) by the shoulders and walk with you to the arena.",
             "The path is long, at least that's what it seems like to you.",
@@ -2343,11 +2343,11 @@
             "The jewel of Redhand, second largest city in Regnum.",
             "It's a big city, but it's so large because it's the capital and it's the largest settlement of a lot of people.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "\"What happened?\"",
-        text: [
+        "prompt": "\"What happened?\"",
+        "text": [
             "you manage to croak out.",
             "Your father's joy at seeing you wake is replaced with a grim expression.",
             "\"Wait until you've had some water son.",
@@ -2359,11 +2359,11 @@
             "He was passing more and more restrictions upon the Holy Kingdom.",
             "I resisted as much as possible, but there was too much at stake.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "I never saw her again.",
-        text: [
+        "prompt": "I never saw her again.",
+        "text": [
             "I never found the door.",
             "I never escaped.",
             "And so I remain.",
@@ -2375,11 +2375,11 @@
             "\"Well, if you are going, then I'm not going.\"",
             "\"Well, I suppose it depends on what I'm doing.\"",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "\"Huh, Bloody Claws vs Black Rats.",
-        text: [
+        "prompt": "\"Huh, Bloody Claws vs Black Rats.",
+        "text": [
             "Which ones are with you?\"",
             "Amadeus asks.",
             "\"Shut it,\" you say.",
@@ -2391,6 +2391,6 @@
             "He'll use any information he has against you,\" Meliodas chides.",
             "\"Huh.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
 ]
