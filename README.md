@@ -59,7 +59,7 @@ We will be sampling our prompts from a variety of different sources to ensure th
 7. How much do our annotators agree on the boundary sentence and how much do they agree on the reasonings between mistakes?
 
 ## References
-1. https://www.aclweb.org/anthology/W19-8643.pdf
-2. https://www.aclweb.org/anthology/N19-4011/
-3. https://arxiv.org/abs/1502.05698
-4. https://arxiv.org/abs/1911.00650
+1. [Best practices for the human evaluation of automatically generated text](https://www.aclweb.org/anthology/W19-8643.pdf)
+2. [ChatEval: A Tool for Chatbot Evaluation](https://www.aclweb.org/anthology/N19-4011/)
+3. [Towards AI-Complete Question Answering: A Set of Prerequisite Toy Tasks](https://arxiv.org/abs/1502.05698)
+4. [Human and Automatic Detection of Generated Text](https://arxiv.org/abs/1911.00650)
