@@ -23,10 +23,10 @@
         const sentences = all_sentences.slice(0, current_sentence);
         $("#human").hide();
 
-        sentences.forEach(sentence => {
-          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body">' + sentence +  '</div> </div> ';
+        for (let i = 0; i < sentences.length; i++) {
+          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body"> <strong style="margin-right: 0.5rem">' + i.toString() + '.</strong> &#9;' + sentences[i] +  '</div> </div> ';
           cards_html += card;
-        });
+        }
 
         $("#cards").html(cards_html);
         $("#remaining").html((max_sentences - current_sentence).toString() + " sentences remaining") 
@@ -106,10 +106,21 @@
         <div class="col-md" style="padding: 2rem">
           <br /> 
           <h2 class="text-muted"> <strong>Is the following text human written or machine generated?</strong> </h2>
-          <p class="text-muted" style="margin-bottom: 2rem;">
+          <p class="text-muted" style="margin-bottom: 1rem;">
             Your task is to decide at what point (if at all) the sample text begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
             The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.
           </p>
+
+          <small class="text-muted">Human-Written Prompt:</small>
+
+          <p style="margin-top: 0.5rem">{{prompt.body}}</p>
+
+          <small class="text-muted">Sample Text:</small>
+
+          <div style="margin-top: 0.5rem" id="cards"></div>
+
+          <small id="remaining" class="text-muted"></small>
+          <br /> <br />
 
           <div class="card" style="margin-bottom: 2rem">
             <div class="card-body">
@@ -123,16 +134,6 @@
               </button>
             </div>
           </div>
-
-          <small class="text-muted">Human-Written Prompt:</small>
-
-          <p style="margin-top: 0.5rem">{{prompt.body}}</p>
-
-          <small class="text-muted">Sample Text:</small>
-
-          <div style="margin-top: 0.5rem" id="cards"></div>
-
-          <small id="remaining" class="text-muted"></small>
 
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
