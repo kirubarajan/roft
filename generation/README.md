@@ -1,6 +1,7 @@
-# Samples
+# Text Generation
+We fine-tune a large instance of GPT-2 to generate adventure game text.
 
-## Format
+## Dataset Format
 `example.json`
 ```
 [
