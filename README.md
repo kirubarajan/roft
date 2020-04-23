@@ -1,6 +1,8 @@
 # Learning to Trick Humans
 > Evaluation Criteria for Human and Computer Written Text
 
+In this project, we aim to measure how good neural langauge models are at writing text. We look at OpenAI's GPT-2, and try to devise criteria for evaluating generated text through a game that is a spin of the Turing Test!
+
 Help us understand what makes text "sound human" by taking part in our experiment [here](http://18.218.3.184:8000) and annotating a few examples!
 
 ## Introduction
