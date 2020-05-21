@@ -16,7 +16,7 @@
         <div class="col-md" />
         <div class="col-md" style="padding: 2rem">
           <br /> 
-          <h2 class="text-muted"> <strong> Welcome and thank you! </strong> </h2>
+          <h1 class="text-muted"> <strong> Welcome and thank you! </strong> </h1>
           <p class="text-muted" style="margin-bottom: 2rem;">
             You will be presented a human-written prompt and a sequence of sentences that continue the prompt's text. At some point after the prompt, the text will begin to be written by a computer. 
             Your goal is to select whether you think the text is written by a human or a computer <strong>as soon as you are confident in your choice</strong>.
@@ -27,6 +27,7 @@
             If you're familiar with the Turing Test, then you will be playing our subject! 
             Feel free to ask questions if you are having difficulty with completing the experiment, or if there were any trials in particular that you thought were notable.
           </p>
+          <!--
           <form action="/annotate" method="GET">
             <div class="input-group mb-3" style="width: 30rem">
               <div class="input-group-prepend">
@@ -36,6 +37,48 @@
             </div>
             <input type="submit" class="btn btn-info" value="Begin Annotating" />
           </form>
+          -->
+          
+          <div class="row">
+            <div class="col-md-6">
+              <h2 class="text-muted"> <strong> Sign Up </strong> </h2>
+              <p class="text-muted" style="font-weight: 300">It's free to participate!</p>
+              <form style="width: 80%" action="/signup/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label class="text-muted" for="exampleInputEmail1">Email address</label>
+                  <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email here">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label class="text-muted" for="exampleInputEmail1">Username</label>
+                  <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name here">
+                </div>
+                <div class="form-group">
+                  <label class="text-muted" for="exampleInputPassword1">Password</label>
+                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here">
+                </div>
+                <button type="submit" class="btn btn-info">Sign Up</button>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <h2 class="text-muted"> <strong> Log In </strong> </h2>
+              <p class="text-muted" style="font-weight: 300">Welcome back!</p>
+              <form style="width: 80%" action="/login/" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label class="text-muted" for="exampleInputEmail1">Username</label>
+                  <input name="username"  ype="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email here">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label class="text-muted" for="exampleInputPassword1">Password</label>
+                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here">
+                </div>
+                <button type="submit" class="btn btn-info">Log In</button>
+              </form>
+            </div>
+          </div>
         </div>
         <div class="col-md" />
       </div>
