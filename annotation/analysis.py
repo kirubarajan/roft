@@ -11,6 +11,7 @@ exact_identification = 0
 correct_identification = 0
 used_tag = 0
 true_machine_total = 0
+trick_length = list()
 
 human_identification = 0
 true_human_total = 0
@@ -40,12 +41,14 @@ for annotation in Annotation.objects.all():
         exactly_correct += 1
         if annotation.text.boundary != -1:
             exact_identification += 1
+            trick_length.append(annotation.boundary - annotation.text.boundary)
         else:
             human_identification += 1
 
     if annotation.boundary > annotation.text.boundary:
         if annotation.text.boundary != -1:
             correct_identification += 1
+            trick_length.append(annotation.boundary - annotation.text.boundary)
 
 # number of annotators
 print("Number of annotators: ", len(annotators))
@@ -70,6 +73,9 @@ print()
 print("Number of correct identifications: ", correct_identification)
 print("Correct identification percentage: ", correct_identification / true_machine_total)
 print()
+
+# average "trick" length
+print("Average number of sentences before correct boundary selected:", sum(trick_length) / len(trick_length))
 
 # tag counts
 print("Tag usage percentage: ", used_tag / true_machine_total)
