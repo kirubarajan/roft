@@ -24,7 +24,7 @@
         $("#human").hide();
 
         for (let i = 0; i < sentences.length; i++) {
-          const card = '<div class="card" style="margin-bottom: 0.5rem"> <div class="card-body"> <strong style="margin-right: 0.5rem">' + i.toString() + '.</strong> &#9;' + sentences[i] +  '</div> </div> ';
+          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + sentences[i] +  '</div> </div> ';
           cards_html += card;
         }
 
@@ -140,32 +140,42 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Thank you for your response! The true boundary was sentence number {{boundary}}.</h5> <br />
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Thank you for your response! 
+                    {% if boundary == -1 %}
+                      The entire passage was human generated.
+                    {% else %}
+                      The true sentence boundary was the sentence number {{boundary}}.
+                    {% endif %}
+                  </h5>
+                  <br />
                 </div>
                 <div class="modal-body">
-                  <form class="form-check">
-                    <p>Select some options to describe the presented text:</p>
-                    <input type="checkbox" class="form-check-input" id="grammar">
-                    <label style="font-weight: 600" class="form-check-label text-muted" for="grammar">Grammatical Error </label>
+                  {% if TAXONOMY %}
+                    <form class="form-check">
+                      <p>Select some options to describe the presented text:</p>
+                      <input type="checkbox" class="form-check-input" id="grammar">
+                      <label style="font-weight: 600" class="form-check-label text-muted" for="grammar">Grammatical Error </label>
+                      <br />
+                      <small>Text is not grammatical English, or doesn't "sound right".</small>
+                      <br style="margin-bottom: 1rem"/>
+                      <input type="checkbox" class="form-check-input" id="repetition">
+                      <label style="font-weight: 600" class="form-check-label text-muted" for="repetition">Repetition Error</label>
+                      <br />
+                      <small>Text repeats itself in a non-meaningful way.</small>
+                      <br style="margin-bottom: 1rem"/>
+                      <input type="checkbox" class="form-check-input" id="entailment">
+                      <label style="font-weight: 600" class="form-check-label text-muted" for="entailment">Entailment Error</label>
+                      <br />
+                      <small>Text implies something that contradicts previous sentences or doesn't "flow".</small>
+                      <br style="margin-bottom: 1rem"/>
+                      <input type="checkbox" class="form-check-input" id="sense">
+                      <label style="font-weight: 600" class="form-check-label text-muted" for="sense">Common-Sense Error</label>
+                      <br />
+                      <small>Text defies basic logic and/or is nonsensical.</small>
+                    </form>
                     <br />
-                    <small>Text is not grammatical English, or doesn't "sound right".</small>
-                    <br style="margin-bottom: 1rem"/>
-                    <input type="checkbox" class="form-check-input" id="repetition">
-                    <label style="font-weight: 600" class="form-check-label text-muted" for="repetition">Repetition Error</label>
-                    <br />
-                    <small>Text repeats itself in a non-meaningful way.</small>
-                    <br style="margin-bottom: 1rem"/>
-                    <input type="checkbox" class="form-check-input" id="entailment">
-                    <label style="font-weight: 600" class="form-check-label text-muted" for="entailment">Entailment Error</label>
-                    <br />
-                    <small>Text implies something that contradicts previous sentences or doesn't "flow".</small>
-                    <br style="margin-bottom: 1rem"/>
-                    <input type="checkbox" class="form-check-input" id="sense">
-                    <label style="font-weight: 600" class="form-check-label text-muted" for="sense">Common-Sense Error</label>
-                    <br />
-                    <small>Text defies basic logic and/or is nonsensical.</small>
-                  </form>
-                  <br />
+                  {% endif %}
                   <p>Anything else to mention?</p>
                   <input type="text" id="note" class="form-control" placeholder="Any more specific details you want to add go here..." aria-label="note" aria-describedby="basic-addon1">
                 </div>

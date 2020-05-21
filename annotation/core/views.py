@@ -18,7 +18,8 @@ def annotate(request):
         "sentences": json.dumps(sentences), 
         "name": request.GET['name'], 
         "max_sentences": len(sentences),
-        "boundary": text.boundary
+        "boundary": text.boundary,
+        "TAXONOMY": False
     }
     
     return render(request, "annotate.html", args)
