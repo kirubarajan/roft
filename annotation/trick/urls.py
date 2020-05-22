@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import annotate, onboard, save
+from core.views import annotate, onboard, save, log_in, log_out, sign_up
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", onboard, name="onboard"),
     path('annotate/', annotate, name="annotate"),
     path('save/', save, name="save"),
+    path('login/', log_in, name='log_in'),
+    path('signup/', sign_up, name='sign_up'),
+    path('logout/', log_out, name="log_out"),
+    path('', onboard, name="onboard"),
 ]

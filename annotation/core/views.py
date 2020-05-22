@@ -4,10 +4,14 @@ import random
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation
+
 
 def onboard(request):
     return render(request, "onboard.html", {})
+
 
 def annotate(request):
     text = random.choice(EvaluationText.objects.all())
@@ -16,13 +20,14 @@ def annotate(request):
         "prompt": text.prompt, 
         "text_id": text.pk, 
         "sentences": json.dumps(sentences), 
-        "name": request.GET['name'], 
+        "name": request.user.username, 
         "max_sentences": len(sentences),
         "boundary": text.boundary,
         "TAXONOMY": False
     }
     
     return render(request, "annotate.html", args)
+
 
 @csrf_exempt
 def save(request):  
@@ -52,3 +57,24 @@ def save(request):
     annotation.save()
 
     return JsonResponse({'status': 200})
+
+
+def log_in(request):
+    if request.method == 'GET': return render(request, 'signin.html', {})
+    username, password = request.POST['username'], request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('/annotate')
+
+
+def sign_up(request):
+    email, username, password = request.POST['email'], request.POST['username'], request.POST['password']
+    user = User.objects.create_user(username=username, email=email, password=password)
+    login(request, user)
+    return redirect('/annotate')
+
+
+def log_out(request):
+    logout(request)
+    return redirect('/')
