@@ -37,6 +37,9 @@
         let current_sentence = 1;
         redraw_sentences(current_sentence);
 
+        $("#selection").show();
+        $("#analysis").hide();
+
         // adding new sentence
         $("#next").click(function() {
           current_sentence += 1;
@@ -51,9 +54,18 @@
           }
         });
 
+        $("#machine").click(function() {
+          $("#selection").hide();
+          $("#analysis").show();
+          $("#revision").show();
+          $("#revision").val(all_sentences[current_sentence - 1]);
+        });
+
         $("#human").click(function() {
           current_sentence = -1;
-          $(".form-check").hide();
+          $("#revision").hide();
+          $("#selection").hide();
+          $("#analysis").show();
         });
 
         // processing annotator decision
@@ -65,7 +77,7 @@
           const repetition = $('#repetition').is(":checked");
           const entailment = $('#entailment').is(":checked");
           const sense = $('#sense').is(":checked");
-          const note = $("#note").val();
+          const revision = $("#revision").val();
           
           $("#note").val('');
           $('input[type=checkbox]').each(function() { 
@@ -85,7 +97,7 @@
               "repetition": repetition,
               "entailment": entailment,
               "sense": sense,
-              "note": note
+              "revision": revision
             },
             success: function (response) {
               location.reload();
@@ -129,66 +141,30 @@
           <br /> <br />
 
           <div class="card" style="margin-bottom: 2rem">
-            <div class="card-body">
+            <div class="card-body" id="selection">
               <p class="text-muted">Select An Option:</p>
-              <button type="button" id="machine" type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" id="machine" type="button" class="btn btn-info">
                 It's a machine.
               </button>
               <button id="next" type="button" class="btn btn-secondary">I need another sentence.</button>
-              <button type="button" id="human" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              <button type="button" id="human" type="button" class="btn btn-primary">
                 It's a human.
               </button>
             </div>
-          </div>
 
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Thank you for your response! 
-                    {% if boundary == -1 %}
-                      The entire passage was human generated.
-                    {% else %}
-                      The true sentence boundary was the sentence number {{boundary}}.
-                    {% endif %}
-                  </h5>
-                  <br />
-                </div>
-                <div class="modal-body">
-                  {% if TAXONOMY %}
-                    <form class="form-check">
-                      <p>Select some options to describe the presented text:</p>
-                      <input type="checkbox" class="form-check-input" id="grammar">
-                      <label style="font-weight: 600" class="form-check-label text-muted" for="grammar">Grammatical Error </label>
-                      <br />
-                      <small>Text is not grammatical English, or doesn't "sound right".</small>
-                      <br style="margin-bottom: 1rem"/>
-                      <input type="checkbox" class="form-check-input" id="repetition">
-                      <label style="font-weight: 600" class="form-check-label text-muted" for="repetition">Repetition Error</label>
-                      <br />
-                      <small>Text repeats itself in a non-meaningful way.</small>
-                      <br style="margin-bottom: 1rem"/>
-                      <input type="checkbox" class="form-check-input" id="entailment">
-                      <label style="font-weight: 600" class="form-check-label text-muted" for="entailment">Entailment Error</label>
-                      <br />
-                      <small>Text implies something that contradicts previous sentences or doesn't "flow".</small>
-                      <br style="margin-bottom: 1rem"/>
-                      <input type="checkbox" class="form-check-input" id="sense">
-                      <label style="font-weight: 600" class="form-check-label text-muted" for="sense">Common-Sense Error</label>
-                      <br />
-                      <small>Text defies basic logic and/or is nonsensical.</small>
-                    </form>
-                    <br />
-                  {% endif %}
-                  <p>Anything else to mention?</p>
-                  <input type="text" id="note" class="form-control" placeholder="Any more specific details you want to add go here..." aria-label="note" aria-describedby="basic-addon1">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" id="submit" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Continue</button>
-                </div>
-              </div>
+            <div class="card-body" id="analysis">
+              <p class="text-muted">
+                Thank you for your response! 
+                {% if boundary == -1 %}
+                  The entire passage was human generated.
+                {% else %}
+                  The true sentence boundary was the sentence number {{boundary}}.
+                {% endif %}
+              </p>
+              <form>
+                <input type="text" id="revision" style="margin-bottom: 1rem" class="form-control" placeholder="TODO: auto-complete" />
+                <button type="button" id="submit" class="btn btn-primary">Continue</button>
+              </form>
             </div>
           </div>
         </div>
