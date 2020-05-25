@@ -34,20 +34,18 @@ def save(request):
     text = int(request.POST['text'])
     name = request.POST['name']
     boundary = int(request.POST['boundary'])
-    note = request.POST['note']
+    revision = request.POST['revision']
 
     grammar = request.POST['grammar'] == 'true'
     repetition = request.POST['repetition'] == 'true'
     entailment = request.POST['entailment'] == 'true'
     sense = request.POST['sense'] == 'true'
 
-    print(grammar, repetition, entailment, sense, note)
-
     annotation = Annotation.objects.create(
-        annotator=name,
+        annotator=request.user,
         text=EvaluationText.objects.get(pk=text),
         boundary=boundary,
-        note=note
+        revision=revision
     )
 
     if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))
