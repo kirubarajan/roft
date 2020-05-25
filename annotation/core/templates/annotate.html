@@ -13,6 +13,7 @@
 
     <script>
       const all_sentences = {{ sentences|safe }};
+      const boundary = {{boundary}};
       const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
       const name = "{{ name }}";
@@ -59,6 +60,9 @@
           $("#analysis").show();
           $("#revision").show();
           $("#revision").val(all_sentences[current_sentence - 1]);
+          
+          $('#' + boundary.toString()).addClass('bg-info');
+          $('#' + boundary.toString()).css('color', 'white');
         });
 
         $("#human").click(function() {
@@ -66,6 +70,9 @@
           $("#revision").hide();
           $("#selection").hide();
           $("#analysis").show();
+
+          $('#' + boundary.toString()).addClass('bg-info');
+          $('#' + boundary.toString()).css('color', 'white');
         });
 
         // processing annotator decision
@@ -163,7 +170,7 @@
               </p>
               <form>
                 <input type="text" id="revision" style="margin-bottom: 1rem" class="form-control" placeholder="TODO: auto-complete" />
-                <button type="button" id="submit" class="btn btn-primary">Continue</button>
+                <button type="button" id="submit" class="btn btn-info">Continue</button>
               </form>
             </div>
           </div>
