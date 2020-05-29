@@ -61,8 +61,10 @@
           $("#revision").show();
           $("#revision").val(all_sentences[current_sentence - 1]);
           
-          $('#' + boundary.toString()).addClass('bg-info');
-          $('#' + boundary.toString()).css('color', 'white');
+          for (let i = boundary; i < all_sentences.length; i += 1) {
+            $('#' + i.toString()).addClass('bg-info');
+            $('#' + i.toString()).css('color', 'white');
+          }
         });
 
         $("#human").click(function() {
@@ -71,8 +73,10 @@
           $("#selection").hide();
           $("#analysis").show();
 
-          $('#' + boundary.toString()).addClass('bg-info');
-          $('#' + boundary.toString()).css('color', 'white');
+          for (let i = boundary; i < all_sentences.length; i += 1) {
+            $('#' + i.toString()).addClass('bg-info');
+            $('#' + i.toString()).css('color', 'white');
+          }
         });
 
         // processing annotator decision
@@ -163,13 +167,14 @@
               <p class="text-muted">
                 Thank you for your response! 
                 {% if boundary == -1 %}
-                  The entire passage was human generated.
+                  The entire passage was human written.
                 {% else %}
-                  The true sentence boundary was the sentence number {{boundary}}.
+                  The highlighted sentences were machine generated.
                 {% endif %}
               </p>
               <form>
-                <input type="text" id="revision" style="margin-bottom: 1rem" class="form-control" placeholder="TODO: auto-complete" />
+                <small class="text-muted">Suggest a revision for the sentence you selected as machine-generated:</small>
+                <input type="text" id="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="TODO: auto-complete" />
                 <button type="button" id="submit" class="btn btn-info">Continue</button>
               </form>
             </div>
