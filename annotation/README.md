@@ -8,3 +8,6 @@ The annotation tool is built using the Django library for it's SQLite object-rel
 3. Populate database using `full_generations.json` by running `python populate.py`.
 4. Run `python manage.py runserver`.
 5. Dump database to JSON using `python manage.py dumpdata > db.json`.
+
+## To-do
+- Revise then display highlighting
