@@ -1,4 +1,4 @@
-# Learning to Trick Humans
+# Real or Fake Text?
 > Evaluation Criteria for Human and Computer Written Text
 
 In this project, we aim to measure how good neural langauge models are at writing text. We look at OpenAI's GPT-2, and try to devise criteria for evaluating generated text through a game that is a spin of the Turing Test!
