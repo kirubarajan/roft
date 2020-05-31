@@ -64,6 +64,8 @@ def log_in(request):
     if user is not None:
         login(request, user)
         return redirect('/annotate')
+    else:
+        return redirect('/?login_error=True')
 
 
 def sign_up(request):

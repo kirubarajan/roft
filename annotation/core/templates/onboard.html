@@ -54,6 +54,9 @@
               <h2 class="text-muted"> <strong> Log In </strong> </h2>
               <p class="text-muted" style="font-weight: 300">Welcome back!</p>
               <form style="width: 80%" action="/login/" method="POST">
+                {% if 'login_error' in request.GET %}
+                  <p class="text-danger">Username or password were incorrect.</p>
+                {% endif %}
                 {% csrf_token %}
                 <div class="form-group">
                   <label class="text-muted" for="exampleInputEmail1">Username</label>
