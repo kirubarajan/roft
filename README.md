@@ -3,7 +3,7 @@
 
 In this project, we aim to measure how good neural langauge models are at writing text. We look at OpenAI's GPT-2, and try to devise criteria for evaluating generated text through a game that is a spin of the Turing Test!
 
-Help us understand what makes text "sound human" by taking part in our experiment [here](http://18.218.3.184:8000) and annotating a few examples!
+Help us understand what makes text "sound human" by taking part in our experiment [here](https://roft.io) and annotating a few examples!
 
 ## Introduction
 There is little agreement on how to evaluate natural language generation systems using human annotation due to the wide variety of existing standards [1]. This experiment will be focused on using human annotation to answer what qualitative and linguistic qualities in particular give away the fact that a text is or is not human-written. Annotators will be able to select from a predefined list of error categories, and select sentences that provide the evidence for the annotator distinction. For example, an annotator may notice a failing coreference resolution, and provide the sentence containing the original named entity as context for the error. The goal of this project is to obtain qualitative human assessment of provided text in a systemized fashion in order to increase the accuracy and “human”-ness of text generation.
