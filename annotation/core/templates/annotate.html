@@ -37,7 +37,8 @@
         let cards_html = "";
 
         for (let i = 0; i < all_sentences.length; i++) {
-          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + all_sentences[i] +  '</div> </div> ';
+          const emoji = ((i < boundary) ? "🙋‍♀️" : "🤖");
+          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + emoji + ": " + all_sentences[i] +  '</div> </div> ';
           cards_html += card;
         }
 
