@@ -20,9 +20,8 @@
 
       // helper function for adding new sentences
       redraw_sentences = current_sentence => {
-        let cards_html = "";
         const sentences = all_sentences.slice(0, current_sentence);
-        $("#human").hide();
+        let cards_html = "";
 
         for (let i = 0; i < sentences.length; i++) {
           const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + sentences[i] +  '</div> </div> ';
@@ -33,6 +32,29 @@
         $("#remaining").html((max_sentences - current_sentence).toString() + " sentences remaining") 
       }
 
+      // helper function for adding highlights and emojis
+      reveal_solutions = () => {
+        let cards_html = "";
+
+        for (let i = 0; i < all_sentences.length; i++) {
+          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + all_sentences[i] +  '</div> </div> ';
+          cards_html += card;
+        }
+
+        $("#cards").html(cards_html);
+        $("#remaining").html("All sentences displayed.");
+
+        if (boundary !== -1) {
+          for (let i = boundary; i < all_sentences.length; i += 1) {
+            $('#' + i.toString()).addClass('bg-info');
+            $('#' + i.toString()).css('color', 'white');
+          }
+        }
+
+        $("#analysis").hide();
+        $("#reveal").show();
+      }
+
       // user interaction logic
       $(document).ready(function() {
         let current_sentence = 1;
@@ -40,6 +62,8 @@
 
         $("#selection").show();
         $("#analysis").hide();
+        $("#reveal").hide();
+        $("#human").hide();
 
         // adding new sentence
         $("#next").click(function() {
@@ -60,23 +84,13 @@
           $("#analysis").show();
           $("#revision").show();
           $("#revision").val(all_sentences[current_sentence - 1]);
-          
-          for (let i = boundary; i < all_sentences.length; i += 1) {
-            $('#' + i.toString()).addClass('bg-info');
-            $('#' + i.toString()).css('color', 'white');
-          }
         });
 
         $("#human").click(function() {
           current_sentence = -1;
-          $("#revision").hide();
+          $("#revision-form").hide();
           $("#selection").hide();
           $("#analysis").show();
-
-          for (let i = boundary; i < all_sentences.length; i += 1) {
-            $('#' + i.toString()).addClass('bg-info');
-            $('#' + i.toString()).css('color', 'white');
-          }
         });
 
         // processing annotator decision
@@ -111,7 +125,7 @@
               "revision": revision
             },
             success: function (response) {
-              location.reload();
+              reveal_solutions();
             }, 
             error: function (error) {
               console.log(error);
@@ -165,18 +179,26 @@
 
             <div class="card-body" id="analysis">
               <p class="text-muted">
-                Thank you for your response! 
-                {% if boundary == -1 %}
-                  The entire passage was human written.
-                {% else %}
-                  The highlighted sentences were machine generated.
-                {% endif %}
+                Thank you for your response!
               </p>
               <form>
-                <small class="text-muted">Suggest a revision for the sentence you selected as machine-generated:</small>
-                <input type="text" id="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="TODO: auto-complete" />
-                <button type="button" id="submit" class="btn btn-info">Continue</button>
+                <div id="revision-form">
+                  <small class="text-muted">Suggest a revision for the sentence you selected as machine-generated:</small>
+                  <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="TODO: auto-complete" />
+                </div>
+                <button type="button" id="submit" class="btn btn-info">Reveal</button>
               </form>
+            </div>
+
+            <div class="card-body" id="reveal">
+              <p class="text-muted">
+                {% if boundary == -1 %}
+                  The entire passage was human-written!
+                {% else %}
+                  Good try! The machine-generated sentences are highlighted.
+                {% endif %}
+              </p>
+              <a class="btn btn-primary" href="/annotate/">Continue</a>
             </div>
           </div>
         </div>
