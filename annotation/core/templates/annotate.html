@@ -17,6 +17,7 @@
       const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
       const name = "{{ name }}";
+      let current_sentence = 1;
 
       // helper function for adding new sentences
       redraw_sentences = current_sentence => {
@@ -38,7 +39,7 @@
 
         for (let i = 0; i < all_sentences.length; i++) {
           const emoji = ((i < boundary) ? "🙋‍♀️" : "🤖");
-          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + emoji + ": " + all_sentences[i] +  '</div> </div> ';
+          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + emoji + " " + all_sentences[i] +  '</div> </div> ';
           cards_html += card;
         }
 
@@ -52,13 +53,20 @@
           }
         }
 
+        if (boundary > current_sentence) {
+          $("#result-text").html("Good try! You guessed machine-generated but that sentence was still human-written.")
+        } else if (boundary == current_sentence) {
+          $("#result-text").html("Nice job! You guessed correctly.")
+        } else {
+          $("#result-text").html(`Good try! The machine-generated sentences are highlighted. Your guess was ${current_sentence - boundary} sentence(s) away from the true boundary.`)
+        }
+
         $("#analysis").hide();
         $("#reveal").show();
       }
 
       // user interaction logic
       $(document).ready(function() {
-        let current_sentence = 1;
         redraw_sentences(current_sentence);
 
         $("#selection").show();
@@ -192,13 +200,7 @@
             </div>
 
             <div class="card-body" id="reveal">
-              <p class="text-muted">
-                {% if boundary == -1 %}
-                  The entire passage was human-written!
-                {% else %}
-                  Good try! The machine-generated sentences are highlighted.
-                {% endif %}
-              </p>
+              <p class="text-muted" id="result-text"> </p>
               <a class="btn btn-primary" href="/annotate/">Continue</a>
             </div>
           </div>
