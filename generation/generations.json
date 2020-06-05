@@ -1,7 +1,7 @@
 [
     {
-        prompt: "LEAD: Under pressure from the United States and their own Government, Japan's giant utility companies said today that they would stop importing uranium from South Africa,a large supplier of fuel for Japanese nuclear power.",
-        text: [
+        "prompt": "LEAD: Under pressure from the United States and their own Government, Japan's giant utility companies said today that they would stop importing uranium from South Africa,a large supplier of fuel for Japanese nuclear power.",
+        "text": [
             "Under pressure from the United States and their own Government, Japan's giant utility companies said today that they would stop importing uranium from South Africa,a large supplier of fuel for Japanese nuclear power.",
             "The move came as a relief to the Government, which has been embarrassed in diplomatic circles by Japan's recent rise to South Africa's leading trading partner.",
             "Although Japan has imposed limited trading sanctions on South Africa to protest the Pretoria Government's apartheid policy, the bans have never extended to ''strategic materials.''",
@@ -13,11 +13,11 @@
             "Japan's Uranium Industry\nFor the past decade, the Japanese industry has bought from South Africa about 5,000 metric tons, or about 12,000 tons, of uranium.",
             "In the past five years, the industry has purchased about 9,600 tons, or about 17,000 tons, of uranium, a figure that has not changed since 1996.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "Mayor Michael Bloomberg wants to shove two major changes in the city's charter onto this November's ballot.",
-        text: [
+        "prompt": "Mayor Michael Bloomberg wants to shove two major changes in the city's charter onto this November's ballot.",
+        "text": [
             "First, he wants to ban public schools from allowing students to vote for school board members.",
             "Second, he wants to put a cap on the number of children who can vote in municipal elections.",
             "Coupled with the anti-public school and anti-board-voting campaigns, Bloomberg's effort to put more restrictions on city schools could cripple the public education system in the city.",
@@ -29,11 +29,11 @@
             "The Times reported that Bloomberg has proposed to add $1 million to the annual bond cost for each student in the school, and to increase the amount of bond issued by the Board of Education by $1 million each year.",
             "Bloomberg's plan would bring the cost of a public school to about $30,000, and if the students approved the bond, the district would have to raise $32 million.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Douglas Faneuil, the former stockbroker's assistant who is the pivotal witness in the Martha Stewart trial, described an elaborate cover-up yesterday that began soon after he tipped Ms. Stewart over the telephone to sell her shares of ImClone Systems.",
-        text: [
+        "prompt": "Douglas Faneuil, the former stockbroker's assistant who is the pivotal witness in the Martha Stewart trial, described an elaborate cover-up yesterday that began soon after he tipped Ms. Stewart over the telephone to sell her shares of ImClone Systems.",
+        "text": [
             "It started, he said, with a claim that she made the trade to balance profits from other stock sales.",
             "That was soon substituted, Mr. Faneuil said, with another explanation: that she sold because of an existing agreement to do so if the share price fell below $60.",
             "His testimony buttressed the government's argument that the two defendants -- Ms. Stewart and her former stockbroker, Peter E. Baconovic -- concocted the $60-a-share story for Ms. Stewart's trade.",
@@ -45,11 +45,11 @@
             "Mr. Katz, who was not at ImClone on that day, said in a telephone interview that he had never heard of any such agreement.",
             "He added that ImClone offered to sell shares of ImClone for $60.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "WHILE the nation's central bankers appear convinced that the economy can continue to grow briskly without kicking up inflation fears, a growing number of money managers are not so sure.",
-        text: [
+        "prompt": "WHILE the nation's central bankers appear convinced that the economy can continue to grow briskly without kicking up inflation fears, a growing number of money managers are not so sure.",
+        "text": [
             "Many financial planners say that for prudent investors, now is the time to deal with inflation -- before prices actually spike.",
             "A December survey of U.S. fund managers by Merrill Lynch found that 71 percent thought that inflation would increase in the coming 12 months, up from just 36 percent who thought so in August.",
             "And more than a third said in December that they believed that monetary policy was too stimulative, versus only 11 percent who said so in July.",
@@ -61,11 +61,11 @@
             "First, it has pumped trillions of dollars into the financial system.",
             "And second, it has used quantitative easing to buy up assets, including debt.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "LEAD: The Montreal Expos thrive on working overtime.",
-        text: [
+        "prompt": "LEAD: The Montreal Expos thrive on working overtime.",
+        "text": [
             "''These guys think they can't be beaten in extra innings,'' Manager Buck Rodgers said after his team had defeated the Los Angeles Dodgers, 3-2, in 10 innings today.",
             "The Montreal Expos thrive on working overtime.",
             "''These guys think they can't be beaten in extra innings,'' Manager Buck Rodgers said after his team had defeated the Los Angeles Dodgers, 3-2, in 10 innings today.",
@@ -77,11 +77,11 @@
             "It was just a terrible play.''",
             "The Expos scored twice in the fourth inning and scored three times in the sixth inning, but lost both games.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "Keep On Partying\nThe party was for DR. NEAL NATHANSON, director of the Office of AIDS Research at the National Institutes of Health, and DR. PETER PIOT, director of UNAIDS, a United Nations unit.",
-        text: [
+        "prompt": "Keep On Partying\nThe party was for DR. NEAL NATHANSON, director of the Office of AIDS Research at the National Institutes of Health, and DR. PETER PIOT, director of UNAIDS, a United Nations unit.",
+        "text": [
             "The word from the American Foundation for AIDS Research was that it would be the last party at the town house of one of its founders, DR. MATHILDE KRIM.",
             "Dr. Krim, who has lived in the Upper East Side house for 38 years, is moving to an apartment, she said.",
             "The party comes at a time when AIDS remains a public health problem in the United States, a fact that may prove a stumbling block in the party.",
@@ -93,11 +93,11 @@
             "\"It's not like we're going to go out and say, 'We're going to just fuck with the people who are carrying the AIDS burden,' \" Dr. Krim said.",
             "\"We're going to say, 'We're going to fuck with the people who are carrying the burden in the community.'",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "Karen Ratazzi-Stein is a potter, a painter and the director of education at the Garrison Art Center.",
-        text: [
+        "prompt": "Karen Ratazzi-Stein is a potter, a painter and the director of education at the Garrison Art Center.",
+        "text": [
             "She said that although the program might not show up in the art market like a traditional graduate art program, its popularity can be attributed to the program's unusual format.",
             "\"A lot of people don't see graduate work as a big deal,\" said Ratazzi-Stein, who also is the director of the Garrison Art Center, the major partner of the program.",
             "\"But some people say, 'I'm going to graduate art school because I want to show my work.'",
@@ -109,11 +109,11 @@
             "Graff said Graff's art is displayed at Graff's house.",
             "Graff said Graff's art is displayed at Graff's home.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Fierce winds yesterday peeled a mammoth vinyl advertisement off the Times Square building famous for the New Year's Eve ball drop, injuring three women with falling debris and prompting the police to close a wide swath of midtown Manhattan.",
-        text: [
+        "prompt": "Fierce winds yesterday peeled a mammoth vinyl advertisement off the Times Square building famous for the New Year's Eve ball drop, injuring three women with falling debris and prompting the police to close a wide swath of midtown Manhattan.",
+        "text": [
             "The wind, which gusted to 40 miles an hour, made the tattered remnants of the billboard difficult to secure.",
             "Officials, concerned that more debris would dislodge from the building, closed the surrounding streets.",
             "''There was metal debris flying all over the place,'' said Police Officer James Gampel, one of the first at the scene, who tried to warn people.",
@@ -125,11 +125,11 @@
             "It is on view at 365 Times Square, which is open from 12 on Saturday until 10 p.m. on Sunday.",
             "It is part of a $2.3 million project to improve Times Square, including the rerouting of the street and the installation of a new light-pumping substation.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "SEX  HETEROSEXUALITY  By William H. Masters, Virginia E. Johnson and Robert C. Kolodny.",
-        text: [
+        "prompt": "SEX  HETEROSEXUALITY  By William H. Masters, Virginia E. Johnson and Robert C. Kolodny.",
+        "text": [
             "HarperCollins, $27.50.",
             "There is something -- how to say it?",
             "-- refreshing about \"Heterosexuality,\" the new survey of sexual relations by William H. Masters, Virginia E. Johnson and their longtime collaborator, Robert C. Kolodny.",
@@ -141,11 +141,11 @@
             "But when they had the idea to survey people about their sexual lives, they were struck by how much they didn't know.",
             "Interviewing about their sexual lives was a way of getting a sense of people's experience and feelings, but when the authors interviewed people as well, there was interest.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "After Nebraska's stunning defeat to end the regular season, the Blackshirts of the Cornhusker defense took on additional symbolic hues.",
-        text: [
+        "prompt": "After Nebraska's stunning defeat to end the regular season, the Blackshirts of the Cornhusker defense took on additional symbolic hues.",
+        "text": [
             "There was purplish blue, to suggest the physical and psychological bruises after a 62-36 Colorado victory.",
             "There was also crimson, a shade that implies a blush of embarrassment after they gave up 380 rushing yards, 202 passing yards and the most points in university history.",
             "After their only defeat of the season, there was even a suggestion of yellow, a hint of cowardice.",
@@ -157,6 +157,6 @@
             "Each said it was a coincidence, although they said they liked that color in their wardrobes.",
             "''Every time I put on that black shirt to go out for practice, it is an amazing feeling, to know that you are one of the top players in the country,'' Booker said.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
 ]
