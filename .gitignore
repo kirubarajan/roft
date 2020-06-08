@@ -2,4 +2,5 @@ __pycache__/
 *.py[cod]
 venv/
 generation/New-York-Times/raw
+generation/Reddit-Stories/raw
 .DS_Store
