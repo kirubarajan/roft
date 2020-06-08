@@ -1,7 +1,7 @@
 [
     {
-        prompt: "LEAD: Under pressure from the United States and their own Government, Japan's giant utility companies said today that they would stop importing uranium from South Africa,a large supplier of fuel for Japanese nuclear power.",
-        text: [
+        "prompt": "LEAD: Under pressure from the United States and their own Government, Japan's giant utility companies said today that they would stop importing uranium from South Africa,a large supplier of fuel for Japanese nuclear power.",
+        "text": [
             "Under pressure from the United States and their own Government, Japan's giant utility companies said today that they would stop importing uranium from South Africa,a large supplier of fuel for Japanese nuclear power.",
             "The move came as a relief to the Government, which has been embarrassed in diplomatic circles by Japan's recent rise to South Africa's leading trading partner.",
             "Even though Japan still accounts for more than half of South Africa's mainframe computer market, the increasing isolation of the United States has caused some concern that the Administration might try to use economic pressure to force concessions from the Japanese companies.",
@@ -13,11 +13,11 @@
             "The pressure has reached the point where the European Community, which has traditionally been a lifeline for African countries, has started to relax its own economic and diplomatic sanctions on the countries that finance and aid the African countries.",
             "The pressure has reached the point where the United States is seeking to build coalitions against the recalcitrant African leaders.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "Mayor Michael Bloomberg wants to shove two major changes in the city's charter onto this November's ballot.",
-        text: [
+        "prompt": "Mayor Michael Bloomberg wants to shove two major changes in the city's charter onto this November's ballot.",
+        "text": [
             "First, he wants to ban public schools from allowing students to vote for school board members.",
             "Second, he wants to put a cap on the number of children who can vote in municipal elections.",
             "Coupled with the anti-public school and anti-board-voting campaigns, Bloomberg's effort to put more restrictions on city schools could cripple the public education system in the city.",
@@ -29,11 +29,11 @@
             "The Times reported that Bloomberg has proposed to add $1 million to the annual bond cost for each student in the school, and to increase the amount of bond issued by the Board of Education by $1 million each year.",
             "Bloomberg's plan would bring the cost of a public school to about $30,000, and if the students approved the bond, the district would have to raise $32 million.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Douglas Faneuil, the former stockbroker's assistant who is the pivotal witness in the Martha Stewart trial, described an elaborate cover-up yesterday that began soon after he tipped Ms. Stewart over the telephone to sell her shares of ImClone Systems.",
-        text: [
+        "prompt": "Douglas Faneuil, the former stockbroker's assistant who is the pivotal witness in the Martha Stewart trial, described an elaborate cover-up yesterday that began soon after he tipped Ms. Stewart over the telephone to sell her shares of ImClone Systems.",
+        "text": [
             "It started, he said, with a claim that she made the trade to balance profits from other stock sales.",
             "That was soon substituted, Mr. Faneuil said, with another explanation: that she sold because of an existing agreement to do so if the share price fell below $60.",
             "His testimony buttressed the government's argument that the two defendants -- Ms. Stewart and her former stockbroker, Peter E. Baconovic -- concocted the $60-a-share story for Ms. Stewart's trade.",
@@ -45,11 +45,11 @@
             "Mr. Katz, who was not at ImClone on that day, said in a telephone interview that he had never heard of any such agreement.",
             "He added that ImClone offered to sell shares of ImClone for $60.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "WHILE the nation's central bankers appear convinced that the economy can continue to grow briskly without kicking up inflation fears, a growing number of money managers are not so sure.",
-        text: [
+        "prompt": "WHILE the nation's central bankers appear convinced that the economy can continue to grow briskly without kicking up inflation fears, a growing number of money managers are not so sure.",
+        "text": [
             "Many financial planners say that for prudent investors, now is the time to deal with inflation -- before prices actually spike.",
             "A December survey of U.S. fund managers by Merrill Lynch found that 71 percent thought that inflation would increase in the coming 12 months, up from just 36 percent who thought so in August.",
             "And more than a third said in December that they believed that monetary policy was too stimulative, versus only 11 percent who said so in July.",
@@ -61,11 +61,11 @@
             "''For now, I believe that the Federal Reserve has the luxury of being patient,'' he told a gathering of the American Economic Association in San Diego.",
             "Recent economic data appear to support his argument, at least for the short term.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "LEAD: The Montreal Expos thrive on working overtime.",
-        text: [
+        "prompt": "LEAD: The Montreal Expos thrive on working overtime.",
+        "text": [
             "''These guys think they can't be beaten in extra innings,'' Manager Buck Rodgers said after his team had defeated the Los Angeles Dodgers, 3-2, in 10 innings today.",
             "The Montreal Expos thrive on working overtime.",
             "They are 35-0 at the B.A.A.",
@@ -77,11 +77,11 @@
             "games.",
             "In addition, manager Buck Rodgers noted, the Expos have five days to decide whether to take advantage of a rare home-run rally.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "Keep On Partying\nThe party was for DR. NEAL NATHANSON, director of the Office of AIDS Research at the National Institutes of Health, and DR. PETER PIOT, director of UNAIDS, a United Nations unit.",
-        text: [
+        "prompt": "Keep On Partying\nThe party was for DR. NEAL NATHANSON, director of the Office of AIDS Research at the National Institutes of Health, and DR. PETER PIOT, director of UNAIDS, a United Nations unit.",
+        "text": [
             "The word from the American Foundation for AIDS Research was that it would be the last party at the town house of one of its founders, DR. MATHILDE KRIM.",
             "Dr. Krim, who has lived in the Upper East Side house for 38 years, is moving to an apartment, she said.",
             "''It lends itself to socializing here,'' she said, but she decided to sell after her husband, the entertainment lawyer Arthur B. Krim, died in 1995.",
@@ -93,11 +93,11 @@
             "Yes, the Howard Johnson's.",
             "In the words of the band's lead singer, DARIUS RUCKER, ''It gives the party a down-home feel.''",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "Karen Ratazzi-Stein is a potter, a painter and the director of education at the Garrison Art Center.",
-        text: [
+        "prompt": "Karen Ratazzi-Stein is a potter, a painter and the director of education at the Garrison Art Center.",
+        "text": [
             "But a course she will give at Boscobel Restoration in Garrison next Saturday will focus on cookies.",
             "From 11 a.m. to 1 p.m. she will offer a ''Master Class in Gingerbread Decorating.''",
             "''I want to demystify the confectionary art and make it fun,'' she said.",
@@ -109,11 +109,11 @@
             "''We're going to make him look like a sergeant from the Army.",
             "He'll probably be a drunk driving, marijuana-smoking mess.''",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "BRANCH--Joan (nee Swan), 81 of Bedford, NY on July 22nd, 2006.",
-        text: [
+        "prompt": "BRANCH--Joan (nee Swan), 81 of Bedford, NY on July 22nd, 2006.",
+        "text": [
             "Born in Shanghai, China to the late Joseph and Lena Mary Swan.",
             "Beloved wife of the late Benjamin Callcote Branch.",
             "Mother of Suzanne Branch of New York City, Benjamin C. Branch Jr. of Bedford, NY, Charles Swan Branch of Hasting-on-Hudson, and Cynthia Branch Mas of Bedford, NY.",
@@ -125,11 +125,11 @@
             "\"Martha Jane was always looking out for me,\" said Mr. Chase, 81.",
             "\"She was always worried about my well-being, and she will be remembered by all of us for that.\"",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "After Nebraska's stunning defeat to end the regular season, the Blackshirts of the Cornhusker defense took on additional symbolic hues.",
-        text: [
+        "prompt": "After Nebraska's stunning defeat to end the regular season, the Blackshirts of the Cornhusker defense took on additional symbolic hues.",
+        "text": [
             "There was purplish blue, to suggest the physical and psychological bruises after a 62-36 Colorado victory.",
             "There was also crimson, a shade that implies a blush of embarrassment after they gave up 380 rushing yards, 202 passing yards and the most points in university history.",
             "Colorado was a team with an unusual ability to move the chains.",
@@ -141,11 +141,11 @@
             "We haven't done a great job in the last four years against the spread.",
             "We have to do a better job.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "MOST of us accept fur-trimmed suede coats and fake animal-skin pillows piled on the sofa.",
-        text: [
+        "prompt": "MOST of us accept fur-trimmed suede coats and fake animal-skin pillows piled on the sofa.",
+        "text": [
             "Now, as if from some great collective-unconscious storage closet, have arrived embalmed pets, preserved deer heads and stuffed emus to decorate home and store.",
             "While the attitude may be ironic, the taxidermy is real.",
             "It makes sense that the set designer Derek McLane would use 15 mounted heads and a stuffed fish to depict a 1930's lodge in Reno, Nev., in the revival of ''The Women.''",
@@ -157,11 +157,11 @@
             "''I wanted it to be really warm and comfortable without being corny,'' Mr. Goode said.",
             "''The idea was to introduce nature into a comfortable space.''",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "This week the Dining section introduces Dining Briefs, short reviews that include first looks at new restaurants, updates on places that have been reviewed or overlooked and critiques of bars and lounges that offer noteworthy drinks and food.",
-        text: [
+        "prompt": "This week the Dining section introduces Dining Briefs, short reviews that include first looks at new restaurants, updates on places that have been reviewed or overlooked and critiques of bars and lounges that offer noteworthy drinks and food.",
+        "text": [
             "The feature will provide an informed opinion on places around New York City that are worth consideration even if they don't receive a full review in Frank Bruni's Restaurants column or in $25 and Under.",
             "Dining Briefs will alternate every other week with $25 and Under.",
             "GILT  455 Madison Avenue (50th Street); (212) 891-8100.",
@@ -173,11 +173,11 @@
             "Mr. Lee said his goal was to create a ''doughnutty, gooey cake.''",
             "In the past, Mr. Bruni has offered variations on the theme, including creams and cheesecake.",
         ],
-        boundary: 5,
+        "boundary": 5,
     },
     {
-        prompt: "Jed Mattes, a literary agent and gay-rights advocate, died on July 24 at his home on the Upper West Side of Manhattan.",
-        text: [
+        "prompt": "Jed Mattes, a literary agent and gay-rights advocate, died on July 24 at his home on the Upper West Side of Manhattan.",
+        "text": [
             "He was 41 years old and lived on the Upper West Side of Manhattan.",
             "No cause of death was given.",
             "His mother, who often traveled with her son, discovered that her son had leukemia while taking him to the hospital in December 1988.",
@@ -189,11 +189,11 @@
             "He read everything.''",
             "He graduated from the University of Michigan and received a master's degree in comparative literature and a Ph.D. in 1990.",
         ],
-        "boundary": 0,
+        ""boundary"": 0,
     },
     {
-        prompt: "LEAD:\nRecriminations in Boston\nRecriminations in Boston\nAfter a murder suspect's suicide, Boston is filled with vicious finger-pointing as the police, prosecutors and the news media trace the blunders in a racially tinged case that jolted the city.",
-        text: [
+        "prompt": "LEAD:\nRecriminations in Boston\nRecriminations in Boston\nAfter a murder suspect's suicide, Boston is filled with vicious finger-pointing as the police, prosecutors and the news media trace the blunders in a racially tinged case that jolted the city.",
+        "text": [
             "''It was a pattern, a predictable pattern,'' said Assistant District Attorney Stephen DeMello, the lead prosecutor in the case, which remains open.",
             "''It was a pattern to harass black people, to humiliate black people, to malign black people and to blame black people for crimes.''",
             "The 15-month investigation, according to Boston police Commissioner Howard Safir, revealed that from January 1988 through August 1990, the district attorney, Martha Stewart, used a ''steal'' of black men, some of whom were already dead, to contact black women in an attempt to entrap potential victims.",
@@ -205,11 +205,11 @@
             "But Ms. Stewart refused to use the information.",
             "''Information is not evidence,'' said Assistant District Attorney Thomas J. Meyers.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "It is tempting to look at a lineup and think of each player in the best-case scenario.",
-        text: [
+        "prompt": "It is tempting to look at a lineup and think of each player in the best-case scenario.",
+        "text": [
             "The offense has so much potential that way, and its chance of success is tantalizing.",
             "The defense is suspect, and the pass rush is suspect.",
             "Still, this is the most complete defense the 49ers have ever had.",
@@ -221,11 +221,11 @@
             "He has two interceptions and three forced fumbles in the last two seasons.",
             "The versatile defensive end Justin Smith has shown promise, especially on defense.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "Patterson Ewen, a Canadian artist who combined painting and sculpture to create cosmological images, died on Feb. 17 at his home in London, Ontario.",
-        text: [
+        "prompt": "Patterson Ewen, a Canadian artist who combined painting and sculpture to create cosmological images, died on Feb. 17 at his home in London, Ontario.",
+        "text": [
             "He was 76.",
             "The cause was kidney failure, said Jack Shainman, the Manhattan dealer who presented Mr. Ewan's last New York show, in 2000.",
             "Mr. Ewen's work of the 1970's and 80's, for which he was best known, consisted of large plywood panels gouged with hand tools and electric routers then worked over with pigment to produce images that suggested topographic relief maps of a storm-swept natural world or a star-filled outer space.",
@@ -237,11 +237,11 @@
             "''I thought, 'I'll try and make this interesting.'",
             "''\nOn the basis of that idea, he illustrated other Samuelson works that became hits.",
         ],
-        boundary: 6,
+        "boundary": 6,
     },
     {
-        prompt: "In recent years, researchers have used advances in understanding how the brain works as a catalyst for understanding how children learn or, sometimes, do not learn.",
-        text: [
+        "prompt": "In recent years, researchers have used advances in understanding how the brain works as a catalyst for understanding how children learn or, sometimes, do not learn.",
+        "text": [
             "In the current bestseller ''A Mind at a Time'' (Simon & Schuster), the author, Dr. Mel Levine, surmises that each child's brain is ''wired'' differently, with its own set of strengths and weaknesses in learning.",
             "Though each child may have a handful of ''defaults,'' Dr. Levine said, some children simply learn better than others.",
             "She cites a range of complex human vulnerabilities that may explain why a child may have trouble remembering things, or may fail to learn things in the situations in which more advanced learners may excel.",
@@ -253,11 +253,11 @@
             "The new book is called ''The Forgotten Child: A Mind at a Time'' and is the first to address what Dr. Levine calls the learning disadvantage of ''average-income families,'' those with a high average and low potential.",
             "The content is meant to help parents and educators recognize when a child is not learning or is in fact not learning.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "Last Sunday, in discussing the reasons his Yellow Jackets had advanced to the regional semifinals of the N.C.A.A.",
-        text: [
+        "prompt": "Last Sunday, in discussing the reasons his Yellow Jackets had advanced to the regional semifinals of the N.C.A.A.",
+        "text": [
             "tournament, Georgia Tech Coach Paul Hewitt added one significant factor.",
             "''And luck,'' he said.",
             "''Don't forget about luck.''",
@@ -269,11 +269,11 @@
             "But Georgia Tech (26-9) went ahead by a point with 7 minutes 32 seconds left in the second half when Marvin Lewis -- who led the Yellow Jackets with 23 points -- sank two free throws after a technical foul against Nevada.",
             "And the Yellow Jackets went ahead to stay when Will Bynum, who filled in for Elder, made a reverse layup as he bulled past Todd Okeson and Nick Fazekas along the baseline with 1:04 left.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "KREIDMAN-Richard.",
-        text: [
+        "prompt": "KREIDMAN-Richard.",
+        "text": [
             "At the request of the Lawyer's Committee for Civil Rights Under Law and the American Civil Liberties Union, we have invited the New Yorkers who are interested to join at a social as well as a legal function, a \"Stop the War on Women.\"",
             "If you are a woman with a disability who wants to have a baby, there are a number of things wrong with the world.",
             "The problem is that the law does not require maternity leave or paid maternity leave.",
@@ -285,11 +285,11 @@
             "You've got to take care of Mother Nature.",
             "A couple of years ago, we took a group of 20 to 30 clients who were either pregnant or trying to get pregnant.",
         ],
-        boundary: 0,
+        "boundary": 0,
     },
     {
-        prompt: "Based on his own analysis, David John Oates believes that George W. Bush has been a powerful, consistent leader.",
-        text: [
+        "prompt": "Based on his own analysis, David John Oates believes that George W. Bush has been a powerful, consistent leader.",
+        "text": [
             "''He is strong and resolute,'' Mr. Oates said, speaking by telephone from his home in Australia.",
             "''His reversals were very forceful.",
             "There was no internal wavering inside himself.''",
@@ -301,11 +301,11 @@
             "One day in 1983, Mr. Oates said, he discovered that the toilets can also make technology work backward, when he accidentally dropped his cassette player into one.",
             "''It worked perfectly,'' he said.",
         ],
-        boundary: 9,
+        "boundary": 9,
     },
     {
-        prompt: "To the Editor: This is in response to Betsy Wade's ''Rules of the Road for A.T.M.",
-        text: [
+        "prompt": "To the Editor: This is in response to Betsy Wade's ''Rules of the Road for A.T.M.",
+        "text": [
             "Fees'' (Practical Traveler, Dec. 17).",
             "In 1999, my daughter went to Europe after graduating from college and tried to use her MAC-linked card at Heathrow Airport and several other places in Europe, and it was denied.",
             "We would up wiring her money.",
@@ -317,11 +317,11 @@
             "generally passes a ''no account specified'' request through its network to the bank that issued the card.",
             "The card-issuing institution determines whether to accept or deny the transaction.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "If a swimming coach had three different Olympic champions amass five gold medals over the last four Summer Games, the natural assumption would be that he or she was from California or Florida.",
-        text: [
+        "prompt": "If a swimming coach had three different Olympic champions amass five gold medals over the last four Summer Games, the natural assumption would be that he or she was from California or Florida.",
+        "text": [
             "Or perhaps Indiana University or the University of Michigan.",
             "The natural assumption would be wrong, for John Collins of the Badger Swim Club here is the producer of champions in this unlikely setting -- Larchmont.",
             "At 6 feet and 220 pounds, with a fast 1.63 split, Collins is not particularly tall.",
@@ -333,11 +333,11 @@
             "He has won four Olympic gold medals (1988, 1990, 1992 and 1996), including this year's gold medal.",
             "Two other members are Jim Levee, the coach of the boys' 4x400-meter relay team, and Ron Wood, the sprinter who won the gold medal at the 2000 Games.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "John Smith, the Labor Party leader, narrowly won a knockdown, drag-out struggle today to weaken the hold of Britain's unions over the Labor Party.",
-        text: [
+        "prompt": "John Smith, the Labor Party leader, narrowly won a knockdown, drag-out struggle today to weaken the hold of Britain's unions over the Labor Party.",
+        "text": [
             "Reformers within the party were convinced that the move was necessary to improve the party's image and so help propel it out of the wilderness of opposition to the ruling Conversatives where it has languished for 14 years.",
             "The issue of the relationship with the trade unions, which founded the party in 1900, has dominated the party's annual conference in this seaside resort since Monday.",
             "It turned into a major test of authority for Mr. Smith, the 55-year-old Scottish barrister who won the party leadership after Labor's defeat by the Tories in April, 1992.",
@@ -349,11 +349,11 @@
             "As a consolation to the unions, and also as a means of expanding total party membership beyond the current figure of 279,530, the party will make it easier for union members to join.",
             "Those who already pay a \"political levy\" of $2.50 a year will be able to become full members by paying an additional $4.50 a year.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "John Nash, the Nets' general manager, was told last week that the organization will not renew his contract when it expires at the end of June, according to several people with knowledge of the organization.",
-        text: [
+        "prompt": "John Nash, the Nets' general manager, was told last week that the organization will not renew his contract when it expires at the end of June, according to several people with knowledge of the organization.",
+        "text": [
             "Nash, who joined the Nets in 1996, was due to make approximately $800,000 next season, but he will instead receive a $250,000 buyout as compensation.",
             "When the Nets hired Rod Thorn as team president last June, Thorn took a predominant role in player and personnel matters, duties that Nash had primarily overseen with Michael Rowe as team president.",
             "Whereas Rowe was reassigned within the YankeeNets organization and Don Casey was fired as head coach, Nash survived the housecleaning after last season.",
@@ -365,11 +365,11 @@
             "The Nets' decision to let Nash go is believed to be based in part on financial efficiency, since Thorn's and Nash's duties have, at times, overlapped.",
             "The team has not yet decided about a search for a new general manager.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "The star cyclist Richard Virenque has acknowledged using banned performance-enhancing drugs, the police said today.",
-        text: [
+        "prompt": "The star cyclist Richard Virenque has acknowledged using banned performance-enhancing drugs, the police said today.",
+        "text": [
             "Virenque is the former leader of the Festina team that was expelled from last year's Tour de France for doping.",
             "He is under investigation by the police and the anti-doping watchdog, the ASADA, for doping violations.",
             "Virenque's admissions came less than a month after the police announced they had found doping-related documents in his home.",
@@ -381,11 +381,11 @@
             "Asked if he had ever admitted doping to the police, Virenque said, ''No, I haven't.''",
             "But he said he had to be careful with the information he gave to police.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "Kelly Kip, the speedy and undefeated 2-year-old star of the Saratoga season, drew the inside post today for the 92d running of the Hopeful Stakes, the career-making sprint that could show eight colts the route to next year's Kentucky Derby.",
-        text: [
+        "prompt": "Kelly Kip, the speedy and undefeated 2-year-old star of the Saratoga season, drew the inside post today for the 92d running of the Hopeful Stakes, the career-making sprint that could show eight colts the route to next year's Kentucky Derby.",
+        "text": [
             "The Grade I race will be run at seven furlongs Saturday as the second of two stakes for juveniles that will command the Saratoga stage on its final weekend.",
             "The first, the 105th running of the Spinaway, will be held Friday with nine fillies racing in the footsteps of Ruffian, Meadow Star, Flanders and other champions of the past.",
             "But trainers of colts and fillies alike conceded today that it was a long stride from the juvenile races of Saratoga's summer to the classics of next spring.",
@@ -397,11 +397,11 @@
             "To reach that point, he completed the 1.1 mile and won the $150,000 first-place check by three lengths.",
             "In the second race, he won a $200,000 first-place check in one hour 21 minutes.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "Local school boards are trying to block the opening of more than half of the 23 charter schools around the state that are scheduled to begin operating in September, state education officials said yesterday.",
-        text: [
+        "prompt": "Local school boards are trying to block the opening of more than half of the 23 charter schools around the state that are scheduled to begin operating in September, state education officials said yesterday.",
+        "text": [
             "Thirteen local school boards have filed challenges with the State Board of Education against the special schools, whose charters were approved by the State Department of Education earlier this year, said Roslynne Novack, director of the board's appeals office.",
             "If the board decides to approve the appeals next month, the schools will have their charters revoked, Ms. Novack said.",
             "Last year, the first year of the state's charter school program, only two local districts filed appeals against charter schools and both won, Ms. Novack said.",
@@ -413,11 +413,11 @@
             "''I'm sick and tired of hearing about the charter schools and then see and find out about the school the next year,'' said Sharon Urbach, a special education teacher in Manhattan.",
             "''We've had enough of the political correctness run rampant in the state of New York.''",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "BAUMAN--Sidney.",
-        text: [
+        "prompt": "BAUMAN--Sidney.",
+        "text": [
             "March 25, 1914-April 21, 2004.",
             "Grew up alone to master the ways of NY and win the woman of his dreams.",
             "The wounded W.W. II Vet returned to raise his children and worship his wife in a blazing romance that burns still.",
@@ -429,11 +429,11 @@
             "At their most basic level, the obstacles to becoming a father are the same as they were in the 1950's: The desire to be a father is innate; the need to be a father is a psychological and social dysfunction.",
             "\"There are certain things you can't force, like height or weight, or even what you are allergic to,\" said Mr. Sikes, who has been married to Susan for 52 years.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "ASIATE in the Mandarin Oriental New York hotel is the first restaurant to open in the Time Warner Center at Columbus Circle.",
-        text: [
+        "prompt": "ASIATE in the Mandarin Oriental New York hotel is the first restaurant to open in the Time Warner Center at Columbus Circle.",
+        "text": [
             "The chef, NORI SUGIE , left, is from Japan but has worked in France and Australia and with Charlie Trotter in Chicago.",
             "He uses local and Japanese ingredients in dishes like lobster in a casserole with a vegetable and shellfish broth, and a green apple and lime parfait with apple soup.",
             "The restaurant has 90 seats and is on the 35th floor, the lobby level of the hotel, which occupies 20 floors in the north building of the complex.",
@@ -445,11 +445,11 @@
             "A Strip of Freshwater\nThe restaurant was opened on June 12 with a view across Central Park to 42nd Street and Chinatown, and it still has a hard time keeping up with the demand.",
             "The sushi bar has been flooded with orders, Mr. SUGIE said, but it has been difficult to keep up with the backlog.",
         ],
-        "boundary": 6,
+        ""boundary"": 6,
     },
     {
-        prompt: "MADELEINE'S GHOST  By Robert Girardi.",
-        text: [
+        "prompt": "MADELEINE'S GHOST  By Robert Girardi.",
+        "text": [
             "356 pp.",
             "New York: Delacorte Press.",
             "$20.95.",
@@ -461,11 +461,11 @@
             "Or was the real Alice Walker simply a clever plotter?",
             "The Marquis no longer lives on the label he wore on his sleeve.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "LEAD:  Technology\nTechnology\nScientists have begun to combine two or more substances to create new computer chips that switch electronic signals hundreds of times faster than existing versions..  [ Page A1. ]",
-        text: [
+        "prompt": "LEAD:  Technology\nTechnology\nScientists have begun to combine two or more substances to create new computer chips that switch electronic signals hundreds of times faster than existing versions..  [ Page A1. ]",
+        "text": [
             "The Government should aggressively organize a program to develop superconducting materials, a Presidential panel said.",
             "[ A1. ]",
             "Markets\nBoyd L. Jefferies accused GAF and one of its senior executives of asking him to manipulate the price of Union Carbide stock.",
@@ -477,11 +477,11 @@
             "Stock prices are likely to break out of recent multi-year lows.",
             "Consumer prices, which fell 0.1 percent in July, rose 0.3 percent in August.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "LEAD: Guerrillas fired 53 rockets into Kabul today, killing 30 people and wounding 167 in the worst bombardment of the Afghan capital in a year, Government officials and hospital workers said.",
-        text: [
+        "prompt": "LEAD: Guerrillas fired 53 rockets into Kabul today, killing 30 people and wounding 167 in the worst bombardment of the Afghan capital in a year, Government officials and hospital workers said.",
+        "text": [
             "Guerrillas fired 53 rockets into Kabul today, killing 30 people and wounding 167 in the worst bombardment of the Afghan capital in a year, Government officials and hospital workers said.",
             "United Nations officials in Kabul said they had sent an urgent request to their Geneva office for an airlift of medical supplies to Afghanistan.",
             "Jean-Jacques Fresard, head of the International Committee of the Red Cross in Kabul, said hospitals were unable to cope with the number of wounded.",
@@ -493,11 +493,11 @@
             "An Isolated Life\nThe attacks on the capital have caused severe damage to the country's heavily guarded urban areas, including of the heavily guarded residential areas, which are the strongholds of the guerrillas.",
             "In a small bedroom in the house of a prominent businessman, a young man was found by the Red Cross last week with his mother and sister still inside.",
         ],
-        "boundary": 6,
+        ""boundary"": 6,
     },
     {
-        prompt: "THE Bristol-Myers Squibb Company, long known for its well-mannered culture, may soon see a battle royal for its top office.",
-        text: [
+        "prompt": "THE Bristol-Myers Squibb Company, long known for its well-mannered culture, may soon see a battle royal for its top office.",
+        "text": [
             "In a move intended to give several top managers more responsibilities, Bristol-Myers announced a series of high-level executive appointments yesterday that immediately raised questions on Wall Street.",
             "There is no clear line of succession at Bristol-Myers, though Charles A. Heimbold Jr., the chairman and chief executive, plans to retire in 2001, and Kenneth Weg, the company's executive vice president, plans to leave a year earlier.",
             "Yesterday's announcement not only failed to answer the succession question, but it also appeared to create a race among several Bristol-Myers executives.",
@@ -509,11 +509,11 @@
             "''But he's the only one I know of whose personality has changed dramatically.''",
             "Bristol-Myers has long been a sexist industry, and its legacy continues to be defined by its focus on male executives and their inability to break the glass ceiling.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "E. Tamu Bess, a former special assistant to Basil Patterson when he was deputy mayor of New York City and New York State Secretary of State, died Aug. 1 in Midway Hospital Medical Center in Los Angeles.",
-        text: [
+        "prompt": "E. Tamu Bess, a former special assistant to Basil Patterson when he was deputy mayor of New York City and New York State Secretary of State, died Aug. 1 in Midway Hospital Medical Center in Los Angeles.",
+        "text": [
             "She was 39 years old and lived in Los Angeles.",
             "Ms. Bess died in surgery after being shot in an attempted robbery in front of the home of a colleague, the Los Angeles police said.",
             "Ms. Bess had worked on several high-profile cases, including the awarding of the $20 million No.",
@@ -525,11 +525,11 @@
             "Growing up, she was referred to as ''sugar baby'' and ''pink baby,'' by her mother and other women in the family, the police said.",
             "She began at the age of 5 by her father, who owned a grocery store on the Long Island Expressway.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "First Minister David Trimble of Northern Ireland resigned his post today, casting the struggle to bring political stability to the conflicted province into uncertainty at the beginning of Ulster's most turbulent period, the Protestant marching season.",
-        text: [
+        "prompt": "First Minister David Trimble of Northern Ireland resigned his post today, casting the struggle to bring political stability to the conflicted province into uncertainty at the beginning of Ulster's most turbulent period, the Protestant marching season.",
+        "text": [
             "Mr. Trimble's postdated resignation took effect one minute past midnight, a deadline he had set two months ago for action by the Irish Republican Army to honor its promise to begin disarming.",
             "The I.R.A.",
             "made no response in that time, and Mr. Trimble, who remains leader of the Ulster Unionists, said his party was no longer willing to take part in government with Sinn Fein, the I.R.A.",
@@ -541,11 +541,11 @@
             "has been successful in intimidating students into submission through lectures, leaflet campaigns and other tactics.",
             "John Hume, the U.P.C.W.U.",
         ],
-        boundary: 3,
+        "boundary": 3,
     },
     {
-        prompt: "LEAD: The fuel-economy standard for 1989 passenger cars will remain at 26.5 miles per gallon, the National Highway Traffic Safety Administration said today.",
-        text: [
+        "prompt": "LEAD: The fuel-economy standard for 1989 passenger cars will remain at 26.5 miles per gallon, the National Highway Traffic Safety Administration said today.",
+        "text": [
             "The fuel-economy standard for 1989 passenger cars will remain at 26.5 miles per gallon, the National Highway Traffic Safety Administration said today.",
             "The decision does not alter the ruling last week by Transportation Secretary Samuel Skinner that the standard would rise to 27.5 miles a gallon for 1990 cars.",
             "Two advocacy groups, the Center for Auto Safety and Public Citizen, had asked the highway agency to allow the fuel economy standard to rise to 27.5 miles per gallon, the mileage prescribed for 1989 cars under a 1975 law intended to reduce dependence on foreign oil.",
@@ -557,11 +557,11 @@
             "''If the agency had applied the same standards to 1989 as it did to 1990, it would have kept the standard at 27.5 mpg,'' said Clarence Ditlow, director of the Center for Auto Safety.",
             "''Today's decision is simply inconsistent with last week's decision by Secretary Skinner.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "PARMENTER-Charles Ross.",
-        text: [
+        "prompt": "PARMENTER-Charles Ross.",
+        "text": [
             "In his 88th year, on October 18, 1999.",
             "He will be deeply missed by many family and friends.",
             "Ross was a kind, generous and kindhearted man.",
@@ -573,11 +573,11 @@
             "Ross's loving will be remembered in the coming months by all who knew and loved Ross.",
             "Ross will be dearly missed by all who knew and loved Ross.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "March Madness is about buzzer beaters, upsets by Princeton, Fab Fives -- and gobs of cash.",
-        text: [
+        "prompt": "March Madness is about buzzer beaters, upsets by Princeton, Fab Fives -- and gobs of cash.",
+        "text": [
             "With CBS Sports in control of televising the men's Division I basketball tournament, the National Collegiate Athletic Association has benefited mightily from the network's generosity.",
             "A three-year, $166 million deal made the N.C.A.A.",
             "comfy from 1988 to 1990.",
@@ -589,11 +589,11 @@
             "evidently wants to cash in, asking willing suitors to submit proposals for what could be a 10-year deal worth $4 billion or more.",
             "The offers -- a starting point for negotiations -- are due as early as next week.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "With the possible exception of the presidency, no institution in Washington is as closely associated with the Bush family today as the Central Intelligence Agency.",
-        text: [
+        "prompt": "With the possible exception of the presidency, no institution in Washington is as closely associated with the Bush family today as the Central Intelligence Agency.",
+        "text": [
             "Former President George Bush served as C.I.A.",
             "director in the Ford administration, and if President Jimmy Carter had taken Mr. Bush up on his offer to stay on as director of central intelligence during Mr. Carter's tenure, the dominos of American political history might have tumbled in quite a different way.",
             "Mr. Tenet might never have run for the job at all; Mr. Tenet might never have been tapped to be Mr. Tenet's boss.",
@@ -605,11 +605,11 @@
             "Mr. Tenet was president of the American Civil Liberties Union from 1976 to 1988, when he stepped down.",
             "Mr. Tenet also represented Tenet in the 1980's when Tenet was a plaintiff in the first Tenet-Tenet case, which ultimately led to the Supreme Court ruling that ended Tenet's run as an individual.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "Stocks turned in a lackluster performance in sharply slower trading yesterday, but key indexes managed to move a little higher.",
-        text: [
+        "prompt": "Stocks turned in a lackluster performance in sharply slower trading yesterday, but key indexes managed to move a little higher.",
+        "text": [
             "Trading was cautious ahead of today's release of the Consumer Price Index for May, which may or may not confirm last week's Producer Price Index report that showed a leveling of inflation.",
             "The Dow Jones industrial average rose 9.68 points, to 3,514.69, with volume on the New York Stock Exchange at 216.2 million shares traded, sharply lower than Friday's 256.8 million.",
             "The number of Big Board gainers and losers were nearly even.",
@@ -621,11 +621,11 @@
             "Among issues bouncing back from recent selloffs, Apple Computer gained7/8, to 44 5/8, and Minnesota Mining and Manufacturing advanced 1/2, to 109.",
             "Transportation issues, led by airlines and rails, were down and under pressure, with the outcome of the economic package and the energy tax still unresolved.",
         ],
-        boundary: -1,
+        "boundary": -1,
     },
     {
-        prompt: "Donald McKayle's work has been a strong though quiet part of American modern dance history for nearly half a century.",
-        text: [
+        "prompt": "Donald McKayle's work has been a strong though quiet part of American modern dance history for nearly half a century.",
+        "text": [
             "Mr. McKayle created a classic with his first piece, ''Games,'' in 1951.",
             "The contemporary version, ''Songs,'' was created by another contemporary choreographer, Johnny Mercer.",
             "Mr. McKayle's original choreography, first performed in 1976, was for ''My Favorite Things,'' a Disney film.",
@@ -637,11 +637,11 @@
             "In addition to his work for Disney, Mr. McKayle has made significant contributions to the careers of other contemporary-dance artists, including Alvin Ailey, the soloist dancing on the sidewalk.",
             "A copy of Mr. McKayle's ''Company B,'' now in storage, is on view at the Met in the Art Gallery of Ontario until Sept. 13.",
         ],
-        boundary: 1,
+        "boundary": 1,
     },
     {
-        prompt: "YOUR FUTURE, a new magazine from Time Inc. aimed at readers 40 and younger who are just discovering the importance of personal finance, is anything but tedious -- visually.",
-        text: [
+        "prompt": "YOUR FUTURE, a new magazine from Time Inc. aimed at readers 40 and younger who are just discovering the importance of personal finance, is anything but tedious -- visually.",
+        "text": [
             "The first issue, on sale now through June 4, looks like a knock-off of the hot cyber journal, Wired, with articles framed by huge red headlines and sidebars set in greenish type.",
             "Obviously the design editors borrowed from Time's Money magazine worked hard to make Your Future inviting, at least to people they think of as visual sophisticates.",
             "But Your Future is a snoozer where it counts.",
@@ -653,11 +653,11 @@
             "In a feature called Speak Like a Billionaire, Your Future includes a \"How to Get What You Want\" column, in which the subject of \"how to get money\" is discussed in excruciating detail.",
             "In the first part of the magazine, a reader takes the \"money\" offered by the magazine to \"decide\" how to allocate his or her time, money and resources.",
         ],
-        boundary: 7,
+        "boundary": 7,
     },
     {
-        prompt: "To the Editor:\nAnthony Lewis recounts in \"The Poet Judge\" (column, March 8) the familiar advice of Justice Oliver Wendell Holmes Jr. to President Franklin Roosevelt in 1933: \"in a war there is only one rule: Form your battalions and fight.\"",
-        text: [
+        "prompt": "To the Editor:\nAnthony Lewis recounts in \"The Poet Judge\" (column, March 8) the familiar advice of Justice Oliver Wendell Holmes Jr. to President Franklin Roosevelt in 1933: \"in a war there is only one rule: Form your battalions and fight.\"",
+        "text": [
             "But some say this was not the first time Holmes gave military advice to a President.",
             "In \"Yankee From Olympus,\" Catherine Drinker Bowen describes a perhaps apocryphal exchange with Abraham Lincoln.",
             "It was July 12, 1864, at Fort Stevens, just outside Washington.",
@@ -669,11 +669,11 @@
             "Holmes said that since she was so pretty and so smart, she decided to try the cut.",
             "\"I'm not a pretty girl,\" she said.",
         ],
-        boundary: 4,
+        "boundary": 4,
     },
     {
-        prompt: "What the hell is wrong with America?",
-        text: [
+        "prompt": "What the hell is wrong with America?",
+        "text": [
             "Who infused us with the idea that this sort of oppression is O.K.?",
             "This \"chain gang show\" strips criminals of the basic human rights that everyone is guaranteed.",
             "The only thing more depressing than seeing a woman's breasts or her ankles on display was watching a woman's breasts and ankles on display at the Berlin Wall.",
@@ -685,11 +685,11 @@
             "But as a traveler, I am fully cognizant of the evils of sexual assault and abuse, so I was equally disturbed by the sight of a woman being gang raped.",
             "I have been to some of the best, most enlightened places in the world.",
         ],
-        boundary: 2,
+        "boundary": 2,
     },
     {
-        prompt: "For decades, experts assumed that the world's biggest developing nations, the home of hundreds of millions in big families, would push the global population to a precarious 10 billion people by the end of this century.",
-        text: [
+        "prompt": "For decades, experts assumed that the world's biggest developing nations, the home of hundreds of millions in big families, would push the global population to a precarious 10 billion people by the end of this century.",
+        "text": [
             "Now, evidence is now coming in that women in rural villages and the teeming megacities of Brazil, Egypt, India and Mexico are unexpectedly proving those predictions wrong.",
             "Next week, demographers from around the world will meet here to reassess the outlook and possibly lower the estimate by about a billion people this century.",
             "In India alone, by 2100 there may be 600 million fewer people than predicted.",
