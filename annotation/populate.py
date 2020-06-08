@@ -14,12 +14,12 @@ def clean_json(string):
     string = re.sub(",[ \t\r\n]+\]", "]", string)
     return string
 
-prompt_to_id = dict()
+prompt_to_id = {}
 
 if __name__ == "__main__":
-    with open("full_generations.json") as file:
+    with open("../generation/generations.json") as file:
         generations = json.loads(clean_json(file.read()))
-        
+
         for generation in generations:
             prompt = generation['prompt']
             if prompt not in prompt_to_id:
