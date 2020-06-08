@@ -17,6 +17,7 @@
       const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
       const name = "{{ name }}";
+      let current_sentence = 1;
 
       // helper function for adding new sentences
       redraw_sentences = current_sentence => {
@@ -38,18 +39,30 @@
 
         for (let i = 0; i < all_sentences.length; i++) {
           const emoji = ((i < boundary) ? "🙋‍♀️" : "🤖");
-          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + emoji + ": " + all_sentences[i] +  '</div> </div> ';
+          const card = (
+              '<div class="card" id="' +
+              i.toString() +
+              '" style="margin-bottom: 0.5rem"> <div class="card-body"><table><tr><td><h1>' +
+              emoji +
+              "</h1></td><td>" +
+              all_sentences[i] + 
+              '</td></tr></table></div> </div> ');
           cards_html += card;
         }
 
         $("#cards").html(cards_html);
         $("#remaining").html("All sentences displayed.");
+        
+        const current_sentence_index = current_sentence - 1
+        $('#' + current_sentence_index.toString()).addClass('bg-info');
+        $('#' + current_sentence_index.toString()).css('color', 'white');
 
-        if (boundary !== -1) {
-          for (let i = boundary; i < all_sentences.length; i += 1) {
-            $('#' + i.toString()).addClass('bg-info');
-            $('#' + i.toString()).css('color', 'white');
-          }
+        if (boundary > current_sentence_index) {
+          $("#result-text").html("Good try! You guessed machine-generated but that sentence was still human-written.")
+        } else if (boundary == current_sentence_index) {
+          $("#result-text").html("Nice job! You guessed correctly.")
+        } else {
+          $("#result-text").html(`Good try! The machine-generated sentences are highlighted. Your guess was ${current_sentence_index - boundary} sentence(s) away from the true boundary.`)
         }
 
         $("#analysis").hide();
@@ -58,7 +71,6 @@
 
       // user interaction logic
       $(document).ready(function() {
-        let current_sentence = 1;
         redraw_sentences(current_sentence);
 
         $("#selection").show();
@@ -192,13 +204,7 @@
             </div>
 
             <div class="card-body" id="reveal">
-              <p class="text-muted">
-                {% if boundary == -1 %}
-                  The entire passage was human-written!
-                {% else %}
-                  Good try! The machine-generated sentences are highlighted.
-                {% endif %}
-              </p>
+              <p class="text-muted" id="result-text"> </p>
               <a class="btn btn-primary" href="/annotate/">Continue</a>
             </div>
           </div>
