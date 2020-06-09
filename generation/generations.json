@@ -189,7 +189,7 @@
             "He read everything.''",
             "He graduated from the University of Michigan and received a master's degree in comparative literature and a Ph.D. in 1990.",
         ],
-        ""boundary"": 0,
+        "boundary": 0,
     },
     {
         "prompt": "LEAD:\nRecriminations in Boston\nRecriminations in Boston\nAfter a murder suspect's suicide, Boston is filled with vicious finger-pointing as the police, prosecutors and the news media trace the blunders in a racially tinged case that jolted the city.",
@@ -445,7 +445,7 @@
             "A Strip of Freshwater\nThe restaurant was opened on June 12 with a view across Central Park to 42nd Street and Chinatown, and it still has a hard time keeping up with the demand.",
             "The sushi bar has been flooded with orders, Mr. SUGIE said, but it has been difficult to keep up with the backlog.",
         ],
-        ""boundary"": 6,
+        "boundary": 6,
     },
     {
         "prompt": "MADELEINE'S GHOST  By Robert Girardi.",
@@ -493,7 +493,7 @@
             "An Isolated Life\nThe attacks on the capital have caused severe damage to the country's heavily guarded urban areas, including of the heavily guarded residential areas, which are the strongholds of the guerrillas.",
             "In a small bedroom in the house of a prominent businessman, a young man was found by the Red Cross last week with his mother and sister still inside.",
         ],
-        ""boundary"": 6,
+        "boundary": 6,
     },
     {
         "prompt": "THE Bristol-Myers Squibb Company, long known for its well-mannered culture, may soon see a battle royal for its top office.",
