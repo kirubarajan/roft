@@ -13,10 +13,16 @@ from core.models import Prompt, Tag, EvaluationText, Annotation
 def profile(request, username):
     profile = User.objects.get(username=username)
     counts = defaultdict(int)
+    distances = []
     for annotation in Annotation.objects.filter(annotator=profile):
+        distances.append(abs(annotation.boundary - annotation.text.boundary))
         if annotation.boundary == annotation.text.boundary:
             counts['correct'] += 1
-    return render(request, 'profile.html', {'profile': profile, 'counts': counts})
+    return render(request, 'profile.html', {
+        'profile': profile, 
+        'counts': counts, 
+        'distance': sum(distances) / len(distances)
+    })
 
 
 def onboard(request):
