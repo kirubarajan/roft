@@ -11,28 +11,30 @@
 import os, json, random
 import xml.etree.ElementTree as xml
 
-nyt_corpus_file_location = './raw'
+corpus_location = './raw'
 pretraining_output_file_path = './nyt-articles-train.txt'
 sampling_output_file_path = './nyt-articles-test.txt'
 
+def clean(text):
+    return text.replace('\n', ' ').replace('\r', '') + '\n'
+
+def get_outfile(filename):
+    if random.random() < 0.80:
+        return pretraining_output_file_path
+    else:
+        return sampling_output_file_path
+
 if __name__ == '__main__':
-
-    article_text = []
-    if os.path.exists(nyt_corpus_file_location) and os.path.isdir(nyt_corpus_file_location):
-        total_num_files = len(os.listdir(nyt_corpus_file_location))
-        for index, filename in enumerate(os.listdir(nyt_corpus_file_location)):
+    if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
+        num_files = len(os.listdir(corpus_location))
+        for index, filename in enumerate(os.listdir(corpus_location)):
             if filename.endswith('.ta.xml'):
-                path = os.path.join(nyt_corpus_file_location, filename)
+                path = os.path.join(corpus_location, filename)
                 with open(path, 'r+') as f:
-                    data = json.load(f)
-                    article_text.append(data['text'])
-                print('Read in file {0}/{1}: {2}'.format(index, total_num_files, path))
-
-    if len(article_text) > 1:
-        with open(pretraining_output_file_path, 'w+') as train_outfile:
-            with open(sampling_output_file_path, 'w+') as test_outfile:
-                for article in article_text:
-                    if random.random() > 0.80:
-                        test_outfile.write(article.replace('\n', ' ').replace('\r', '') + '\n')
-                    else:
-                        train_outfile.write(article.replace('\n', ' ').replace('\r', '') + '\n')
+                    article = json.load(f)['text']
+                    if len(article) > 1:
+                        outfile = get_outfile(filename)
+                        with open(outfile, 'a+') as out_f:
+                            out_f.write(clean(data['text']))
+                            print('Wrote Article #{0}/{1} to file {2}'.format(
+                                str(index), str(num_files), outfile))

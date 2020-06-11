@@ -19,29 +19,27 @@ sampling_output_file_path = './ai-dungeon-test.txt'
 # Regex to grab all text between <|startoftext|> and <|endoftext|>
 pattern = re.compile(b'<\|startoftext\|\>((.|\n)*?)\<\|endoftext\|\>')
 
+def clean(text):
+    return text.replace('\n', ' ').replace('\r', '') + '\n'
+
 def get_outfile(filename):
     if 'train' in filename:
         return pretraining_output_file_path
     else:
         return sampling_output_file_path
 
-def clean(text_story):
-    return text_story.replace('\n', ' ').replace('\r', '') + '\n'
-
 if __name__ == '__main__':
     if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
         for filename in os.listdir(corpus_location):
             if filename.endswith('.txt'):
-                print("Processing " + filename)
                 path = os.path.join(corpus_location, filename)
-                out_path = get_outfile(filename)
-
+                outfile = get_outfile(filename)
                 stories_written = 0
                 with open(path, 'r+b') as f:
-                    with open(out_path, 'a+') as out_f:
+                    with open(outfile, 'a+') as out_f:
                         data = mmap.mmap(f.fileno(), 0)
                         for m in re.finditer(pattern, data):
                             out_f.write(clean(str(m.group(1),'utf-8','ignore')))
                             stories_written += 1
-                            print('Processed story #{0} of file {1}'.format(
+                            print('Wrote Story #{0} of file {1}'.format(
                                 str(stories_written), filename))
