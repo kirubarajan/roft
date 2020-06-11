@@ -1,12 +1,28 @@
 import ast
 import json
 import random
+from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation
+
+
+def profile(request, username):
+    profile = User.objects.get(username=username)
+    counts = defaultdict(int)
+    distances = []
+    for annotation in Annotation.objects.filter(annotator=profile):
+        distances.append(abs(annotation.boundary - annotation.text.boundary))
+        if annotation.boundary == annotation.text.boundary:
+            counts['correct'] += 1
+    return render(request, 'profile.html', {
+        'profile': profile, 
+        'counts': counts, 
+        'distance': sum(distances) / len(distances)
+    })
 
 
 def onboard(request):

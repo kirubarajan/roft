@@ -151,22 +151,36 @@
   
   <body>
     <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
+        <a class="navbar-brand text-muted" href="/">
+          <strong> Real or Fake Text? </strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% if user.is_authenticated %}
+              <li class="nav-item"> <a class="nav-link" href="/annotate">Play</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      
       <div class="row">
         <div class="col-md" />
         <div class="col-md" style="padding: 2rem">
-          <br /> 
-          {% if user.is_authenticated %}
-            <p>Welcome, <strong>{{user.username}}</strong>!</p>
-            <a class="btn btn-info btn-sm" href="/logout">Log Out</a>
-          {% endif %}
-          <br /> 
-          <br /> 
           <h2 class="text-muted"> <strong>Is the following text human written or machine generated?</strong> </h2>
           <p class="text-muted" style="margin-bottom: 1rem;">
             Your task is to decide at what point (if at all) the sample text begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
             The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.
           </p>
-
+          
+          
+          <br />
           <small class="text-muted">Human-Written Prompt:</small>
 
           <p style="margin-top: 0.5rem">{{prompt.body}}</p>
