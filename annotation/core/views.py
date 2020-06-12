@@ -11,10 +11,13 @@ from core.models import Prompt, Tag, EvaluationText, Annotation
 
 
 def profile(request, username):
+    if not request.user.is_authenticated:
+        return redirect('/')
     profile = User.objects.get(username=username)
     counts = defaultdict(int)
     distances = []
     for annotation in Annotation.objects.filter(annotator=profile):
+        counts['total'] += 1
         distances.append(abs(annotation.boundary - annotation.text.boundary))
         if annotation.boundary == annotation.text.boundary:
             counts['correct'] += 1
@@ -26,6 +29,8 @@ def profile(request, username):
 
 
 def onboard(request):
+    if request.user.is_authenticated:
+        return redirect('/profile/' + request.user.username)
     return render(request, "onboard.html", {})
 
 
@@ -79,7 +84,7 @@ def log_in(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('/annotate')
+        return redirect('/')
     else:
         return redirect('/?login_error=True')
 
