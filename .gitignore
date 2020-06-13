@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 venv/
 generation/New-York-Times/raw
+generation/Reddit-Stories/raw
 generation/New-York-Times/processed
 generation/Reddit-Stories/raw
 generation/Reddit-Stories/processed
