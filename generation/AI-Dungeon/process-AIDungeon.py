@@ -13,8 +13,8 @@ import os, re, mmap
 import xml.etree.ElementTree as xml
 
 corpus_location = './raw'
-pretraining_output_file_path = './ai-dungeon-train.txt'
-sampling_output_file_path = './ai-dungeon-test.txt'
+pretraining_output_file_path = './processed/ai-dungeon-train.txt'
+sampling_output_file_path = './processed/ai-dungeon-test.txt'
 
 # Regex to grab all text between <|startoftext|> and <|endoftext|>
 pattern = re.compile(b'<\|startoftext\|\>((.|\n)*?)\<\|endoftext\|\>')
@@ -28,6 +28,16 @@ def get_outfile(filename):
     else:
         return sampling_output_file_path
 
+def makedirs(filename):
+    ''' https://stackoverflow.com/a/12517490 '''
+    if not os.path.exists(os.path.dirname(filename)):
+        try:
+            os.makedirs(os.path.dirname(filename))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+    return filename
+
 if __name__ == '__main__':
     if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
         for filename in os.listdir(corpus_location):
@@ -36,7 +46,7 @@ if __name__ == '__main__':
                 outfile = get_outfile(filename)
                 stories_written = 0
                 with open(path, 'r+b') as f:
-                    with open(outfile, 'a+') as out_f:
+                    with open(makedirs(outfile), 'a+') as out_f:
                         data = mmap.mmap(f.fileno(), 0)
                         for m in re.finditer(pattern, data):
                             out_f.write(clean(str(m.group(1),'utf-8','ignore')))

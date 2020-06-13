@@ -12,8 +12,8 @@ import os, json, random
 import xml.etree.ElementTree as xml
 
 corpus_location = './raw'
-pretraining_output_file_path = './nyt-articles-train.txt'
-sampling_output_file_path = './nyt-articles-test.txt'
+pretraining_output_file_path = './processed/nyt-articles-train.txt'
+sampling_output_file_path = './processed/nyt-articles-test.txt'
 
 def clean(text):
     return text.replace('\n', ' ').replace('\r', '') + '\n'
@@ -23,6 +23,16 @@ def get_outfile(filename):
         return pretraining_output_file_path
     else:
         return sampling_output_file_path
+
+def makedirs(filename):
+    ''' https://stackoverflow.com/a/12517490 '''
+    if not os.path.exists(os.path.dirname(filename)):
+        try:
+            os.makedirs(os.path.dirname(filename))
+        except OSError as exc: # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+    return filename
 
 if __name__ == '__main__':
     if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
@@ -34,7 +44,7 @@ if __name__ == '__main__':
                     article = json.load(f)['text']
                     if len(article) > 1:
                         outfile = get_outfile(filename)
-                        with open(outfile, 'a+') as out_f:
+                        with open(makedirs(outfile), 'a+') as out_f:
                             out_f.write(clean(data['text']))
                             print('Wrote Article #{0}/{1} to file {2}'.format(
                                 str(index), str(num_files), outfile))
