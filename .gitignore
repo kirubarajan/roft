@@ -3,4 +3,9 @@ __pycache__/
 venv/
 generation/New-York-Times/raw
 generation/Reddit-Stories/raw
+generation/New-York-Times/processed
+generation/Reddit-Stories/raw
+generation/Reddit-Stories/processed
+generation/AI-Dungeon/raw
+generation/AI-Dungeon/processed
 .DS_Store
