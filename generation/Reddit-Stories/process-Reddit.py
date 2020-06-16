@@ -8,7 +8,7 @@
     "reddit-stories-test.txt"
 '''
 
-import os, random, errno
+import os, random
 from sacremoses import MosesDetokenizer
 import xml.etree.ElementTree as xml
 
@@ -23,7 +23,7 @@ def clean(text):
   detoked_string = ''.join(MosesDetokenizer().detokenize(tokens)).replace('\n', ' ').replace('\r', '') + '\n'
   return detoked_string
 
-def get_outfile(filename):
+def determine_outfile(filename):
     if 'train' in filename:
         return pretraining_output_file_path
     else:
@@ -32,25 +32,16 @@ def get_outfile(filename):
         else:
             return test_output_file_path
 
-def makedirs(filename):
-    ''' https://stackoverflow.com/a/12517490 '''
-    if not os.path.exists(os.path.dirname(filename)):
-        try:
-            os.makedirs(os.path.dirname(filename))
-        except OSError as exc: # Guard against race condition
-            if exc.errno != errno.EEXIST:
-                raise
-    return filename
-
 if __name__ == '__main__':
-    if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
-        for index, filename in enumerate(os.listdir(corpus_location)):
+    if os.path.exists(reddit_corpus_file_location) and os.path.isdir(reddit_corpus_file_location):
+        for index, filename in enumerate(os.listdir(reddit_corpus_file_location)):
             if filename.endswith('.wp_target'):
-                path = os.path.join(corpus_location, filename)
-                outfile = get_outfile(filename)
+                print("Processing " + filename)
+                path = os.path.join(reddit_corpus_file_location, filename)
+                outfile = determine_outfile(filename)
+
                 with open(path, 'r+') as f:
-                    with open(makedirs(outfile), 'w+') as out_f:
+                    with open(outfile, 'w+') as out_f:
                         for index, line in enumerate(f):
                             out_f.write(clean(line))
-                            print('Wrote Story #{0} of file {1}'.format(
-                                str(index), filename))
+                            print('Wrote Story #{0} of file {1}'.format(str(index), filename))
