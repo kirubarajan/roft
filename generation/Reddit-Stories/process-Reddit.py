@@ -30,14 +30,14 @@ def determine_outfile(filename):
         if random.random() < 0.50:
             return dev_output_file_path
         else:
-            return test_output_file_path
+            return sampling_output_file_path
 
 if __name__ == '__main__':
-    if os.path.exists(reddit_corpus_file_location) and os.path.isdir(reddit_corpus_file_location):
-        for index, filename in enumerate(os.listdir(reddit_corpus_file_location)):
+    if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
+        for index, filename in enumerate(os.listdir(corpus_location)):
             if filename.endswith('.wp_target'):
                 print("Processing " + filename)
-                path = os.path.join(reddit_corpus_file_location, filename)
+                path = os.path.join(corpus_location, filename)
                 outfile = determine_outfile(filename)
 
                 with open(path, 'r+') as f:
