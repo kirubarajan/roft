@@ -39,23 +39,14 @@ def makedirs(filename):
     return filename
 
 if __name__ == '__main__':
-
-    article_text = []
-    if os.path.exists(nyt_corpus_file_location) and os.path.isdir(nyt_corpus_file_location):
-        total_num_files = len(os.listdir(nyt_corpus_file_location))
-        for index, filename in enumerate(os.listdir(nyt_corpus_file_location)):
+    if os.path.exists(corpus_location) and os.path.isdir(corpus_location):
+        total = len(os.listdir(corpus_location))
+        for index, filename in enumerate(os.listdir(corpus_location)):
             if filename.endswith('.ta.xml'):
-                path = os.path.join(nyt_corpus_file_location, filename)
+                path = os.path.join(corpus_location, filename)
+                outfile = get_outfile(path)
                 with open(path, 'r+') as f:
-                    data = json.load(f)
-                    article_text.append(data['text'])
-                print('Read in file {0}/{1}: {2}'.format(index, total_num_files, path))
-
-    if len(article_text) > 1:
-        with open(pretraining_output_file_path, 'w+') as train_outfile:
-            with open(sampling_output_file_path, 'w+') as test_outfile:
-                for article in article_text:
-                    if random.random() > 0.80:
-                        test_outfile.write(article.replace('\n', ' ').replace('\r', '') + '\n')
-                    else:
-                        train_outfile.write(article.replace('\n', ' ').replace('\r', '') + '\n')
+                    with open(makedirs(outfile), 'a+') as out_f:
+                        data = json.load(f)
+                        out_f.write(clean(data['text']))
+                print('Read in file {0}/{1}: {2}'.format(index, total, path))
