@@ -14,6 +14,7 @@ import xml.etree.ElementTree as xml
 
 corpus_location = './raw'
 pretraining_output_file_path = './processed/reddit-stories-train.txt'
+dev_output_file_path = './processed/reddit-stories-dev.txt'
 sampling_output_file_path = './processed/reddit-stories-test.txt'
 
 def clean(text):
@@ -26,7 +27,10 @@ def get_outfile(filename):
     if 'train' in filename:
         return pretraining_output_file_path
     else:
-        return sampling_output_file_path
+        if random.random() < 0.50:
+            return dev_output_file_path
+        else:
+            return test_output_file_path
 
 def makedirs(filename):
     ''' https://stackoverflow.com/a/12517490 '''

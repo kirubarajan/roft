@@ -13,14 +13,18 @@ import xml.etree.ElementTree as xml
 
 corpus_location = './raw'
 pretraining_output_file_path = './processed/nyt-articles-train.txt'
+dev_output_file_path = './processed/nyt-articles-dev.txt'
 sampling_output_file_path = './processed/nyt-articles-test.txt'
 
 def clean(text):
     return text.replace('\n', ' ').replace('\r', '') + '\n'
 
 def get_outfile(filename):
-    if random.random() < 0.80:
+    rng = random.random()
+    if rng < 0.90:
         return pretraining_output_file_path
+    elif rng < 0.95:
+        return dev_output_file_path
     else:
         return sampling_output_file_path
 
