@@ -97,7 +97,7 @@
           $("#selection").hide();
           $("#analysis").show();
           $("#revision").show();
-          $("#revision").val(all_sentences[current_sentence - 1]);
+          // $("#revision").val(all_sentences[current_sentence - 1]);
         });
 
         $("#human").click(function() {
@@ -227,7 +227,7 @@
               <form>
                 <div id="revision-form">
                   <small class="text-muted">What was wrong with the sentence you selected?</small>
-                  <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="TODO: auto-complete" />
+                  <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="error type goes here..." />
                 </div>
                 <button type="button" id="submit" class="btn btn-info">Reveal</button>
               </form>
