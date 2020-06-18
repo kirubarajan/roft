@@ -178,6 +178,7 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             {% if user.is_authenticated %}
               <li class="nav-item"> <a class="nav-link" href="/annotate">Play</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
             {% endif %}

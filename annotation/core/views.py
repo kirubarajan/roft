@@ -11,7 +11,12 @@ from core.models import Prompt, Tag, EvaluationText, Annotation
 
 
 def leaderboard(request):
-    return render(request, 'leaderboard.html', {})
+    points = defaultdict(int)
+    for annotation in Annotation.objects.filter():
+        points[annotation.annotator.username] += annotation.points
+    sorted_usernames = sorted(points.items(), key=lambda x: x[1], reverse=True)
+    print(sorted_usernames)
+    return render(request, 'leaderboard.html', {'sorted_usernames': tuple(sorted_usernames)})
 
 
 def profile(request, username):

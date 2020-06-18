@@ -24,6 +24,7 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             {% if user.is_authenticated %}
               <li class="nav-item"> <a class="nav-link" href="/annotate">Play</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
             {% endif %}
@@ -33,6 +34,25 @@
       <div class="row" style="padding: 1rem">
         <div class="col-md" />
         <div class="col-md-6" style="padding: 1rem">
+          <br />
+          <h1 class="text-muted"> <strong> Leaderboard </strong> </h1>
+          <p style="margin-bottom: 1rem" class="text-muted">Roft's top players:</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for username, score in sorted_usernames %}
+                <tr>
+                  <th scope="row">{{username}}</th>
+                  <td>{{score}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
           <p style="margin-top: 1.5rem">
             <a href="/annotate">Want to improve your score? Play another round.</a>
           </p>
