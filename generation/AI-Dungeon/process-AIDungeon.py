@@ -14,6 +14,7 @@ import xml.etree.ElementTree as xml
 
 corpus_location = './raw'
 pretraining_output_file_path = './processed/ai-dungeon-train.txt'
+dev_output_file_path = './processed/ai-dungeon-dev.txt'
 sampling_output_file_path = './processed/ai-dungeon-test.txt'
 
 # Regex to grab all text between <|startoftext|> and <|endoftext|>
@@ -25,8 +26,13 @@ def clean(text):
 def get_outfile(filename):
     if 'train' in filename:
         return pretraining_output_file_path
-    else:
+    elif 'dev' in filename:
+        return dev_output_file_path
+    elif 'test' in filename:
         return sampling_output_file_path
+    else:
+        print('Error: input file ' + filename + ' not train dev or test split')
+        exit(-1)
 
 def makedirs(filename):
     ''' https://stackoverflow.com/a/12517490 '''
