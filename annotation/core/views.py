@@ -10,6 +10,10 @@ from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation
 
 
+def leaderboard(request):
+    return render(request, 'leaderboard.html', {})
+
+
 def profile(request, username):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -17,6 +21,7 @@ def profile(request, username):
     counts = defaultdict(int)
     distances = []
     for annotation in Annotation.objects.filter(annotator=profile):
+        counts['points'] += annotation.points
         counts['total'] += 1
         distances.append(abs(annotation.boundary - annotation.text.boundary))
         if annotation.boundary == annotation.text.boundary:
@@ -56,6 +61,7 @@ def save(request):
     name = request.POST['name']
     boundary = int(request.POST['boundary'])
     revision = request.POST['revision']
+    points = request.POST['points']
 
     grammar = request.POST['grammar'] == 'true'
     repetition = request.POST['repetition'] == 'true'
@@ -66,7 +72,8 @@ def save(request):
         annotator=request.user,
         text=EvaluationText.objects.get(pk=text),
         boundary=boundary,
-        revision=revision
+        revision=revision,
+        points=points
     )
 
     if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))

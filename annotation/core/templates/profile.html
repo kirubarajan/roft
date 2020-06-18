@@ -39,9 +39,10 @@
           <small class="text-muted">Scoreboard</small>
           <div class="card" style="width: 100%; margin-top: 0.5rem">
             <ul class="list-group list-group-flush">
+              <li class="list-group-item">Total points: <strong>{{counts.points}}</strong></li>
               <li class="list-group-item">Number total annotations: <strong>{{counts.total}}</strong></li>
               <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.correct}}</strong></li>
-              <li class="list-group-item">Average absolute distance to correct boundary: <strong>{{distance}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary: <strong>{{distance|stringformat:".2f"}}</strong></li>
             </ul>
           </div>
           <p style="margin-top: 1.5rem">

@@ -31,9 +31,10 @@ class Annotation(models.Model):
     timestamp = models.DateTimeField(auto_now=True, null=True)
     annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     text = models.ForeignKey(EvaluationText, on_delete=models.DO_NOTHING)
-    boundary = models.IntegerField() # user's prediction
+    boundary = models.IntegerField()
     tags = models.ManyToManyField(Tag, related_name="annotation_tags")
     revision = models.TextField()
+    points = models.IntegerField()
 
     def __str__(self):
         return self.annotator.username + " " + str(self.timestamp)

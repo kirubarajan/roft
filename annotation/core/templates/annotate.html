@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 
     <script>
       const all_sentences = {{ sentences|safe }};
@@ -120,7 +121,20 @@
           $("#note").val('');
           $('input[type=checkbox]').each(function() { 
             this.checked = false; 
-          }); 
+          });
+
+          const max_points = 5;
+          let points = 0;
+          const current_sentence_index = current_sentence - 1;
+          if (current_sentence_index == boundary) {
+            points = max_points;
+            $.notify(`You earned ${points} points!`, "success");
+          } else if (current_sentence_index > boundary) {
+            points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0)
+            if (points > 0) {
+              $.notify(`You earned ${points} points!`, "success");
+            }
+          }
 
           // make ajax request to log annotation
           const url = '{% url "save" %}';
@@ -135,7 +149,8 @@
               "repetition": repetition,
               "entailment": entailment,
               "sense": sense,
-              "revision": revision
+              "revision": revision,
+              "points": points
             },
             success: function (response) {
               reveal_solutions();
@@ -195,12 +210,12 @@
           <div class="card" style="margin-bottom: 2rem">
             <div class="card-body" id="selection">
               <p class="text-muted">Select An Option:</p>
-              <button type="button" id="machine" type="button" class="btn btn-info">
-                This sentence is machine-generated.
-              </button>
               <button id="next" type="button" class="btn btn-secondary">It's all human-written so far.</button>
               <button type="button" id="human" type="button" class="btn btn-primary">
                 The entire thing was human-written.
+              </button>
+              <button type="button" id="machine" type="button" class="btn btn-info">
+                This sentence is machine-generated.
               </button>
             </div>
 
@@ -210,7 +225,7 @@
               </p>
               <form>
                 <div id="revision-form">
-                  <small class="text-muted">Suggest a revision for the sentence you selected as machine-generated:</small>
+                  <small class="text-muted">What was wrong with the sentence you selected?</small>
                   <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="TODO: auto-complete" />
                 </div>
                 <button type="button" id="submit" class="btn btn-info">Reveal</button>
