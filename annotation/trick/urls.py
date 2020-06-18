@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/<str:username>/', profile, name='profile'),
     path('annotate/', annotate, name="annotate"),
+    path('leaderboard/', leaderboard, name="leaderboard"),
     path('save/', save, name="save"),
     path('login/', log_in, name='log_in'),
     path('signup/', sign_up, name='sign_up'),
