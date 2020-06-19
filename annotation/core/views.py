@@ -41,9 +41,13 @@ def profile(request, username):
 
 
 def onboard(request):
+    return render(request, "onboard.html", {})
+
+
+def splash(request):
     if request.user.is_authenticated:
         return redirect('/profile/' + request.user.username)
-    return render(request, "onboard.html", {})
+    return render(request, "splash.html", {})
 
 
 def annotate(request):
