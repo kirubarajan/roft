@@ -45,7 +45,8 @@ def onboard(request):
 
 
 def annotate(request):
-    text = random.choice(EvaluationText.objects.all())
+    seen = Annotation.objects.filter(annotator=request.user).values('text')
+    text = random.choice(EvaluationText.objects.exclude(id__in=seen))
     sentences = ast.literal_eval(text.body)
     args = {
         "prompt": text.prompt, 
