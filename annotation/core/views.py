@@ -10,6 +10,15 @@ from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation
 
 
+def leaderboard(request):
+    points = defaultdict(int)
+    for annotation in Annotation.objects.filter():
+        points[annotation.annotator.username] += annotation.points
+    sorted_usernames = sorted(points.items(), key=lambda x: x[1], reverse=True)
+    print(sorted_usernames)
+    return render(request, 'leaderboard.html', {'sorted_usernames': tuple(sorted_usernames)})
+
+
 def profile(request, username):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -17,6 +26,7 @@ def profile(request, username):
     counts = defaultdict(int)
     distances = []
     for annotation in Annotation.objects.filter(annotator=profile):
+        counts['points'] += annotation.points
         counts['total'] += 1
         distances.append(abs(annotation.boundary - annotation.text.boundary))
         if annotation.boundary == annotation.text.boundary:
@@ -35,7 +45,8 @@ def onboard(request):
 
 
 def annotate(request):
-    text = random.choice(EvaluationText.objects.all())
+    seen = Annotation.objects.filter(annotator=request.user).values('text')
+    text = random.choice(EvaluationText.objects.exclude(id__in=seen))
     sentences = ast.literal_eval(text.body)
     args = {
         "prompt": text.prompt, 
@@ -56,6 +67,7 @@ def save(request):
     name = request.POST['name']
     boundary = int(request.POST['boundary'])
     revision = request.POST['revision']
+    points = request.POST['points']
 
     grammar = request.POST['grammar'] == 'true'
     repetition = request.POST['repetition'] == 'true'
@@ -66,7 +78,8 @@ def save(request):
         annotator=request.user,
         text=EvaluationText.objects.get(pk=text),
         boundary=boundary,
-        revision=revision
+        revision=revision,
+        points=points
     )
 
     if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))

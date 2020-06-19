@@ -35,19 +35,26 @@
         <div class="col-md" />
         <div class="col-md-6" style="padding: 1rem">
           <br />
-          <h1 class="text-muted"> <strong> {{profile.username}} </strong> </h1>
-          <p style="margin-bottom: 2rem" class="text-muted">Joined on {{profile.date_joined|date:'Y-m-d'}}</p>
-          <small class="text-muted">Scoreboard</small>
-          <div class="card" style="width: 100%; margin-top: 0.5rem">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Total points: <strong>{{counts.points}}</strong></li>
-              <li class="list-group-item">Number total annotations: <strong>{{counts.total}}</strong></li>
-              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.correct}}</strong></li>
-              <li class="list-group-item">Average distance from correct boundary: <strong>{{distance|stringformat:".2f"}}</strong></li>
-            </ul>
-          </div>
+          <h1 class="text-muted"> <strong> Leaderboard </strong> </h1>
+          <p style="margin-bottom: 1rem" class="text-muted">Roft's top players:</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for username, score in sorted_usernames %}
+                <tr>
+                  <th scope="row">{{username}}</th>
+                  <td>{{score}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
           <p style="margin-top: 1.5rem">
-            <a href="/annotate">Want to improve? Play another round.</a>
+            <a href="/annotate">Want to improve your score? Play another round.</a>
           </p>
         </div>
         <div class="col-md" />
