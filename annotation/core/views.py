@@ -9,14 +9,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation
 
+BATCH_SIZE = 10
 
 def leaderboard(request):
     points = defaultdict(int)
     for annotation in Annotation.objects.filter():
         points[annotation.annotator.username] += annotation.points
     sorted_usernames = sorted(points.items(), key=lambda x: x[1], reverse=True)
-    print(sorted_usernames)
-    return render(request, 'leaderboard.html', {'sorted_usernames': tuple(sorted_usernames)})
+    return render(request, 'leaderboard.html', {
+        'sorted_usernames': tuple(sorted_usernames)
+    })
 
 
 def profile(request, username):
@@ -39,16 +41,24 @@ def profile(request, username):
 
 
 def onboard(request):
+    return render(request, "onboard.html", {})
+
+
+def splash(request):
     if request.user.is_authenticated:
         return redirect('/profile/' + request.user.username)
-    return render(request, "onboard.html", {})
+    return render(request, "splash.html", {})
 
 
 def annotate(request):
     seen = Annotation.objects.filter(annotator=request.user).values('text')
     text = random.choice(EvaluationText.objects.exclude(id__in=seen))
     sentences = ast.literal_eval(text.body)
-    args = {
+
+    remaining = request.session.get('remaining', BATCH_SIZE)
+    
+    return render(request, "annotate.html", {
+        "remaining": remaining,
         "prompt": text.prompt, 
         "text_id": text.pk, 
         "sentences": json.dumps(sentences), 
@@ -56,9 +66,7 @@ def annotate(request):
         "max_sentences": len(sentences),
         "boundary": text.boundary,
         "TAXONOMY": False
-    }
-    
-    return render(request, "annotate.html", args)
+    })
 
 
 @csrf_exempt
@@ -81,6 +89,9 @@ def save(request):
         revision=revision,
         points=points
     )
+    
+    remaining = request.session.get('remaining', BATCH_SIZE)
+    request.session['remaining'] = remaining - 1
 
     if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))
     if repetition: annotation.tags.add(Tag.objects.get(name="repetition"))
