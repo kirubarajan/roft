@@ -9,7 +9,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation
 
+
 BATCH_SIZE = 10
+
+
+def play(request):
+    return render(request, 'play.html', {})
+
 
 def leaderboard(request):
     points = defaultdict(int)
@@ -33,10 +39,13 @@ def profile(request, username):
         distances.append(abs(annotation.boundary - annotation.text.boundary))
         if annotation.boundary == annotation.text.boundary:
             counts['correct'] += 1
+
+    distance = sum(distances) / len(distances) if distances else "N/A"
+
     return render(request, 'profile.html', {
         'profile': profile, 
         'counts': counts, 
-        'distance': sum(distances) / len(distances)
+        'distance': distance
     })
 
 
@@ -119,7 +128,7 @@ def sign_up(request):
         return redirect('/?signup_error=True') 
     user = User.objects.create_user(username=username, email=email, password=password)
     login(request, user)
-    return redirect('/annotate')
+    return redirect('/onboard')
 
 
 def log_out(request):
