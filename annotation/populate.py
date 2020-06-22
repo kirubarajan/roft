@@ -24,18 +24,23 @@ GENERATION_LOCATION = sys.argv[1]
 r = requests.get(GENERATION_LOCATION)
 generations = r.json()['examples']
 
+print(generations[0])
+
 # saving evaluation texts to database
 prompt_to_id = {}
 for generation in generations:
-    prompt = generation['prompt']
+    prompt = generation['prompt'][0]
+    boundary = len(generation['prompt']) - 1
+    body = generation['prompt'][1:] + generation['continuation']
+
     if prompt not in prompt_to_id:
         prompt_id = Prompt.objects.create(body=prompt)
         prompt_to_id[prompt] = prompt_id
-
+    
     EvaluationText.objects.create(
         prompt=prompt_to_id[prompt],
-        body=generation['text'],
-        boundary=generation['boundary']
+        body=body,
+        boundary=boundary
     )
 
 # creating error tags

@@ -2,13 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Prompt(models.Model):
-    body = models.TextField()
-
-    def __str__(self):
-        return self.body
-
-
 class Tag(models.Model):
     name = models.CharField(max_length=100)
     text = models.CharField(max_length=100)
@@ -17,6 +10,12 @@ class Tag(models.Model):
     def __str__(self):
         return self.text
 
+
+class Prompt(models.Model):
+    body = models.TextField()
+
+    def __str__(self):
+        return self.body
 
 class EvaluationText(models.Model):
     prompt = models.ForeignKey(Prompt, on_delete=models.DO_NOTHING)
@@ -38,3 +37,12 @@ class Annotation(models.Model):
 
     def __str__(self):
         return self.annotator.username + " " + str(self.timestamp)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+    annotations = models.ManyToManyField(Annotation)
+
+    def __str__(self):
+        return self.name
