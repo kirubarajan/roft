@@ -1,14 +1,14 @@
 
 FROM python:3.6-slim
 
-LABEL maintainer="Catacomb"
-
 # Install build dependencies
 RUN apt-get update && apt-get install --no-install-recommends -y gcc libpq-dev mime-support python-dev  \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pipenv
 RUN pip install pipenv
+
+WORKDIR /annotation/
 
 RUN mkdir /app/
 WORKDIR /app/
