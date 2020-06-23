@@ -13,5 +13,6 @@ RUN pipenv install
 
 RUN pipenv run python manage.py collectstatic --noinput
 RUN pipenv run python manage.py migrate
+RUN pipenv run python populate.py https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json
 
 CMD ["pipenv", "run", "gunicorn", "-b", "0.0.0.0:80", "trick.wsgi"]
