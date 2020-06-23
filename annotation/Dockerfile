@@ -10,11 +10,11 @@ RUN pip install pipenv
 
 WORKDIR /annotation/
 
-RUN mkdir /app/
-WORKDIR /app/
-
 # Copy project dependencies
 COPY Pipfile* /app/
+
+RUN mkdir /app/
+WORKDIR /app/
 
 # Install project dependencies
 RUN pipenv install --deploy
