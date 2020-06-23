@@ -40,9 +40,9 @@ class Annotation(models.Model):
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=128)
-    description = models.TextField()
-    annotations = models.ManyToManyField(Annotation)
+    name = models.CharField(max_length=128, blank=True)
+    description = models.TextField(blank=True)
+    evaluation_texts = models.ManyToManyField(EvaluationText)
 
     def __str__(self):
         return self.name

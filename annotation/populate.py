@@ -16,7 +16,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE','trick.settings')
 django.setup()
 
 from django.contrib.auth import get_user_model
-from core.models import Prompt, EvaluationText, Tag
+from core.models import Prompt, EvaluationText, Tag, Group
 
 # open saved generations and parse JSON
 GENERATION_LOCATION = sys.argv[1]
@@ -25,6 +25,8 @@ r = requests.get(GENERATION_LOCATION)
 generations = r.json()['examples']
 
 # saving evaluation texts to database
+group = Group.objects.create(name="Temporary Name")
+
 prompt_to_id = {}
 for generation in generations:
     prompt = generation['prompt'][0]
@@ -35,11 +37,14 @@ for generation in generations:
         prompt_id = Prompt.objects.create(body=prompt)
         prompt_to_id[prompt] = prompt_id
     
-    EvaluationText.objects.create(
+    text = EvaluationText.objects.create(
         prompt=prompt_to_id[prompt],
         body=body,
         boundary=boundary
     )
+
+    group.evaluation_texts.add(text)
+    group.save()
 
 # creating error tags
 Tag.objects.create(name="grammar", text="Grammatical Error", human="False")
