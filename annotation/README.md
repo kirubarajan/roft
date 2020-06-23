@@ -2,12 +2,11 @@
 
 The annotation tool is built using the Django library for it's SQLite object-relational mapping. Core logic is written in Python in `core/views.py` and the database schema is specified in `core/models.py`. HTML templates are defined (with built-in Javascript scripts) in `core/templates`.
 
-## Usage
-1. Install Django using `pip install django`.
-2. Create and structure SQLite database using `python manage.py migrate`.
-3. Populate database using `full_generations.json` by running `python populate.py`.
-4. Run `python manage.py runserver`.
-5. Dump database to JSON using `python manage.py dumpdata > db.json`.
+Dependency and virtual environment management is handled using pipenv.
 
-## To-do
-- Revise then display highlighting
+## Usage
+1. Install dependencies using `pipenv install`.
+2. Create and structure SQLite database using `pipenv run python manage.py migrate`.
+3. Populate database by running `pipenv run python populate.py https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json`.
+4. Run `pipenv run python manage.py runserver`.
+5. Dump database to JSON using `pipenv run python manage.py dumpdata > db.json`.
