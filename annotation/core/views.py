@@ -123,8 +123,8 @@ def log_in(request):
 
 
 def sign_up(request):
-    email, username, password = request.POST['email'], request.POST['username'], request.POST['password']
-    if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+    username, password = request.POST['username'], request.POST['password']
+    if User.objects.filter(username=username).exists():
         return redirect('/?signup_error=True') 
     user = User.objects.create_user(username=username, email=None, password=password)
     login(request, user)

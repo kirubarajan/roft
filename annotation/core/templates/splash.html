@@ -57,17 +57,12 @@
                 {% endif %}
                 {% csrf_token %}
                 <div class="form-group">
-                  <label class="text-muted" for="exampleInputEmail1">Email address</label>
-                  <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email here">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div class="form-group">
                   <label class="text-muted" for="exampleInputEmail1">Username</label>
-                  <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name here">
+                  <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name here...">
                 </div>
                 <div class="form-group">
                   <label class="text-muted" for="exampleInputPassword1">Password</label>
-                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here">
+                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here...">
                 </div>
                 <button type="submit" class="btn btn-info">Sign Up</button>
               </form>
@@ -83,12 +78,11 @@
                 {% csrf_token %}
                 <div class="form-group">
                   <label class="text-muted" for="exampleInputEmail1">Username</label>
-                  <input name="username"  ype="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email here">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <input name="username"  ype="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username here...">
                 </div>
                 <div class="form-group">
                   <label class="text-muted" for="exampleInputPassword1">Password</label>
-                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here">
+                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here...">
                 </div>
                 <button type="submit" class="btn btn-info">Log In</button>
               </form>
