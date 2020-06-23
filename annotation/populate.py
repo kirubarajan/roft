@@ -24,8 +24,6 @@ GENERATION_LOCATION = sys.argv[1]
 r = requests.get(GENERATION_LOCATION)
 generations = r.json()['examples']
 
-print(generations[0])
-
 # saving evaluation texts to database
 prompt_to_id = {}
 for generation in generations:
