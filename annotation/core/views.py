@@ -7,14 +7,15 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from core.models import Prompt, Tag, EvaluationText, Annotation
+from core.models import Prompt, Tag, EvaluationText, Annotation, Group
 
 
 BATCH_SIZE = 10
 
 
 def play(request):
-    return render(request, 'play.html', {})
+    groups = Group.objects.all()
+    return render(request, 'play.html', {'groups': groups})
 
 
 def leaderboard(request):
@@ -61,9 +62,14 @@ def splash(request):
 
 def annotate(request):
     seen = Annotation.objects.filter(annotator=request.user).values('text')
-    text = random.choice(EvaluationText.objects.exclude(id__in=seen))
+    
+    if 'group' in request.GET:
+        group = Group.objects.get(id=int(request.GET['group']))
+        text = random.choice(group.evaluation_texts.exclude(id__in=seen))
+    else:
+        text = random.choice(EvaluationText.objects.exclude(id__in=seen))
+    
     sentences = ast.literal_eval(text.body)
-
     remaining = request.session.get('remaining', BATCH_SIZE)
     
     return render(request, "annotate.html", {

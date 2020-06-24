@@ -39,9 +39,18 @@
           <p class="text-muted"> Select a category of AI-generated passages: </p>
 
           {% for group in groups %}
-            <a href="/play" class="btn btn-primary">Begin</a>
+            <div class="card" style="width: 100%">
+              <div class="card-body">
+                <h5 class="card-title">{{group.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count}} Available</h6>
+                <p class="card-text">{{group.description}}</p>
+                <a href="/annotate?group={{group.id}}" class="card-link">Begin Playlist</a>
+              </div>
+            </div>
           {% endfor %}
-          <a href="/annotate" class="btn btn-primary">Random</a>
+          <p style="margin-top: 1rem;">
+            <a href="/annotate" class="btn btn-primary">Play Random</a>
+          </p>
         </div>
         <div class="col-md" />
       </div>
