@@ -1,3 +1,5 @@
+# Performs analysis on annotation performance, prints to stdout
+
 import os
 import django
 from collections import defaultdict
