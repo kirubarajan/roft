@@ -36,7 +36,7 @@
         <div class="col-md-6" style="padding: 1rem">
           <br />
           <h1 class="text-muted"> <strong> Play </strong> </h1>
-          <p class="text-muted"> Select a category of AI-generated passages: </p>
+          <p class="text-muted"> Select a category of AI-continued passages: </p>
 
           {% for group in groups %}
             <div class="card" style="width: 100%">
@@ -44,13 +44,18 @@
                 <h5 class="card-title">{{group.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count}} Available</h6>
                 <p class="card-text">{{group.description}}</p>
-                <a href="/annotate?group={{group.id}}" class="card-link">Begin Playlist</a>
+                <a href="/annotate?group={{group.id}}" class="card-link">Begin Annotating</a>
               </div>
             </div>
           {% endfor %}
-          <p style="margin-top: 1rem;">
-            <a href="/annotate" class="btn btn-primary">Play Random</a>
-          </p>
+            <div class="card" style="width: 100%">
+              <div class="card-body">
+                <h5 class="card-title">Random</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{total}} Available</h6>
+                <p class="card-text">Category will be selected randomly each round.</p>
+                <a href="/annotate" class="card-link">Begin Annotating</a>
+              </div>
+            </div>
         </div>
         <div class="col-md" />
       </div>
