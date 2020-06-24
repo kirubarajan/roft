@@ -1,1 +1,4 @@
 runtime: python37
+entrypoint: gunicorn -b :8080 trick.wsgi
+includes:
+    - env_variables.yaml
