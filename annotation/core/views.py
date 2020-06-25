@@ -65,14 +65,20 @@ def splash(request):
 
 
 def annotate(request):
-    seen = Annotation.objects.filter(annotator=request.user).values('text')
-    
-    if 'group' in request.GET:
+    seen_set = Annotation.objects.filter(annotator=request.user).values('text')
+  
+    annotation = -1  # If this one hasn't been annotated yet.
+    if 'qid' in request.GET:
+        qid = int(request.GET['qid']) 
+        text = EvaluationText.objects.get(pk=qid)
+        annotation = Annotation.objects.get(
+                annotator=request.user, text_id=qid).boundary
+    elif 'group' in request.GET:
         group = Group.objects.get(id=int(request.GET['group']))
-        text = random.choice(group.evaluation_texts.exclude(id__in=seen))
+        text = random.choice(group.evaluation_texts.exclude(id__in=seen_set))
     else:
-        text = random.choice(EvaluationText.objects.exclude(id__in=seen))
-    
+        text = random.choice(EvaluationText.objects.exclude(id__in=seen_set))
+
     sentences = ast.literal_eval(text.body)
     remaining = request.session.get('remaining', BATCH_SIZE)
     
@@ -85,6 +91,7 @@ def annotate(request):
         "max_sentences": len(sentences),
         "boundary": text.boundary,
         "TAXONOMY": False,
+        "annotation": annotation,  # Previous annotation given by user, else -1. 
     })
 
 
