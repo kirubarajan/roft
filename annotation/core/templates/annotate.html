@@ -38,12 +38,15 @@
       function reveal_solutions() {
         let cards_html = "";
 
+        const human_image = '<img src="https://storage.googleapis.com/roft_datasets/roft_human.png" alt="human-written" width=64 height=64>';
+        const robot_image = '<img src="https://storage.googleapis.com/roft_datasets/roft_robot.png" alt="machine-generated" width=64 height=64>';
         for (let i = 0; i < all_sentences.length; i++) {
-          const emoji = ((i < boundary) ? "🙋‍♀️" : "🤖");
+          const emoji = ((i < boundary) ? human_image : robot_image);
           const card = (
               '<div class="card" id="' +
               i.toString() +
-              '" style="margin-bottom: 0.5rem"> <div class="card-body"><table><tr><td><h1 style="margin-right: 1rem">' +
+              '" style=""> <div class="card-body" style="padding: 0.5em">' +
+              '<table><tr><td><h1 style="margin-right: 1rem">' +
               emoji +
               "</h1></td><td>" +
               all_sentences[i] + 
