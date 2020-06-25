@@ -15,7 +15,11 @@ BATCH_SIZE = 10
 
 def play(request):
     groups = Group.objects.all()
-    return render(request, 'play.html', {'groups': groups})
+    total_available = sum(len(g.evaluation_texts.all()) for g in groups)
+    return render(request, 'play.html', {
+        'groups': groups,
+        'total': total_available
+    })
 
 
 def leaderboard(request):
@@ -80,7 +84,7 @@ def annotate(request):
         "name": request.user.username, 
         "max_sentences": len(sentences),
         "boundary": text.boundary,
-        "TAXONOMY": False
+        "TAXONOMY": False,
     })
 
 

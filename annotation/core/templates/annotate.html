@@ -35,7 +35,7 @@
       }
 
       // helper function for adding highlights and emojis
-      reveal_solutions = () => {
+      function reveal_solutions() {
         let cards_html = "";
 
         for (let i = 0; i < all_sentences.length; i++) {
@@ -63,11 +63,20 @@
         } else if (boundary == current_sentence_index) {
           $("#result-text").html("Nice job! You guessed correctly.")
         } else {
-          $("#result-text").html(`Good try! The machine-generated sentences are highlighted. Your guess was ${current_sentence_index - boundary} sentence(s) away from the true boundary.`)
+          $("#result-text").html(`Good try! The machine-generated sentences have been revealed. Your guess was ${current_sentence_index - boundary} sentence(s) away from the true boundary.`)
         }
 
         $("#analysis").hide();
         $("#reveal").show();
+
+        const marker = document.querySelector("#marker-after");
+        marker.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function show_points(points) {
+        if (points > 0) {
+          $("#remaining").notify(`You earned ${points} points!`, "success");
+        }
       }
 
       // user interaction logic
@@ -125,15 +134,12 @@
 
           const max_points = 5;
           let points = 0;
+
           const current_sentence_index = current_sentence - 1;
           if (current_sentence_index == boundary) {
             points = max_points;
-            $.notify(`You earned ${points} points!`, "success");
           } else if (current_sentence_index > boundary) {
             points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0)
-            if (points > 0) {
-              $.notify(`You earned ${points} points!`, "success");
-            }
           }
 
           // make ajax request to log annotation
@@ -154,6 +160,7 @@
             },
             success: function (response) {
               reveal_solutions();
+              show_points(points);
             }, 
             error: function (error) {
               console.log(error);
@@ -192,26 +199,27 @@
         <div class="col-md" style="padding: 2rem">
           <h2 class="text-muted"> <strong>Is the following text human written or machine generated?</strong> </h2>
           <p class="text-muted" style="margin-bottom: 1rem;">
-            Your task is to decide at what point (if at all) the sample text begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
-            The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.
+            Your task is to decide at what point (if at all) the text you see begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
+            Don't be surprised if some excerpts are entirely human-written.
+
+            You will be awarded 5 points if you guess correctly, with deceasing amount of points if you guess after the true boundary.
+            <!--The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.-->
           </p>
-          
           
           <br />
           <small class="text-muted">Human-Written Prompt:</small>
 
           <p style="margin-top: 0.5rem">{{prompt.body}}</p>
 
-          <small class="text-muted">Sample Text:</small>
+          <small class="text-muted">Continuation of text:</small>
 
           <div style="margin-top: 0.5rem" id="cards"></div>
 
           <small id="remaining" class="text-muted"></small>
           <br /> <br />
-
           <div class="card" style="margin-bottom: 2rem">
             <div class="card-body" id="selection">
-              <p class="text-muted">Select An Option:</p>
+              <p class="text-muted">Select an option:</p>
               <button id="next" type="button" class="btn btn-secondary">It's all human-written so far.</button>
               <button type="button" id="human" type="button" class="btn btn-primary">
                 The entire thing was human-written.
@@ -227,8 +235,8 @@
               </p>
               <form>
                 <div id="revision-form">
-                  <small class="text-muted">What was wrong with the sentence you selected?</small>
-                  <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="error type goes here..." />
+                  <small class="text-muted">Why do you think this sentence is computer-generated?</small>
+                  <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="Describe the problem you noticed here..." />
                 </div>
                 <button type="button" id="submit" class="btn btn-info">Reveal</button>
               </form>
@@ -239,6 +247,7 @@
               <a class="btn btn-primary" href="/annotate/">Continue</a>
             </div>
           </div>
+          <div id="marker-after" />
         </div>
         <div class="col-md" />
       </div>
