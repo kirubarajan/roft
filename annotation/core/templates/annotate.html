@@ -132,6 +132,10 @@
           }
         });
 
+        $("#continue").click(function() {
+          location.reload();
+        })
+
         $("#machine").click(function() {
           $("#selection").hide();
           $("#analysis").show();
@@ -206,7 +210,9 @@
       <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
         <a class="navbar-brand text-muted" href="/">
           <strong> Real or Fake Text? </strong>
-          <a class="badge badge-info text-white" style="margin-right: 1rem;">{{remaining}} remaining</a>
+          <!--
+            <a class="badge badge-info text-white" style="margin-right: 1rem;">{{remaining}} remaining</a>
+          -->
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -275,7 +281,7 @@
 
             <div class="card-body" id="reveal">
               <p class="text-muted" id="result-text"> </p>
-              <a class="btn btn-primary" href="/annotate/">Continue</a>
+              <a class="btn btn-primary" id="continue" href="">Continue</a>
             </div>
           </div>
           <div id="marker-after" />

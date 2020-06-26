@@ -39,12 +39,12 @@
           <p class="text-muted"> Select a category of AI-continued passages: </p>
 
           {% for group in groups %}
-            <div class="card" style="width: 100%">
+            <div class="card" style="width: 100%; margin-bottom: 1rem;">
               <div class="card-body">
                 <h5 class="card-title">{{group.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count}} Available</h6>
                 <p class="card-text">{{group.description}}</p>
-                <a href="/annotate?group={{group.id}}" class="card-link">Begin Annotating</a>
+                <a href="/annotate?group={{group.id}}" class="btn btn-primary">Start Game</a>
               </div>
             </div>
           {% endfor %}
@@ -53,7 +53,7 @@
                 <h5 class="card-title">Random</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{total}} Available</h6>
                 <p class="card-text">Category will be selected randomly each round.</p>
-                <a href="/annotate" class="card-link">Begin Annotating</a>
+                <a href="/annotate" class="btn btn-info">Start Game</a>
               </div>
             </div>
         </div>

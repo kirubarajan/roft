@@ -78,8 +78,8 @@ def annotate(request):
         text = random.choice(group.evaluation_texts.exclude(id__in=seen_set))
     else:
         text = random.choice(EvaluationText.objects.exclude(id__in=seen_set))
+    sentences = ast.literal_eval(text.body)[:10]
 
-    sentences = ast.literal_eval(text.body)
     remaining = request.session.get('remaining', BATCH_SIZE)
     
     return render(request, "annotate.html", {
