@@ -155,7 +155,7 @@
             type: 'POST',
             url: url,
             data: {
-              "boundary": current_sentence,
+              "boundary": current_sentence_index,
               "text": text_id,
               "name": name,
               "grammar": grammar,
@@ -195,6 +195,7 @@
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             {% if user.is_authenticated %}
               <li class="nav-item"> <a class="nav-link" href="/play">Play</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/onboard">Help</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
