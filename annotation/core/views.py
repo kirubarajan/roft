@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation, Group
+from markdown2 import markdown
 
 
 BATCH_SIZE = 10
@@ -16,6 +17,10 @@ BATCH_SIZE = 10
 def play(request):
     groups = Group.objects.all()
     total_available = sum(len(g.evaluation_texts.all()) for g in groups)
+
+    for group in groups:
+        group.description = markdown(group.description)
+
     return render(request, 'play.html', {
         'groups': groups,
         'total': total_available
