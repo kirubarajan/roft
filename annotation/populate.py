@@ -28,32 +28,33 @@ with open(GENERATIONS_LOCATION) as file:
     generations = json.loads(clean_json(file.read()))
 
     for generation in generations:
-        r = requests.get(generation['location'])
-        examples = r.json()['examples']
+        for location in generation['locations']:
+            r = requests.get(location)
+            examples = r.json()['examples']
 
-        group = Group.objects.create(name=generation['name'], description=generation['description'])
+            group = Group.objects.create(name=generation['name'], description=generation['description'])
 
-        prompt_to_id = {}
-        for example in examples:
-            prompt = example['prompt'][0]
-            boundary = len(example['prompt']) - 1
-            body = example['prompt'][1:] + example['continuation']
+            prompt_to_id = {}
+            for example in examples:
+                prompt = example['prompt'][0]
+                boundary = len(example['prompt']) - 1
+                body = example['prompt'][1:] + example['continuation']
 
-            if len(body) < MIN_LENGTH - 1:
-                continue
+                if len(body) < MIN_LENGTH - 1:
+                    continue
 
-            if prompt not in prompt_to_id:
-                prompt_id = Prompt.objects.create(body=prompt)
-                prompt_to_id[prompt] = prompt_id
-            
-            text = EvaluationText.objects.create(
-                prompt=prompt_to_id[prompt],
-                body=body,
-                boundary=boundary
-            )
+                if prompt not in prompt_to_id:
+                    prompt_id = Prompt.objects.create(body=prompt)
+                    prompt_to_id[prompt] = prompt_id
+                
+                text = EvaluationText.objects.create(
+                    prompt=prompt_to_id[prompt],
+                    body=body,
+                    boundary=boundary
+                )
 
-            group.evaluation_texts.add(text)
-            group.save()
+                group.evaluation_texts.add(text)
+                group.save()
 
 # creating error tags
 Tag.objects.create(name="grammar", text="Grammatical Error", human="False")
