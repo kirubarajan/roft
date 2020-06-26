@@ -5,6 +5,8 @@ import re
 import django
 import requests
 
+MIN_LENGTH = 10
+
 # helper function to fix malformatted JSON
 def clean_json(string):
     string = re.sub(",[ \t\r\n]+}", "}", string)
@@ -36,6 +38,9 @@ with open(GENERATIONS_LOCATION) as file:
             prompt = example['prompt'][0]
             boundary = len(example['prompt']) - 1
             body = example['prompt'][1:] + example['continuation']
+
+            if len(body) < MIN_LENGTH - 1:
+                continue
 
             if prompt not in prompt_to_id:
                 prompt_id = Prompt.objects.create(body=prompt)
