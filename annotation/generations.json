@@ -1,0 +1,7 @@
+[
+    {
+        "name": "Reddit Stories",
+        "description": "Transformer trained on Reddit Stories dataset.",
+        "location": "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json"
+    }
+]

@@ -19,32 +19,36 @@ from django.contrib.auth import get_user_model
 from core.models import Prompt, EvaluationText, Tag, Group
 
 # open saved generations and parse JSON
-GENERATION_LOCATION = sys.argv[1]
+GENERATIONS_LOCATION = sys.argv[1]
 # with open("../generation/generations.json") as file: generations = json.loads(clean_json(file.read()))
-r = requests.get(GENERATION_LOCATION)
-generations = r.json()['examples']
 
-# saving evaluation texts to database
-group = Group.objects.create(name="Temporary Name")
+with open(GENERATIONS_LOCATION) as file:
+    generations = json.loads(clean_json(file.read()))
 
-prompt_to_id = {}
-for generation in generations:
-    prompt = generation['prompt'][0]
-    boundary = len(generation['prompt']) - 1
-    body = generation['prompt'][1:] + generation['continuation']
+    for generation in generations:
+        r = requests.get(generation['location'])
+        examples = r.json()['examples']
 
-    if prompt not in prompt_to_id:
-        prompt_id = Prompt.objects.create(body=prompt)
-        prompt_to_id[prompt] = prompt_id
-    
-    text = EvaluationText.objects.create(
-        prompt=prompt_to_id[prompt],
-        body=body,
-        boundary=boundary
-    )
+        group = Group.objects.create(name=generation['name'], description=generation['description'])
 
-    group.evaluation_texts.add(text)
-    group.save()
+        prompt_to_id = {}
+        for example in examples:
+            prompt = example['prompt'][0]
+            boundary = len(example['prompt']) - 1
+            body = example['prompt'][1:] + example['continuation']
+
+            if prompt not in prompt_to_id:
+                prompt_id = Prompt.objects.create(body=prompt)
+                prompt_to_id[prompt] = prompt_id
+            
+            text = EvaluationText.objects.create(
+                prompt=prompt_to_id[prompt],
+                body=body,
+                boundary=boundary
+            )
+
+            group.evaluation_texts.add(text)
+            group.save()
 
 # creating error tags
 Tag.objects.create(name="grammar", text="Grammatical Error", human="False")
