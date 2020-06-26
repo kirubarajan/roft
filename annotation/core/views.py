@@ -15,6 +15,9 @@ BATCH_SIZE = 10
 
 
 def play(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+        
     groups = Group.objects.all()
     total_available = sum(len(g.evaluation_texts.all()) for g in groups)
 
@@ -40,6 +43,7 @@ def leaderboard(request):
 def profile(request, username):
     if not request.user.is_authenticated:
         return redirect('/')
+
     profile = User.objects.get(username=username)
     counts = defaultdict(int)
     distances = []
@@ -60,6 +64,9 @@ def profile(request, username):
 
 
 def onboard(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+        
     return render(request, "onboard.html", {})
 
 
@@ -70,6 +77,9 @@ def splash(request):
 
 
 def annotate(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+
     seen_set = Annotation.objects.filter(annotator=request.user).values('text')
   
     annotation = -1  # If this one hasn't been annotated yet.
