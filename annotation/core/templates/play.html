@@ -44,7 +44,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{group.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count}} Available</h6>
-                <p class="card-text">{{group.description}}</p>
+                <p class="card-text">{{group.description|safe}}</p>
                 <a href="/annotate?group={{group.id}}" class="btn btn-primary">Start Game</a>
               </div>
             </div>
