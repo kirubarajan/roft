@@ -19,9 +19,9 @@ from django.contrib.auth import get_user_model
 from core.models import Prompt, EvaluationText, Tag, Group
 
 # open saved generations and parse JSON
-GENERATIONS_LOCATION = sys.argv[1]
-# with open("../generation/generations.json") as file: generations = json.loads(clean_json(file.read()))
+print("Loading generations...")
 
+GENERATIONS_LOCATION = sys.argv[1]
 with open(GENERATIONS_LOCATION) as file:
     generations = json.loads(clean_json(file.read()))
 
@@ -61,6 +61,6 @@ User = get_user_model()
 try:
     User.objects.create_superuser('admin', 'admin@gmail.com', 'password')
 except:
-    print("Superuser already exists, skipping.")
+    print("Superuser already exists, skipping...")
 
 print("Done.")
