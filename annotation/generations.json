@@ -1,7 +1,35 @@
 [
     {
-        "name": "Reddit Stories",
-        "description": "Transformer trained on Reddit Stories dataset.",
-        "location": "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json"
+        "name": "Reddit Writing Prompts",
+        "description": "Generations from GPT-2 XL with prompts taken from the <a href='https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts</a> dataset.",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.0.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.1.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.2.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.3.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.4.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.5.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.6.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.7.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.8.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p1.0.json"
+                     ]
+                     
+    },
+    {
+        "name": "New York Times",
+        "description": "Generations from GROVER <a href='https://rowanzellers.com/grover/'>GROVER</a> with prompts taken from the New York Times",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.0.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.1.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.2.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.3.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.4.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.5.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.6.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.7.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.8.json",
+                     "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-test-p0.9.json",
+                      ]
+                     
     }
 ]
