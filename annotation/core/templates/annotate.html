@@ -18,10 +18,25 @@
       const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
       const name = "{{ name }}";
+
       let current_sentence = 1;
 
+      function update_qid_in_url() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has("qid")) {
+          // If the qid was not already specified in the URL, then
+          // add it to the url.
+          console.log('Doesn\'t have it!');
+          params.set("qid", text_id);
+          var url = new URL(window.location.href);
+          url.search = params
+          url = url.toString()
+          window.history.replaceState({url: url}, null, url);
+        }
+      }
+
       // helper function for adding new sentences
-      redraw_sentences = current_sentence => {
+      function redraw_sentences(current_sentence) {
         const sentences = all_sentences.slice(0, current_sentence);
         let cards_html = "";
 
@@ -84,7 +99,19 @@
 
       // user interaction logic
       $(document).ready(function() {
-        redraw_sentences(current_sentence);
+        update_qid_in_url();
+
+        {% if annotation >= 0 %}
+          current_sentence = {{ annotation }};
+          reveal_solutions()
+          $("#another").show();
+          $("#next").hide();
+          $("#machine").hide();
+          $("#select-text").html("You've already annotated this one.")
+        {% else %}
+          redraw_sentences(current_sentence);
+          $("#another").hide();
+        {% endif %}
 
         $("#selection").show();
         $("#analysis").hide();
@@ -229,7 +256,7 @@
           <br /> <br />
           <div class="card" style="margin-bottom: 2rem">
             <div class="card-body" id="selection">
-              <p class="text-muted">Select an option:</p>
+              <p id="select-text" class="text-muted">Select an option:</p>
               <button id="next" type="button" class="btn btn-secondary">It's all human-written so far.</button>
               <button type="button" id="human" type="button" class="btn btn-primary">
                 The entire thing was human-written.
@@ -237,6 +264,7 @@
               <button type="button" id="machine" type="button" class="btn btn-info">
                 This sentence is machine-generated.
               </button>
+              <a class="btn btn-primary" id="another" href="/annotate/">Annotate another.</a>
             </div>
 
             <div class="card-body" id="analysis">

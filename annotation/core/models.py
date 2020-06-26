@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import uuid
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
@@ -12,12 +12,14 @@ class Tag(models.Model):
 
 
 class Prompt(models.Model):
+    """Human written sentence that gets continued."""
     body = models.TextField()
 
     def __str__(self):
         return self.body
 
 class EvaluationText(models.Model):
+    """The continuation associated with the prompt."""
     prompt = models.ForeignKey(Prompt, on_delete=models.DO_NOTHING)
     body = models.TextField()
     boundary = models.IntegerField()
@@ -27,6 +29,7 @@ class EvaluationText(models.Model):
 
 
 class Annotation(models.Model):
+    """A human annotation of a prompt-continuation pair."""
     timestamp = models.DateTimeField(auto_now=True, null=True)
     annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     text = models.ForeignKey(EvaluationText, on_delete=models.DO_NOTHING)
@@ -40,6 +43,7 @@ class Annotation(models.Model):
 
 
 class Group(models.Model):
+    """A grouping of several prompt-continuation pairs."""
     name = models.CharField(max_length=128, blank=True)
     description = models.TextField(blank=True)
     evaluation_texts = models.ManyToManyField(EvaluationText)
