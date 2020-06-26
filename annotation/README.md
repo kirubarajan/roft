@@ -7,6 +7,6 @@ Dependency and virtual environment management is handled using pipenv.
 ## Usage
 1. Install dependencies using `pipenv install`.
 2. Create and structure SQLite database using `pipenv run python manage.py migrate`.
-3. Populate database by running `pipenv run python populate.py https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json`.
+3. Populate database by running `pipenv run python populate.py generations.json`.
 4. Run `pipenv run python manage.py runserver`.
 5. Dump database to JSON using `pipenv run python manage.py dumpdata > db.json`.
