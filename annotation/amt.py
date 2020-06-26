@@ -5,6 +5,11 @@ import os
 import uuid
 import csv
 import django
+import json
+import random
+import copy
+
+from generate_usernames import generate_usernames
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','trick.settings')
 django.setup()
@@ -17,8 +22,8 @@ with open('users.csv', 'w') as f:
     writer = csv.writer(f, quoting=csv.QUOTE_ALL)
     writer.writerow(['username', 'password'])
 
-    for _ in range(n_users):
-        username, password = uuid.uuid4().hex, uuid.uuid4().hex 
+    for username in generate_usernames(n_users):
+        password = uuid.uuid4().hex
         user = User.objects.create_user(username=username, password=password, email=None)
         users.add(user)
 
