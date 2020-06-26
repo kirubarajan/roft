@@ -29,8 +29,12 @@ with open(GENERATIONS_LOCATION) as file:
 
     for generation in generations:
         for location in generation['locations']:
-            r = requests.get(location)
-            examples = r.json()['examples']
+            try:
+                r = requests.get(location)
+                examples = r.json()['examples']
+            except:
+                print(location)
+                print(r)
 
             group = Group.objects.create(name=generation['name'], description=generation['description'])
 
@@ -47,14 +51,17 @@ with open(GENERATIONS_LOCATION) as file:
                     prompt_id = Prompt.objects.create(body=prompt)
                     prompt_to_id[prompt] = prompt_id
                 
-                text = EvaluationText.objects.create(
-                    prompt=prompt_to_id[prompt],
-                    body=body,
-                    boundary=boundary
-                )
+                try:
+                    text = EvaluationText.objects.create(
+                        prompt=prompt_to_id[prompt],
+                        body=body,
+                        boundary=boundary
+                    )
 
-                group.evaluation_texts.add(text)
-                group.save()
+                    group.evaluation_texts.add(text)
+                    group.save()
+                except:
+                    print(location)
 
 # creating error tags
 Tag.objects.create(name="grammar", text="Grammatical Error", human="False")

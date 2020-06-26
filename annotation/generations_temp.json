@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Reddit Writing Prompts",
+        "description": "Generations from GPT-2 XL with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
+        "locations": [
+            "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.5.json"
+        ]
+    },
+    {
+        "name": "New York Times",
+        "description": "Generations from [GROVER](https://rowanzellers.com/grover/) with prompts taken from the New York Times.",
+        "locations": [
+            "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.5.json"
+        ]                
+    }
+]
