@@ -9,7 +9,7 @@ import json
 import random
 import copy
 
-from generate_usernames import generate_usernames
+from amt.generate_usernames import generate_usernames
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','trick.settings')
 django.setup()

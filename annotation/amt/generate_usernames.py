@@ -2,37 +2,41 @@ import json
 import random
 import copy
 
+'''Adjectives Source:
+https://github.com/dariusk/corpora/raw/master/data/humans/descriptions.json
+https://raw.githubusercontent.com/dariusk/corpora/master/data/humans/moods.json
+
+Animals Source:
+https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/collateral_adjectives.json
+https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/common.json'''
+
 def generate_usernames(num_users):
     ''' Generates a num_users length list of random usernames based on descriptions of animals.
-        (i.e. snobby_muskrat, orderly_spider). '''
-    # Get adjectives from :
-    # https://github.com/dariusk/corpora/raw/master/data/humans/descriptions.json
-    # https://raw.githubusercontent.com/dariusk/corpora/master/data/humans/moods.json
+        (i.e. snobby_muskrat, orderly_spider).'''
     adjectives = set()
     with open('moods.json', 'r') as f:
+        # https://raw.githubusercontent.com/dariusk/corpora/master/data/humans/moods.json
         adjectives.update(json.load(f)['moods'])
     with open('descriptions.json', 'r') as f:
+        # https://github.com/dariusk/corpora/raw/master/data/humans/descriptions.json
         adjectives.update(json.load(f)['descriptions'])
 
     # Add inappropriate words to remove here:
     adjectives.remove('molested')
     adjectives.remove('abused')
 
-    # Get animals from :
-    # https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/collateral_adjectives.json
-    # https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/common.json
     animals = set()
     with open('collateral_adjectives.json', 'r') as f:
+        # https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/collateral_adjectives.json
         animals.update([x['name'] for x in json.load(f)['animals']])
     with open('common.json', 'r') as f:
+        # https://raw.githubusercontent.com/dariusk/corpora/master/data/animals/common.json
         animals.update(json.load(f)['animals'])
 
-    # Number of animals should be 246
-    # Number of adjectives should be 1018
-    animals = list(animals)
-    adjectives = list(adjectives)
+    animals = list(animals) # should be len 246
+    adjectives = list(adjectives) # should be len 1018
 
-    random.seed(99)
+    random.seed(99) # Reproducibility
     random.shuffle(animals)
     random.shuffle(adjectives)
 
