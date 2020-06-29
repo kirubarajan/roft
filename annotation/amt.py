@@ -21,7 +21,7 @@ users = set()
 with open('users.csv', 'w') as f:
     writer = csv.writer(f, quoting=csv.QUOTE_ALL)
     writer.writerow(['username', 'password'])
-
+    os.chdir('./amt')
     for username in generate_usernames(n_users):
         password = uuid.uuid4().hex
         user = User.objects.create_user(username=username, password=password, email=None)
