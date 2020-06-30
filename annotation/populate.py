@@ -28,6 +28,7 @@ with open(GENERATIONS_LOCATION) as file:
     generations = json.loads(clean_json(file.read()))
 
     for generation in generations:
+        group = Group.objects.create(name=generation['name'], description=generation['description'])
         for location in generation['locations']:
             try:
                 r = requests.get(location)
@@ -35,8 +36,6 @@ with open(GENERATIONS_LOCATION) as file:
             except:
                 print(location)
                 print(r)
-
-            group = Group.objects.create(name=generation['name'], description=generation['description'])
 
             prompt_to_id = {}
             for example in examples:
