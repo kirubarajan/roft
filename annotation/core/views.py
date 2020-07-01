@@ -72,7 +72,7 @@ def onboard(request):
 
 def splash(request):
     if request.user.is_authenticated:
-        return redirect('/profile/' + request.user.username)
+        return redirect('/play')
     return render(request, "splash.html", {})
 
 
