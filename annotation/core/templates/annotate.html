@@ -53,8 +53,8 @@
       function reveal_solutions() {
         let cards_html = "";
 
-        const human_image = '<img src="https://storage.googleapis.com/roft_datasets/roft_human.png" alt="human-written" width=64 height=64>';
-        const robot_image = '<img src="https://storage.googleapis.com/roft_datasets/roft_robot.png" alt="machine-generated" width=64 height=64>';
+        const human_image = '👩‍💻';
+        const robot_image = '🤖';
         for (let i = 0; i < all_sentences.length; i++) {
           const emoji = ((i < boundary) ? human_image : robot_image);
           const card = (
@@ -97,22 +97,34 @@
         }
       }
 
+      function load_next_annotation() {
+        let searchParams = new URLSearchParams(window.location.search)
+
+        if (searchParams.has('group')) {
+          window.location.replace(`/play?group=${searchParams.get('group')}`);
+        } else {
+          window.location.replace('/play');
+        }
+      }
+
       // user interaction logic
       $(document).ready(function() {
-        update_qid_in_url();
+        /*
+          update_qid_in_url();
 
-        {% if annotation >= 0 %}
-          current_sentence = {{ annotation }};
-          reveal_solutions()
-          $("#another").show();
-          $("#next").hide();
-          $("#machine").hide();
-          $("#select-text").html("You've already annotated this one.")
-        {% else %}
-          redraw_sentences(current_sentence);
-          $("#another").hide();
-        {% endif %}
+          {% if annotation >= 0 %}
+            current_sentence = {{ annotation }};
+            reveal_solutions()
+            $("#another").show();
+            $("#next").hide();
+            $("#machine").hide();
+            $("#select-text").html("You've already annotated this one.")            
+          {% endif %}
+        */
 
+        redraw_sentences(current_sentence);
+
+        $("#another").hide();
         $("#selection").show();
         $("#analysis").hide();
         $("#reveal").hide();
@@ -133,7 +145,7 @@
         });
 
         $("#continue").click(function() {
-          location.reload();
+          load_next_annotation()
         })
 
         $("#machine").click(function() {
@@ -151,7 +163,7 @@
         });
 
         // processing annotator decision
-        $("#submit").click(function(e) {
+        $("#revision-form").submit(function(e) {
           e.preventDefault();
 
           // get checkbox values and reset
@@ -271,12 +283,12 @@
               <p class="text-muted">
                 Thank you for your response!
               </p>
-              <form>
-                <div id="revision-form">
+              <form id="revision-form">
+                <div>
                   <small class="text-muted">Why do you think this sentence is computer-generated?</small>
                   <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="Describe the problem you noticed here..." />
                 </div>
-                <button type="button" id="submit" class="btn btn-info">Reveal</button>
+                <button type="submit" class="btn btn-info"> Reveal </button>
               </form>
             </div>
 
