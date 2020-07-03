@@ -53,8 +53,8 @@
       function reveal_solutions() {
         let cards_html = "";
 
-        const human_image = '<img src="https://storage.googleapis.com/roft_datasets/roft_human.png" alt="human-written" width=64 height=64>';
-        const robot_image = '<img src="https://storage.googleapis.com/roft_datasets/roft_robot.png" alt="machine-generated" width=64 height=64>';
+        const human_image = '👩‍💻';
+        const robot_image = '🤖';
         for (let i = 0; i < all_sentences.length; i++) {
           const emoji = ((i < boundary) ? human_image : robot_image);
           const card = (
@@ -97,22 +97,32 @@
         }
       }
 
+      function load_next_annotation() {
+        let searchParams = new URLSearchParams(window.location.search)
+
+        if (searchParams.has('group')) {
+          window.location.replace(`/play?group=${searchParams.get('group')}`);
+        } else {
+          window.location.replace('/play');
+        }
+      }
+
       // user interaction logic
       $(document).ready(function() {
-        update_qid_in_url();
+          update_qid_in_url();
 
-        {% if annotation >= 0 %}
-          current_sentence = {{ annotation }};
-          reveal_solutions()
-          $("#another").show();
-          $("#next").hide();
-          $("#machine").hide();
-          $("#select-text").html("You've already annotated this one.")
-        {% else %}
-          redraw_sentences(current_sentence);
-          $("#another").hide();
-        {% endif %}
+          {% if annotation >= 0 %}
+            current_sentence = {{ annotation }};
+            reveal_solutions()
+            $("#another").show();
+            $("#next").hide();
+            $("#machine").hide();
+            $("#select-text").html("You've already annotated this one.")            
+          {% endif %}
 
+        redraw_sentences(current_sentence);
+
+        $("#another").hide();
         $("#selection").show();
         $("#analysis").hide();
         $("#reveal").hide();
@@ -133,7 +143,7 @@
         });
 
         $("#continue").click(function() {
-          location.reload();
+          load_next_annotation()
         })
 
         $("#machine").click(function() {
@@ -151,7 +161,7 @@
         });
 
         // processing annotator decision
-        $("#submit").click(function(e) {
+        $("#revision-form").submit(function(e) {
           e.preventDefault();
 
           // get checkbox values and reset
@@ -271,12 +281,12 @@
               <p class="text-muted">
                 Thank you for your response!
               </p>
-              <form>
-                <div id="revision-form">
+              <form id="revision-form">
+                <div>
                   <small class="text-muted">Why do you think this sentence is computer-generated?</small>
                   <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="Describe the problem you noticed here..." />
                 </div>
-                <button type="button" id="submit" class="btn btn-info">Reveal</button>
+                <button type="submit" class="btn btn-info"> Reveal </button>
               </form>
             </div>
 
@@ -291,4 +301,59 @@
       </div>
     </div>
   </body>
+
+  <script>
+    $(function() {
+      // This function gets cookie with a given name
+      function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie != '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = jQuery.trim(cookies[i]);
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      var csrftoken = getCookie('csrftoken');
+
+      /*
+      The functions below will create a header with csrftoken
+      */
+
+      function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      function sameOrigin(url) {
+          // test that a given url is a same-origin URL
+          // url could be relative or scheme relative or absolute
+          var host = document.location.host; // host + port
+          var protocol = document.location.protocol;
+          var sr_origin = '//' + host;
+          var origin = protocol + sr_origin;
+          // Allow absolute or scheme relative URLs to same origin
+          return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+              (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+              // or any other URL that isn't scheme relative or absolute i.e relative.
+              !(/^(\/\/|http:|https:).*/.test(url));
+      }
+
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                  // Send the token to same-origin, relative URLs only.
+                  // Send the token only if the method warrants CSRF protection
+                  // Using the CSRFToken value acquired earlier
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+    });
+  </script>
 </html>
