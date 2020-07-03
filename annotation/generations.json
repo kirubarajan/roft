@@ -1,7 +1,7 @@
 [
     {
         "name": "Reddit Writing Prompts",
-        "description": "Generations from GPT-2 XL with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
+        "description": "Can a computer write a short story that makes sense? (Prompts taken from the [r/WritingPrompts](https://reddit.com/r/WritingPrompts) subreddit)",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.0.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.1.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.2.json",
@@ -17,7 +17,7 @@
     },
     {
         "name": "New York Times",
-        "description": "Generations from [GROVER](https://rowanzellers.com/grover/) with prompts taken from the New York Times.",
+        "description": "Donald Trump thinks the New York Times is fake news, can you spot when our computer wrote the article? (Prompts taken from 1990s New York Times articles)",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.0.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.1.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.2.json",
@@ -29,6 +29,6 @@
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.8.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.9.json"
                       ]
-                     
+
     }
 ]
