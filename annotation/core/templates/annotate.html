@@ -26,7 +26,6 @@
         if (!params.has("qid")) {
           // If the qid was not already specified in the URL, then
           // add it to the url.
-          console.log('Doesn\'t have it!');
           params.set("qid", text_id);
           var url = new URL(window.location.href);
           url.search = params
@@ -53,7 +52,7 @@
       function reveal_solutions() {
         let cards_html = "";
 
-        const human_image = '👩‍💻';
+        const human_image = '👩🏽‍💻';
         const robot_image = '🤖';
         for (let i = 0; i < all_sentences.length; i++) {
           const emoji = ((i < boundary) ? human_image : robot_image);
@@ -97,36 +96,84 @@
         }
       }
 
+      function submit_annotation(e) {
+        e.preventDefault();
+
+	// get checkbox values and reset
+        const grammar = $('#grammar').is(":checked");
+        const repetition = $('#repetition').is(":checked");
+        const entailment = $('#entailment').is(":checked");
+        const sense = $('#sense').is(":checked");
+        const revision = $("#revision").val();
+
+        $("#note").val('');
+        $('input[type=checkbox]').each(function() {
+          this.checked = false;
+        });
+
+        const max_points = 5;
+        let points = 0;
+
+        const current_sentence_index = current_sentence - 1;
+        if (current_sentence_index == boundary) {
+          points = max_points;
+        } else if (current_sentence_index > boundary) {
+          points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0)
+        }
+
+        // make ajax request to log annotation
+        console.log('Making ajax call with boundary = ' + current_sentence_index);
+        const url = '{% url "save" %}';
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: {
+            "boundary": current_sentence_index,
+            "text": text_id,
+            "name": name,
+            "grammar": grammar,
+            "repetition": repetition,
+            "entailment": entailment,
+            "sense": sense,
+            "revision": revision,
+            "points": points
+          },
+          success: function (response) {
+            reveal_solutions();
+            show_points(points);
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      }
+
       function load_next_annotation() {
         let searchParams = new URLSearchParams(window.location.search)
 
         if (searchParams.has('group')) {
-          window.location.replace(`/play?group=${searchParams.get('group')}`);
+          window.location.replace(`/annotate?group=${searchParams.get('group')}`);
         } else {
-          window.location.replace('/play');
+          window.location.replace('/annotate');
         }
       }
 
       // user interaction logic
       $(document).ready(function() {
-          update_qid_in_url();
+        update_qid_in_url();
 
-          {% if annotation >= 0 %}
-            current_sentence = {{ annotation }};
-            reveal_solutions()
-            $("#another").show();
-            $("#next").hide();
-            $("#machine").hide();
-            $("#select-text").html("You've already annotated this one.")            
-          {% endif %}
-
-        redraw_sentences(current_sentence);
-
-        $("#another").hide();
-        $("#selection").show();
-        $("#analysis").hide();
-        $("#reveal").hide();
-        $("#human").hide();
+        {% if annotation >= 0 %}
+          current_sentence = {{ annotation }} + 1;
+          reveal_solutions()
+          $("#another").show();
+          $("#reveal").hide();
+          $("#select-text").html("You've already annotated this one.")            
+        {% else %}
+					$("#machine").show();
+					$("#next").show();
+					$("#selection").show();
+          redraw_sentences(current_sentence);
+        {% endif %}
 
         // adding new sentence
         $("#next").click(function() {
@@ -146,6 +193,10 @@
           load_next_annotation()
         })
 
+        $("#another").click(function() {
+          load_next_annotation()
+        })
+
         $("#machine").click(function() {
           $("#selection").hide();
           $("#analysis").show();
@@ -153,64 +204,17 @@
           // $("#revision").val(all_sentences[current_sentence - 1]);
         });
 
-        $("#human").click(function() {
-          current_sentence = -1;
+        $("#human").click(function(e) {
+          current_sentence = max_sentences + 1;
           $("#revision-form").hide();
           $("#selection").hide();
           $("#analysis").show();
+          submit_annotation(e);
         });
 
         // processing annotator decision
-        $("#revision-form").submit(function(e) {
-          e.preventDefault();
+        $("#revision-form").submit(submit_annotation);
 
-          // get checkbox values and reset
-          const grammar = $('#grammar').is(":checked");
-          const repetition = $('#repetition').is(":checked");
-          const entailment = $('#entailment').is(":checked");
-          const sense = $('#sense').is(":checked");
-          const revision = $("#revision").val();
-
-          $("#note").val('');
-          $('input[type=checkbox]').each(function() {
-            this.checked = false;
-          });
-
-          const max_points = 5;
-          let points = 0;
-
-          const current_sentence_index = current_sentence - 1;
-          if (current_sentence_index == boundary) {
-            points = max_points;
-          } else if (current_sentence_index > boundary) {
-            points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0)
-          }
-
-          // make ajax request to log annotation
-          const url = '{% url "save" %}';
-          $.ajax({
-            type: 'POST',
-            url: url,
-            data: {
-              "boundary": current_sentence_index,
-              "text": text_id,
-              "name": name,
-              "grammar": grammar,
-              "repetition": repetition,
-              "entailment": entailment,
-              "sense": sense,
-              "revision": revision,
-              "points": points
-            },
-            success: function (response) {
-              reveal_solutions();
-              show_points(points);
-            },
-            error: function (error) {
-              console.log(error);
-            }
-          });
-        });
       });
     </script>
   </head>
@@ -267,17 +271,18 @@
           <div class="card" style="margin-bottom: 2rem">
             <div class="card-body" id="selection">
               <p id="select-text" class="text-muted">Select an option:</p>
-              <button id="next" type="button" class="btn btn-secondary">It's all human-written so far.</button>
-              <button type="button" id="human" type="button" class="btn btn-primary">
+              <button id="next" type="button" class="btn btn-secondary" style="display: none">
+                It's all human-written so far.</button>
+              <button type="button" id="human" type="button" class="btn btn-primary" style="display: none">
                 The entire thing was human-written.
               </button>
-              <button type="button" id="machine" type="button" class="btn btn-info">
+              <button type="button" id="machine" type="button" class="btn btn-info" style="display: none">
                 This sentence is machine-generated.
               </button>
-              <a class="btn btn-primary" id="another" href="/annotate/">Annotate another.</a>
+              <a class="btn btn-primary" id="another" style="display: none">Annotate another.</a>
             </div>
 
-            <div class="card-body" id="analysis">
+            <div class="card-body" id="analysis" style="display: none">
               <p class="text-muted">
                 Thank you for your response!
               </p>
@@ -290,9 +295,9 @@
               </form>
             </div>
 
-            <div class="card-body" id="reveal">
+            <div class="card-body" id="reveal" style="display: none">
               <p class="text-muted" id="result-text"> </p>
-              <a class="btn btn-primary" id="continue" href="">Continue</a>
+              <a class="btn btn-primary" id="continue">Continue</a>
             </div>
           </div>
           <div id="marker-after" />

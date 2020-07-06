@@ -85,10 +85,14 @@ def annotate(request):
     annotation = -1  # If this one hasn't been annotated yet.
     if 'qid' in request.GET:
         qid = int(request.GET['qid']) 
+        print("In annotate with qid = {}.".format(qid))
         text = EvaluationText.objects.get(pk=qid)
-        # annotation = Annotation.objects.get(annotator=request.user, text_id=qid).boundary
+        if seen_set.filter(text=qid).exists():
+          print('User has already annotated example with qid = {}'.format(qid))
+          annotation = Annotation.objects.filter(annotator=request.user, text_id=qid)[0].boundary
     elif 'group' in request.GET:
         group = Group.objects.get(id=int(request.GET['group']))
+        print("In annotate with group = {}.".format(group))
         text = random.choice(group.evaluation_texts.exclude(id__in=seen_set))
     else:
         text = random.choice(EvaluationText.objects.exclude(id__in=seen_set))
@@ -96,6 +100,7 @@ def annotate(request):
     sentences = ast.literal_eval(text.body)[:10]
     remaining = request.session.get('remaining', BATCH_SIZE)
     
+    print("Here with text_id = {}".format(text.pk))
     return render(request, "annotate.html", {
         "remaining": remaining,
         "prompt": text.prompt, 
