@@ -18,7 +18,7 @@
     },
     {
         "name": "New York Times",
-        "description": "Donald Trump thinks the New York Times is fake news, can you spot when our computer wrote the article?",
+        "description": "Fake News has been a big worry lately. Can you spot when our computer wrote the news article?",
         "details": "Generations from [GROVER](https://rowanzellers.com/grover/) with prompts taken from the [New York Times Corpus](https://catalog.ldc.upenn.edu/LDC2008T19)",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.0.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.1.json",
