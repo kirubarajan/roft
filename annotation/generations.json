@@ -1,7 +1,8 @@
 [
     {
-        "name": "Reddit Writing Prompts",
-        "description": "Generations from GPT-2 XL with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
+        "name": "Short Stories",
+        "description": "Can a computer write a short story that makes sense?",
+        "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.0.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.1.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.2.json",
@@ -17,7 +18,8 @@
     },
     {
         "name": "New York Times",
-        "description": "Generations from [GROVER](https://rowanzellers.com/grover/) with prompts taken from the New York Times.",
+        "description": "Donald Trump thinks the New York Times is fake news, can you spot when our computer wrote the article?",
+        "details": "Generations from [GROVER](https://rowanzellers.com/grover/) with prompts taken from the [New York Times Corpus](https://catalog.ldc.upenn.edu/LDC2008T19)",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.0.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.1.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.2.json",
@@ -29,6 +31,6 @@
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.8.json",
                      "https://storage.googleapis.com/roft_datasets/generations/examples-nytimes-p0.9.json"
                       ]
-                     
+
     }
 ]
