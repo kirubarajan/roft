@@ -224,9 +224,7 @@
       <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
         <a class="navbar-brand text-muted" href="/">
           <strong> Real or Fake Text? </strong>
-          <!--
-            <a class="badge badge-info text-white" style="margin-right: 1rem;">{{remaining}} remaining</a>
-          -->
+          <a class="badge badge-info text-white" style="margin-right: 1rem;">{{num_annotations}} completed</a>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -273,13 +271,13 @@
               <p id="select-text" class="text-muted">Select an option:</p>
               <button id="next" type="button" class="btn btn-secondary" style="display: none">
                 It's all human-written so far.</button>
-              <button type="button" id="human" type="button" class="btn btn-primary" style="display: none">
+              <button type="button" id="human" type="button" class="btn btn-primary" style="display: none; color: white">
                 The entire thing was human-written.
               </button>
-              <button type="button" id="machine" type="button" class="btn btn-info" style="display: none">
+              <button type="button" id="machine" type="button" class="btn btn-info" style="display: none; color: white">
                 This sentence is machine-generated.
               </button>
-              <a class="btn btn-primary" id="another" style="display: none">Annotate another.</a>
+              <a class="btn btn-primary" id="another" style="display: none; color: white">Annotate another.</a>
             </div>
 
             <div class="card-body" id="analysis" style="display: none">
@@ -297,7 +295,7 @@
 
             <div class="card-body" id="reveal" style="display: none">
               <p class="text-muted" id="result-text"> </p>
-              <a class="btn btn-primary" id="continue">Continue</a>
+              <a class="btn btn-primary" style="color: white" id="continue">Continue</a>
             </div>
           </div>
           <div id="marker-after" />

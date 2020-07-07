@@ -98,17 +98,18 @@ def annotate(request):
         text = random.choice(EvaluationText.objects.exclude(id__in=seen_set))
     
     sentences = ast.literal_eval(text.body)[:10]
-    remaining = request.session.get('remaining', BATCH_SIZE)
+    # remaining = request.session.get('remaining', BATCH_SIZE)
     
     print("Here with text_id = {}".format(text.pk))
     return render(request, "annotate.html", {
-        "remaining": remaining,
+        # "remaining": remaining,
         "prompt": text.prompt, 
         "text_id": text.pk, 
         "sentences": json.dumps(sentences), 
         "name": request.user.username, 
         "max_sentences": len(sentences),
         "boundary": text.boundary,
+        "num_annotations": len(Annotation.objects.filter(annotator=request.user)),
         "TAXONOMY": False,
         "annotation": annotation,  # Previous annotation given by user, else -1. 
     })
