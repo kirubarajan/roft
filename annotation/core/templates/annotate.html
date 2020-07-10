@@ -17,6 +17,7 @@
       const boundary = {{boundary}};
       const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
+      const attention_check = {{attention_check}};
       const name = "{{ name }}";
 
       let current_sentence = 1;
@@ -91,7 +92,7 @@
       }
 
       function show_points(points) {
-        if (points > 0) {
+        if (points > 0 && !attention_check) {
           $("#remaining").notify(`You earned ${points} points!`, "success");
         }
       }
@@ -136,7 +137,8 @@
             "entailment": entailment,
             "sense": sense,
             "revision": revision,
-            "points": points
+            "points": points,
+            "attention_check": attention_check
           },
           success: function (response) {
             reveal_solutions();
@@ -167,7 +169,7 @@
           reveal_solutions()
           $("#another").show();
           $("#reveal").hide();
-          $("#select-text").html("You've already annotated this one.")            
+          $("#select-text").html("You've already annotated this one.")
         {% else %}
 					$("#machine").show();
 					$("#next").show();
