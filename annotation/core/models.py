@@ -2,6 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+class Profile(models.Model):
+    """A wrapper around the User class to store state for a given user"""
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    is_turker = models.BooleanField()
+
+    def __str__(self):
+        return self.user.username + " " + str(self.is_turker)
+
 class Tag(models.Model):
     name = models.CharField(max_length=100)
     text = models.CharField(max_length=100)
@@ -37,6 +45,7 @@ class Annotation(models.Model):
     tags = models.ManyToManyField(Tag, related_name="annotation_tags")
     revision = models.TextField()
     points = models.IntegerField()
+    attention_check = models.BooleanField()
 
     def __str__(self):
         return self.annotator.username + " " + str(self.timestamp)

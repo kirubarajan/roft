@@ -1,8 +1,10 @@
-import json
-import random
-import copy
+import json, random, copy
 
-'''Adjectives Source:
+'''
+NOTE: You must run this script from within the amt directory. If you are importing and
+calling generate_usernames as a function, make sure to run os.chdir(<path to amt directory>)
+
+Adjectives Source:
 https://github.com/dariusk/corpora/raw/master/data/humans/descriptions.json
 https://raw.githubusercontent.com/dariusk/corpora/master/data/humans/moods.json
 
