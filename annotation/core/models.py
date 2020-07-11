@@ -5,7 +5,7 @@ import uuid
 class Profile(models.Model):
     """A wrapper around the User class to store state for a given user"""
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    is_turker = models.BooleanField()
+    is_turker = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username + " " + str(self.is_turker)
@@ -45,7 +45,7 @@ class Annotation(models.Model):
     tags = models.ManyToManyField(Tag, related_name="annotation_tags")
     revision = models.TextField()
     points = models.IntegerField()
-    attention_check = models.BooleanField()
+    attention_check = models.BooleanField(default=False)
 
     def __str__(self):
         return self.annotator.username + " " + str(self.timestamp)

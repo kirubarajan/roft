@@ -5,14 +5,18 @@ import re
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.db.models import F, Sum, Func, Avg
+from django.db.models import F, Q, Sum, Func, Avg, Count
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation, Group, Profile
 from markdown2 import markdown
 
+# Batch examples into groupings of this size.
 BATCH_SIZE = 10
+# The desired number of annotations per example. Each example will be
+# assigned to this many users before any new annotation gets assigned.
+GOAL_NUM_ANNOTATIONS = 3
 
 
 def _sanitize_username(username):
@@ -99,7 +103,24 @@ def annotate(request):
     if not request.user.is_authenticated:
         return redirect('/')
 
+    # TODO(daphne): Optimize these into a single query.
     seen_set = Annotation.objects.filter(annotator=request.user).values('text')
+    unseen_set = EvaluationText.objects.exclude(id__in=seen_set)
+    
+    counts = Annotation.objects.values('text').annotate(count=Count('annotator'))
+    # These are all examples that have between 1 and 3 annotations and have not been
+    # seen before by this user.
+    available_set = counts.filter(count__gte=1,
+                             count__lte=GOAL_NUM_ANNOTATIONS,
+                             text_id__in=unseen_set).values('text')
+    print(available_set)
+    # If the available set is empty, then instead choose from all the examples in the 
+    # unseen set.
+    if not available_set.exists():
+      available_set = unseen_set
+
+    # TODO(daphne): We still need logic to handle the case where the user has
+    # completed every available annotation. This code will crash in this case.
 
     annotation = -1  # If this one hasn't been annotated yet.
     if 'qid' in request.GET:
@@ -112,13 +133,12 @@ def annotate(request):
     elif 'group' in request.GET:
         group = Group.objects.get(id=int(request.GET['group']))
         print("In annotate with group = {}.".format(group))
-        text = random.choice(group.evaluation_texts.exclude(id__in=seen_set))
+        text = random.choice(group.evaluation_texts.filter(id__in=available_set))
     else:
-        text = random.choice(EvaluationText.objects.exclude(id__in=seen_set))
+        text = random.choice(EvaluationText.objects.filter(id__in=available_set))
 
     prompt = text.prompt
     sentences = ast.literal_eval(text.body)[:10]
-    # remaining = request.session.get('remaining', BATCH_SIZE)
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=request.user).exists():
