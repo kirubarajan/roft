@@ -107,13 +107,12 @@ def annotate(request):
     seen_set = Annotation.objects.filter(annotator=request.user).values('text')
     unseen_set = EvaluationText.objects.exclude(id__in=seen_set)
     
+    # available_set should contain all examples that have between 1 and 3 annotations and
+    # have not been seen before by this user.
     counts = Annotation.objects.values('text').annotate(count=Count('annotator'))
-    # These are all examples that have between 1 and 3 annotations and have not been
-    # seen before by this user.
     available_set = counts.filter(count__gte=1,
-                             count__lte=GOAL_NUM_ANNOTATIONS,
-                             text_id__in=unseen_set).values('text')
-    print(available_set)
+                                  count__lte=GOAL_NUM_ANNOTATIONS,
+                                  text_id__in=unseen_set).values('text')
     # If the available set is empty, then instead choose from all the examples in the 
     # unseen set.
     if not available_set.exists():
