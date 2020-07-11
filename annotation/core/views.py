@@ -63,10 +63,10 @@ def profile(request, username):
     distances = []
 
     annotations_for_user = Annotation.objects.filter(
-            annotator=profile, attention_check=False)
+            annotator=user, attention_check=False)
     counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
     counts['total'] = len(annotations_for_user)
-    
+
     dist_from_boundary = annotations_for_user.annotate(
         distance=(Func(F('boundary') - F('text__boundary'), function='ABS')))
     counts['correct'] = len(dist_from_boundary.filter(distance=F('text__boundary')))
@@ -106,14 +106,14 @@ def annotate(request):
     # TODO(daphne): Optimize these into a single query.
     seen_set = Annotation.objects.filter(annotator=request.user).values('text')
     unseen_set = EvaluationText.objects.exclude(id__in=seen_set)
-    
+
     # available_set should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
     counts = Annotation.objects.values('text').annotate(count=Count('annotator'))
     available_set = counts.filter(count__gte=1,
                                   count__lte=GOAL_NUM_ANNOTATIONS,
                                   text_id__in=unseen_set).values('text')
-    # If the available set is empty, then instead choose from all the examples in the 
+    # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
     if not available_set.exists():
       available_set = unseen_set
