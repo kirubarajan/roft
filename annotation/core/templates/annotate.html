@@ -100,7 +100,7 @@
       function submit_annotation(e) {
         e.preventDefault();
 
-	// get checkbox values and reset
+        // get checkbox values and reset
         const grammar = $('#grammar').is(":checked");
         const repetition = $('#repetition').is(":checked");
         const entailment = $('#entailment').is(":checked");
@@ -117,8 +117,8 @@
 
         const current_sentence_index = current_sentence - 1;
         if (attention_check) {
-	  points = 0;
-	} else if (current_sentence_index == boundary) {
+          points = 0;
+        } else if (current_sentence_index == boundary) {
           points = max_points;
         } else if (current_sentence_index > boundary) {
           points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0);
