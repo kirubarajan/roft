@@ -1,17 +1,24 @@
 import ast
 import json
 import random
+import re
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.db.models import F, Sum, Func, Avg
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from core.models import Prompt, Tag, EvaluationText, Annotation, Group, Profile
 from markdown2 import markdown
 
-
 BATCH_SIZE = 10
+
+
+def _sanitize_username(username):
+    # TODO(daphne): This should eventually get moved to a utils file.
+    return re.sub(r'(.*)@.*', r'\1@*', username)
+
 
 def play(request):
     if not request.user.is_authenticated:
@@ -31,11 +38,15 @@ def play(request):
 
 def leaderboard(request):
     points = defaultdict(int)
-    for annotation in Annotation.objects.filter(attention_check=False):
-        points[annotation.annotator.username] += annotation.points
-    sorted_usernames = sorted(points.items(), key=lambda x: x[1], reverse=True)
+
+    top_users = User.objects.filter().annotate(
+        points=Sum(F('annotation__points'))).order_by('-points')
+    username_point_pairs = [
+        (_sanitize_username(u.username), u.points)
+        for u in top_users if u.points]
+
     return render(request, 'leaderboard.html', {
-        'sorted_usernames': tuple(sorted_usernames)
+        'sorted_usernames': tuple(username_point_pairs)
     })
 
 
@@ -46,14 +57,17 @@ def profile(request, username):
     user = User.objects.get(username=username)
     counts = defaultdict(int)
     distances = []
-    for annotation in Annotation.objects.filter(annotator=user, attention_check=False):
-        counts['points'] += annotation.points
-        counts['total'] += 1
-        distances.append(abs(annotation.boundary - annotation.text.boundary))
-        if annotation.boundary == annotation.text.boundary:
-            counts['correct'] += 1
 
-    distance = sum(distances) / len(distances) if distances else "N/A"
+    annotations_for_user = Annotation.objects.filter(
+            annotator=profile, attention_check=False)
+    counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
+    counts['total'] = len(annotations_for_user)
+    
+    dist_from_boundary = annotations_for_user.annotate(
+        distance=(Func(F('boundary') - F('text__boundary'), function='ABS')))
+    counts['correct'] = len(dist_from_boundary.filter(distance=F('text__boundary')))
+
+    distance = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
