@@ -1,7 +1,14 @@
+
+import sys
 import os
+
+script_loc = os.path.realpath(__file__)
+sys.path.append(os.path.join(os.path.dirname(script_loc), '..'))
+
 import django
 from collections import defaultdict, Counter
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','trick.settings')
@@ -33,7 +40,7 @@ boundaries = []
 true_boundaries = []
 
 # get all annotations done by turkers (that are and aren't attention checks)
-for p in turker_profiles:
+for p in tqdm(turker_profiles):
 
     # Make sure to skip the annotations completed by my test account
     if p.user.username == "bitchy_mackerel":
