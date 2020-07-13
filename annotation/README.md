@@ -4,13 +4,17 @@ The annotation tool is built using the Django library for it's SQLite object-rel
 
 Dependency and virtual environment management is handled using pipenv.
 
-## Usage
+## Initializing and launching backend
 1. Install dependencies using `pipenv install`.
 2. Create SQLite database with  `pipenv run python manage.py makemigrations core``
 3. Micgrate SQLite database with `pipenv run python manage.py migrate`.
 4. Populate database by running `pipenv run python populate.py generations.json`.
 5. Run `pipenv run python manage.py runserver`.
-6. Dump database to JSON using `pipenv run python manage.py dumpdata > db.json`.
+
+## Dumping/Loading daatabase
+1. To dump the entire database to json run `pipenv run python manage.py dumpdata > db.json`.
+2. To restore the database from a dump run `pipenv run python manage.py loaddata db.json`.
+
 
 ## Troubleshooting
 If you are getting an error that your building wheel for mysqlclient failed
