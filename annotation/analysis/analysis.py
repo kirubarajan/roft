@@ -1,6 +1,11 @@
 # Performs analysis on annotation performance, prints to stdout
 
+import sys
 import os
+
+script_loc = os.path.realpath(__file__)
+sys.path.append(os.path.join(os.path.dirname(script_loc), '..'))
+
 import django
 from collections import defaultdict
 

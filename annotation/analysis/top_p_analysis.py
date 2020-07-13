@@ -1,7 +1,14 @@
+
+import sys
 import os
+
+script_loc = os.path.realpath(__file__)
+sys.path.append(os.path.join(os.path.dirname(script_loc), '..'))
+
 import django
 from collections import defaultdict, Counter
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','trick.settings')
@@ -12,8 +19,8 @@ from core.models import Profile, User, Prompt, EvaluationText, Tag, Annotation
 def did_pay_attention(attention_checks):
     for annotation in attention_checks:
         if annotation.boundary != annotation.text.boundary:
-            print("User failed their attention check :(")
-            print(annotation.boundary, annotation.text.boundary)
+            # print("User failed their attention check :(")
+            # print(annotation.boundary, annotation.text.boundary)
             return False
     return True
 
@@ -33,13 +40,15 @@ boundaries = []
 true_boundaries = []
 
 # get all annotations done by turkers (that are and aren't attention checks)
-for p in turker_profiles:
+progress_bar = tqdm(turker_profiles)
+for p in progress_bar:
 
     # Make sure to skip the annotations completed by my test account
     if p.user.username == "bitchy_mackerel":
         continue
 
-    print("Getting annotations for " + str(p.user.username))
+    progress_bar.set_description(
+        "Getting annotations for " + str(p.user.username))
     annotations = Annotation.objects.filter(annotator=p.user, attention_check=False)
     attention_checks = Annotation.objects.filter(annotator=p.user, attention_check=True)
     total_annotations += len(annotations)
