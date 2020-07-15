@@ -3,17 +3,17 @@
         "name": "Short Stories",
         "description": "Can a computer write a short story that makes sense?",
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
-        "locations": ["https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.0.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.1.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.2.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.3.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.4.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.5.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.6.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.7.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.8.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p0.9.json",
-                     "https://storage.googleapis.com/roft_datasets/generations/examples-reddit-stories-test-p1.0.json"
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.0.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.1.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.2.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.3.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.4.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.5.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.6.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.7.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.8.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p0.9.json",
+                     "https://storage.googleapis.com/roft_datasets/generations_v2/examples-reddit-stories-test-p1.0.json"
                      ]
     },
     {
