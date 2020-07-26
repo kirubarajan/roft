@@ -28,7 +28,14 @@ with open(GENERATIONS_LOCATION) as file:
     generations = json.loads(clean_json(file.read()))
 
     for generation in generations:
-        group = Group.objects.create(name=generation['name'], description=generation['description'])
+        if "pk" in generation.keys():
+            group = Group.objects.get(pk=int(generation['pk']))
+        else:
+            group = Group.objects.create(
+                name=generation['name'],
+                description=generation['description']
+            )
+
         for location in generation['locations']:
             try:
                 r = requests.get(location)
