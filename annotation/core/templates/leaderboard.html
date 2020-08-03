@@ -16,6 +16,15 @@
       gtag('js', new Date());
       gtag('config', 'UA-104989157-3');
     </script>
+    <style>
+      tr.clickable {
+          cursor: pointer;
+      }
+
+      tr.clickable:hover {
+          background-color: #D3D3D3;
+      }
+    </style>
   </head>
 
   <body>
@@ -54,7 +63,7 @@
             </thead>
             <tbody>
               {% for username, score in sorted_usernames %}
-                <tr>
+                <tr class="clickable" onclick="window.location='/profile/{{username}}';">
                   <th scope="row">{{username}}</th>
                   <td>{{score}}</td>
                 </tr>
