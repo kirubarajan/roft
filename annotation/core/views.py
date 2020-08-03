@@ -28,6 +28,10 @@ def play(request):
     if not request.user.is_authenticated:
         return redirect('/')
 
+    # Here we multiply by -1 to allow us to use the built-in django add tag in play.html
+    annotations_for_user = Annotation.objects.filter(annotator=request.user, attention_check=False)
+    neg_num_annotations = -1 * len(annotations_for_user)
+
     groups = Group.objects.all()
     total_available = sum(len(g.evaluation_texts.all()) for g in groups)
 
@@ -35,6 +39,7 @@ def play(request):
         group.description = markdown(group.description)
 
     return render(request, 'play.html', {
+        'neg_num_annotations': neg_num_annotations,
         'groups': groups,
         'total': total_available
     })

@@ -17,7 +17,6 @@
       gtag('config', 'UA-104989157-3');
     </script>
   </head>
-
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
@@ -27,7 +26,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-    
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             {% if user.is_authenticated %}
@@ -51,7 +50,7 @@
             <div class="card" style="width: 100%; margin-bottom: 1rem;">
               <div class="card-body">
                 <h5 class="card-title">{{group.name}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count}} Available</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count|add:neg_num_annotations}} Available</h6>
                 <p class="card-text">{{group.description|safe}}</p>
                 <a href="/annotate?group={{group.id}}" class="btn btn-primary">Start Game</a>
               </div>
@@ -60,7 +59,7 @@
             <div class="card" style="width: 100%">
               <div class="card-body">
                 <h5 class="card-title">Random</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{total}} Available</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{total|add:neg_num_annotations}} Available</h6>
                 <p class="card-text">Category will be selected randomly each round.</p>
                 <a href="/annotate" class="btn btn-info">Start Game</a>
               </div>
