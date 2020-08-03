@@ -80,6 +80,7 @@ def profile(request, username):
         is_turker = False
 
     return render(request, 'profile.html', {
+        'this_user': user,
         'is_turker': is_turker,
         'counts': counts,
         'distance': distance
