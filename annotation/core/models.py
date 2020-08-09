@@ -1,6 +1,7 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
-import uuid
+
 
 class Profile(models.Model):
     """A wrapper around the User class to store state for a given user"""
@@ -9,6 +10,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username + " " + str(self.is_turker)
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
@@ -25,6 +27,7 @@ class Prompt(models.Model):
 
     def __str__(self):
         return self.body
+
 
 class EvaluationText(models.Model):
     """The continuation associated with the prompt."""
@@ -56,6 +59,10 @@ class Group(models.Model):
     name = models.CharField(max_length=128, blank=True)
     description = models.TextField(blank=True)
     evaluation_texts = models.ManyToManyField(EvaluationText)
+    version = models.FloatField(null=True)
+    decoding_strategy = models.CharField(max_length=100, null=True)
+    decoding_strategy_value = models.FloatField(null=True)
+    dataset_origin = models.URLField(null=True)
 
     def __str__(self):
         return self.name
