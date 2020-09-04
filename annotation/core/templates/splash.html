@@ -54,8 +54,21 @@
             to notice generated text in, and how the amount of randomness in the generated text impacts how easy the game is.
             Your contributions will be used to answer these research questions.
           </p>
+          
+          <div class="py-5" style="text-align: center">
+            <button class="btn btn-info btn-lg" style="height: 200px; width: 80%; max-width: 400px; font-size: 40px; font-weight: bold" 
+                onclick=toggleLogIn>
+              PLAY GAME
+            </button>
+          </div>
+          
+          <script>
+            function toggleLogIn() {
+              document.getElementById("login_signup").style.display = "block";
+            }
+          </script>
 
-          <div class="row">
+          <div class="row" id="login_signup" style="display: none">
             <div class="col-md-6">
               <br />
               <h2 class="text-muted"> <strong> Sign Up </strong> </h2>
@@ -96,11 +109,12 @@
                 <button type="submit" class="btn btn-info">Log In</button>
               </form>
             </div>
-            <div class="col-md-12" style="margin-top: 3rem">
-              <p class="text-muted">
-              Made by researchers at the University of Pennsylvania. Art credit to <a href="https://www.linkedin.com/in/trungtuanle">Trung Le</a>.
-              </p>
-            </div>
+            
+          </div>
+          <div style="margin-top: 3rem; text-align: center">
+            <p class="text-muted">
+            Made by researchers at the University of Pennsylvania. Art credit to <a href="https://www.linkedin.com/in/trungtuanle">Trung Le</a>.
+            </p>
           </div>
         </div>
         <div class="col-md" />
