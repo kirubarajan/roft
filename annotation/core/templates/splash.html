@@ -17,6 +17,11 @@
       gtag('js', new Date());
       gtag('config', 'UA-104989157-3');
     </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }; 
+    </style>
   </head>
 
   <body>
@@ -56,15 +61,16 @@
           </p>
           
           <div class="py-5" style="text-align: center">
-            <button class="btn btn-info btn-lg" style="height: 200px; width: 80%; max-width: 400px; font-size: 40px; font-weight: bold" 
-                onclick=toggleLogIn>
+            <button id="play_game"class="btn btn-info btn-lg" style="height: 200px; width: 80%; max-width: 400px; font-size: 40px; font-weight: bold"
+                onclick="toggleLogIn()">
               PLAY GAME
             </button>
           </div>
           
           <script>
             function toggleLogIn() {
-              document.getElementById("login_signup").style.display = "block";
+              document.getElementById('login_signup').style.display = "";
+              window.scrollTo(0,document.body.scrollHeight);
             }
           </script>
 
