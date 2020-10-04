@@ -47,7 +47,7 @@ We will be measuring the efficiency, inter-annotator agreement, and distribution
 We are also considering allowing annotators to select the sentence where they believe the machine generation starts as well as a different sentence that clued them in to the fact that the text is now being generated. This is because we believe that these two might not necessarily be the same thing, and once an annotator is clued in to the fact that text is generated, they might reassess their previous judgements as to when the generation started. We will use preliminary results to decide whether or not to separate these two or whether to stick with the original designation.
 
 ### Models
-The experiment has the ability to test a variety of models and generation strategies. Due to time limitations and resource constraints, we will be testing OpenAI’s GPT-2 model with two different sampling algorithms: random (i.e. not altering the output distribution), and nucleus (or top-p). We will have a random distribution for the length of the prompt that varies between 1 and 10 sentences and we will also ensure that at least 25% of our generations are fully human. This prevents annotators from reading too far into the text with the expectation of it being generated and also allows us to check the frequency of which machine-like errors are most commonly over classified on a per annotator basis. We may even weight annotators later based on how quick they are to mis-classify human sentences as machine sentences and analyze if this has any effect on when they decide to place the human-machine boundary in the non-fully human passages
+The experiment has the ability to test a variety of models and generation strategies. Due to time limitations and resource constraints, we will be testing OpenAI’s GPT-2 model with two different sampling algorithms: random (i.e. not altering the output distribution), and nucleus (or top-p). We will have a random distribution for the length of the prompt that varies between 1 and 10 sentences and we will also ensure that at least 25% of our generations are fully human. This prevents annotators from reading too far into the text with the expectation of it being generated and also allows us to check the frequency of which machine-like errors are most commonly over classified on a per annotator basis. We may even weight annotators later based on how quick they are to mis-classify human sentences as machine sentences and analyze if this has any effect on when they decide to place the human-machine boundary in the non-fully human passages.
 
 ### Prompt Sources
 
@@ -57,7 +57,7 @@ We will be sampling our prompts from a variety of different sources to ensure th
 1. Which domains are more likely to give text generation systems trouble with?
 2. Which qualitative categories are most likely for generation systems to mess up on?
 3. Does the distribution of errors within these categories change with the length of the prompt?
-4. How does the sampling strategy affect the errors made by these generation systems
+4. How does the sampling strategy affect the errors made by these generation systems?
 5. How reliably can humans properly detect the boundary sentence?
 6. How reliably can humans detect generated text to begin with?
 7. How much do our annotators agree on the boundary sentence and how much do they agree on the reasonings between mistakes?
