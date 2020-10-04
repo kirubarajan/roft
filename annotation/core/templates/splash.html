@@ -36,7 +36,9 @@
             If you're familiar with the Turing Test, you'll be participating in a similar experiment!
             <br /> <br />
 
-            <img width="300" src="https://storage.googleapis.com/roft_datasets/robo_human_collab.png" />
+            <a type="button" class="btn btn-primary" href="/join">Play Now!</a> <br />
+
+            <img width="300" style="margin-top: 2rem" src="https://storage.googleapis.com/roft_datasets/robo_human_collab.png" />
             
             <br />
           </p>
@@ -54,56 +56,14 @@
             to notice generated text in, and how the amount of randomness in the generated text impacts how easy the game is.
             Your contributions will be used to answer these research questions.
           </p>
-
-          <div class="row">
-            <div class="col-md-6">
-              <br />
-              <h2 class="text-muted"> <strong> Sign Up </strong> </h2>
-              <p class="text-muted" style="font-weight: 300">It's free to participate!</p>
-              <form style="width: 80%" action="/signup/" method="POST">
-                {% if 'signup_error' in request.GET %}
-                  <p class="text-danger">Username and/or email is already in use.</p>
-                {% endif %}
-                {% csrf_token %}
-                <div class="form-group">
-                  <label class="text-muted" for="exampleInputEmail1">Username</label>
-                  <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name here...">
-                </div>
-                <div class="form-group">
-                  <label class="text-muted" for="exampleInputPassword1">Password</label>
-                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here...">
-                </div>
-                <button type="submit" class="btn btn-info">Sign Up</button>
-              </form>
-            </div>
-            <div class="col-md-6">
-              <br />
-              <h2 class="text-muted"> <strong> Log In </strong> </h2>
-              <p class="text-muted" style="font-weight: 300">Welcome back!</p>
-              <form style="width: 80%" action="/login/" method="POST">
-                {% if 'login_error' in request.GET %}
-                  <p class="text-danger">Username and/or password was incorrect.</p>
-                {% endif %}
-                {% csrf_token %}
-                <div class="form-group">
-                  <label class="text-muted" for="exampleInputEmail1">Username</label>
-                  <input name="username"  ype="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username here...">
-                </div>
-                <div class="form-group">
-                  <label class="text-muted" for="exampleInputPassword1">Password</label>
-                  <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here...">
-                </div>
-                <button type="submit" class="btn btn-info">Log In</button>
-              </form>
-            </div>
-            <div class="col-md-12" style="margin-top: 3rem">
-              <p class="text-muted">
-              Made by researchers at the University of Pennsylvania. Art credit to <a href="https://www.linkedin.com/in/trungtuanle">Trung Le</a>.
-              </p>
-            </div>
-          </div>
         </div>
-        <div class="col-md" />
+        <div class="col-md-2"></div>
+
+        <div class="col-md-12" style="margin-top: 3rem; text-align: center;">
+          <small class="text-muted">
+            Made by researchers at the University of Pennsylvania. Art credit to <a href="https://www.linkedin.com/in/trungtuanle">Trung Le</a>.
+          </small>
+        </div>
       </div>
     </div>
   </body>
