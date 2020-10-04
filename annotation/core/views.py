@@ -24,6 +24,25 @@ def _sanitize_username(username):
     return re.sub(r'(.*)@.*', r'\1@*', username)
 
 
+def onboard(request):
+    if not request.user.is_authenticated:
+        return redirect('/')
+
+    return render(request, "onboard.html", {})
+
+
+def splash(request):
+    if request.user.is_authenticated:
+        return redirect('/play')
+    return render(request, "splash.html", {})
+
+
+def join(request):
+    if request.user.is_authenticated:
+        return redirect('/play')
+    return render(request, 'join.html')
+
+
 def play(request):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -87,19 +106,6 @@ def profile(request, username):
     })
 
 
-def onboard(request):
-    if not request.user.is_authenticated:
-        return redirect('/')
-
-    return render(request, "onboard.html", {})
-
-
-def splash(request):
-    if request.user.is_authenticated:
-        return redirect('/play')
-    return render(request, "splash.html", {})
-
-
 def annotate(request):
     if not request.user.is_authenticated:
         return redirect('/')
@@ -117,7 +123,8 @@ def annotate(request):
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
     if not available_set.exists():
-      available_set = unseen_set
+        print('no available text!')
+    available_set = unseen_set
 
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
