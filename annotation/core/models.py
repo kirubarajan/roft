@@ -16,7 +16,15 @@ class System(models.Model):
     """The model that generated a given Generation."""
     name = models.CharField(max_length=200)
     description = models.TextField()
+
+    # @kirubarajan: is this for training data or fine-tuning?
     dataset_origin = models.URLField(null=True)
+
+
+class Dataset(models.Model):
+    """Dataset that we sample prompts/true human continuations from."""
+    name = models.CharField(max_length=128)
+    split = models.CharField(max_length=16)
 
 
 class Prompt(models.Model):
@@ -27,14 +35,19 @@ class Prompt(models.Model):
         return self.body
 
 
+class DecodingStrategy(models.Model):
+    """Meta-data about generation strategy used for a Generation object. """
+    name = models.CharField(max_length=128)
+    value = models.FloatField(null=True)
+
+
 class Generation(models.Model):
     """The continuation associated with the prompt."""
     system = models.ForeignKey(System, on_delete=models.DO_NOTHING)
     prompt = models.ForeignKey(Prompt, on_delete=models.DO_NOTHING)
+    decoding_strategies = models.ManyToManyField(DecodingStrategy)
     body = models.TextField()
     boundary = models.IntegerField()
-    decoding_strategy = models.CharField(max_length=100, null=True)
-    decoding_strategy_value = models.FloatField(null=True)
 
     def __str__(self):
         return self.body
@@ -42,8 +55,8 @@ class Generation(models.Model):
 
 class Annotation(models.Model):
     """A human annotation of a prompt-continuation pair."""
-    annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     timestamp = models.DateTimeField(auto_now=True, null=True)
+    annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     generation = models.ForeignKey(Generation, on_delete=models.DO_NOTHING)
     boundary = models.IntegerField()
     points = models.IntegerField()
