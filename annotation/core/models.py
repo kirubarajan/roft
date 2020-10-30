@@ -18,7 +18,7 @@ class System(models.Model):
     description = models.TextField()
 
     # @kirubarajan: is this for training data or fine-tuning?
-    dataset_origin = models.URLField(null=True)
+    finetuned_dataset_location = models.URLField(null=True)
 
 
 class Dataset(models.Model):
@@ -30,6 +30,7 @@ class Dataset(models.Model):
 class Prompt(models.Model):
     """Human written sentence that gets continued."""
     body = models.TextField()
+    dataset = models.ForeignKey(Dataset, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.body
@@ -45,7 +46,7 @@ class Generation(models.Model):
     """The continuation associated with the prompt."""
     system = models.ForeignKey(System, on_delete=models.DO_NOTHING)
     prompt = models.ForeignKey(Prompt, on_delete=models.DO_NOTHING)
-    decoding_strategies = models.ManyToManyField(DecodingStrategy)
+    decoding_strategy = models.ForeignKey(DecodingStrategy, on_delete=models.DO_NOTHING)
     body = models.TextField()
     boundary = models.IntegerField()
 
@@ -71,7 +72,7 @@ class Playlist(models.Model):
     """A grouping of several prompt-continuation pairs."""
     name = models.CharField(max_length=128, blank=True)
     description = models.TextField(blank=True)
-    prompts = models.ManyToManyField(Prompt)
+    generations = models.ManyToManyField(Generation)
     version = models.FloatField(null=True)
 
     def __str__(self):
