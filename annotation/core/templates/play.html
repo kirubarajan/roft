@@ -47,13 +47,13 @@
           <h1 class="text-muted"> <strong> Play </strong> </h1>
           <p class="text-muted"> Select a category of AI-continued passages: </p>
 
-          {% for group in groups %}
+          {% for playlist in playlists %}
             <div class="card" style="width: 100%; margin-bottom: 1rem;">
               <div class="card-body">
-                <h5 class="card-title">{{group.name}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{group.evaluation_texts.all.count}} Available</h6>
-                <p class="card-text">{{group.description|safe}}</p>
-                <a href="/annotate?group={{group.id}}" class="btn btn-primary">Start Game</a>
+                <h5 class="card-title">{{playlist.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{playlist.generation.all.count}} Available</h6>
+                <p class="card-text">{{playlist.description|safe}}</p>
+                <a href="/annotate?playlist={{playlist.id}}" class="btn btn-primary">Start Game</a>
               </div>
             </div>
           {% endfor %}
