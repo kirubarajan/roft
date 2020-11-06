@@ -9,9 +9,9 @@ from itertools import chain
 import math
 
 def fix_quotation_marks(generation):
-''' This is a quick postprocessing step we do to improve spacy sentence
-    tokenization on output generations. It looks for a line with a single
-    quotation mark and tries to attach it to either the previous or next line '''
+  ''' This is a quick postprocessing step we do to improve spacy sentence
+  tokenization on output generations. It looks for a line with a single
+  quotation mark and tries to attach it to either the previous or next line '''
   for i, s in enumerate(generation):
     if s == '"':
       if i > 0:
