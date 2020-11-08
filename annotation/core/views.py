@@ -146,8 +146,11 @@ def annotate(request):
     else:
         generation = random.choice(Generation.objects.filter(id__in=available_set))
 
-    prompt = generation.prompt
-    sentences = ast.literal_eval(text.body)[:10]
+    prompt_sentences = ast.literal_eval(generation.prompt.body)
+    generated_sentences = ast.literal_eval(generation.body)
+    continuation_sentences = prompt_sentences[1:] + generated_sentences
+
+    print(prompt_sentences[0])
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=request.user).exists():
@@ -160,7 +163,7 @@ def annotate(request):
 
     # Check attention if the user is from Mechanical Turk
     attention_check = False
-    if is_turker and generation.boundary == len(sentences):
+    if is_turker and generation.boundary == len(generated_sentences):
         if random.random() < ATTENTION_CHECK_RATE:
             prompt.body += " Please choose 'It's all human-written so far.' for every sentence in this example."
             attention_check = True
@@ -168,12 +171,12 @@ def annotate(request):
     print("Here with generation_id = {}".format(generation.pk))
     return render(request, "annotate.html", {
         # "remaining": remaining,
-        "prompt": prompt,
+        "prompt": prompt_sentences[0],
         "text_id": generation.pk,
-        "sentences": json.dumps(sentences),
+        "sentences": json.dumps(continuation_sentences),
         "name": request.user.username,
-        "max_sentences": len(sentences),
-        "boundary": text.boundary,
+        "max_sentences": len(continuation_sentences),
+        "boundary": generation.boundary,
         "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
         "attention_check": int(attention_check)
