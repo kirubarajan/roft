@@ -89,8 +89,8 @@ def profile(request, username):
     counts['total'] = len(annotations_for_user)
 
     dist_from_boundary = annotations_for_user.annotate(
-        distance=(Func(F('boundary') - F('text__boundary'), function='ABS')))
-    counts['correct'] = len(dist_from_boundary.filter(distance=F('text__boundary')))
+        distance=(Func(F('boundary') - F('generation__boundary'), function='ABS')))
+    counts['correct'] = len(dist_from_boundary.filter(distance=F('generation__boundary')))
 
     distance = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
