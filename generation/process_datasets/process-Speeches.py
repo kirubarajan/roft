@@ -92,8 +92,8 @@ if __name__ == '__main__':
     dev_len = int(len(raw_speeches) * 0.1)
 
     train = raw_speeches[:train_len]
-    dev = raw_speeches[train_len:dev_len]
-    test = raw_speeches[dev_len:]
+    dev = raw_speeches[train_len:train_len + dev_len]
+    test = raw_speeches[train_len + dev_len:]
 
     with open(pretraining_output_file_path, 'w+') as out_f:
         for line in train:
