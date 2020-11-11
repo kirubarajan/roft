@@ -8,9 +8,9 @@
 import os, json, random, re
 
 corpus_location = '../speeches'
-pretraining_output_file_path = '../speeches-train.txt'
-dev_output_file_path = '../speeches-dev.txt'
-sampling_output_file_path = '../speeches-test.txt'
+pretraining_output_file_path = '../train.txt'
+dev_output_file_path = '../dev.txt'
+sampling_output_file_path = '../test.txt'
 
 president_name_dict = {
     'adams': 'John Adams',
@@ -97,10 +97,10 @@ if __name__ == '__main__':
 
     with open(pretraining_output_file_path, 'w+') as out_f:
         for line in train:
-            out_f.write(line)
+            out_f.write(line + '\n')
     with open(dev_output_file_path, 'w+') as out_f:
         for line in dev:
-            out_f.write(line)
+            out_f.write(line + '\n')
     with open(sampling_output_file_path, 'w+') as out_f:
         for line in test:
-            out_f.write(line)
+            out_f.write(line + '\n')
