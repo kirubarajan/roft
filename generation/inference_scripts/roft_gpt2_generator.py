@@ -8,6 +8,26 @@ from operator import eq
 from itertools import chain
 import math
 
+def verb_filter(generation):
+  nlp = spacy.load("en_core_web_sm")
+  for line in generation:
+    pos = [token.pos_ for token in nlp(str(line))]
+    if "VERB" not in pos and "AUX" not in pos:
+      return True
+  return False
+
+def cutoff_prompt(prompt, generation):
+  ''' This takes in raw prompt text and raw output text made with that prompt
+      and determines where the prompt ends and the generation begins '''
+  prompt_cutoff = prompt[int(len(prompt)*0.9):]
+  start = generation.find(prompt_cutoff)
+  if start == -1:
+    # print("Error: couldn't find the substring!")
+    # print(repr(prompt))
+    # print(repr(generation))
+    return generation[start+len(prompt):]
+  return generation[start+len(prompt_cutoff):]
+
 def fix_quotation_marks(generation):
   ''' This is a quick postprocessing step we do to improve spacy sentence
   tokenization on output generations. It looks for a line with a single
@@ -31,6 +51,7 @@ MIN_NUM_SENTS = 10 # The total min number of sentences of prompt + generation
 RANDOM_SEED = 42 # The random seed for the generations
 TRUNCATE = False # Do we truncate the prompt+generation combinations to MIN_NUM_SENTS or include all output in the json
 REJECT_IF_REPETITIVE = True # Do we reject a generation that generates the same exact sentence twice in a row?
+SPACY_VERB_FILTER = True # Do we reject a generation that contains an incomplete sentence?
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-d','--dataset', help="Dataset ('nyt', 'reddit-stories', 'speeches', or 'wikihow')", type=str, required=True)
@@ -73,7 +94,7 @@ nlp = spacy.load("en")
 set_seed(RANDOM_SEED)
 
 generations = []
-success_count = 0
+failure_causes = [0] * 6
 with open(local_file_path, 'r') as f:
   data = json.load(f)
 
@@ -96,51 +117,65 @@ with open(local_file_path, 'r') as f:
     longest_prompt_len = max([len(ids) for ids in inputs])
     max_len = longest_prompt_len + int((MIN_NUM_SENTS - prompt_length) * ninety_nine_percentile_sent_len)
 
-    if prompt_length < MIN_NUM_SENTS and longest_prompt_len < 1024:
+    if longest_prompt_len >= 1024:
+      failure_causes[0] += 1
+      continue
 
-      # Generate the outputs
-      output_sequences = model.generate(
-        inputs.to(model.device),
-        do_sample=True,
-        top_p=min(p_value,1.0),
-        top_k=0,
-        repetition_penalty=1.2,
-        pad_token_id=tokenizer.eos_token_id,
-        max_length=min(max_len, 1024)
-      )
-
-      # Decode the batched outputs (making sure to skip the special padding token)
-      outputs = [tokenizer.decode(x, skip_special_tokens=True) for x in output_sequences]
-    else:
-      outputs = []
-
-    # Loop through and filter out all generations that didn't make it to the 10 sentence threshold
-    if not outputs:
+    if prompt_length >= MIN_NUM_SENTS:
       generations.append({'prompt': prompt, 'generation': [], 'p': p_value, 'prompt-index': i})
-    else:
-      for output in outputs:
-        processed_lines = [nlp(line) for line in outputs[0].split('\n\n')]
-        generated_sents = list(chain.from_iterable([line.sents for line in processed_lines]))[len(prompt):]
-        generation = fix_quotation_marks([str(sent).replace('\n', '') for sent in generated_sents])
+      continue
 
-        # Reject all generations that don't meet the minimum sentence length requirements
-        if len(generation) + len(prompt) < MIN_NUM_SENTS: continue
+    # Generate the outputs
+    output_sequences = model.generate(
+      inputs.to(model.device),
+      do_sample=True,
+      top_p=min(p_value,1.0),
+      top_k=0,
+      repetition_penalty=1.2,
+      pad_token_id=tokenizer.eos_token_id,
+      max_length=min(max_len, 1024)
+    )
 
-        truncated = generation[:MIN_NUM_SENTS-len(prompt)]
+    # Decode the batched outputs (making sure to skip the special padding token)
+    outputs = [tokenizer.decode(x, skip_special_tokens=True) for x in output_sequences]
 
-        # Reject generations with lines that are too short
-        if min([len(s) for s in truncated]) <= 3: continue
+    generated_text = cutoff_prompt(' '.join(prompt), outputs[0]).strip()
+    processed_lines = [nlp(line) for line in generated_text.split('\n\n')]
+    generated_sents = list(chain.from_iterable([line.sents for line in processed_lines]))[len(prompt):]
+    generation = fix_quotation_marks([str(sent).replace('\n', '') for sent in generated_sents])
 
-        # Reject generations that are repetitive
-        if REJECT_IF_REPETITIVE and any(map(eq, truncated, truncated[1:])): continue
+    # Reject all generations that don't meet the minimum sentence length requirements
+    if len(generation) + len(prompt) < MIN_NUM_SENTS:
+      failure_causes[1] += 1
+      continue
 
-        if TRUNCATE: generation = truncated
+    truncated = generation[:MIN_NUM_SENTS-len(prompt)]
 
-        generations.append({'prompt': prompt, 'generation': generation, 'p': p_value, 'prompt-index': i})
-        success_count += 1
-        break
+    # Reject generations with lines that are too short
+    if min([len(s) for s in truncated]) <= 3:
+      failure_causes[2] += 1
+      continue
 
-  print("Failure Rate: " + str(float(num_gens - success_count) / float(num_gens)))
+    # Reject generations that are repetitive
+    if REJECT_IF_REPETITIVE and any(map(eq, truncated, truncated[1:])):
+      failure_causes[3] += 1
+      continue
+
+    if SPACY_VERB_FILTER and verb_filter(truncated):
+      failure_causes[4] += 1
+      continue
+
+    if TRUNCATE: generation = truncated
+
+    generations.append({'prompt': prompt, 'generation': generation, 'p': p_value, 'prompt-index': i})
+
+  print("Failure Rate: " + str(float(sum(failure_causes)) / float(num_gens)))
+  print("Causes:")
+  print("Prompt over 256 chars: " + str(failure_causes[0]))
+  print("Generation too short: " + str(failure_causes[1]))
+  print("Line too short: " + str(failure_causes[2]))
+  print("Repetitive: " + str(failure_causes[3]))
+  print("No Verb Present: " + str(failure_causes[4]))
 
 # Save the prompts to the json file
 to_save = {
