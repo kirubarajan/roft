@@ -1,4 +1,4 @@
-import subprocess, json, time, argparse, random
+import subprocess, json, time, argparse, random, copy
 from transformers import CTRLTokenizer, TFCTRLLMHeadModel, set_seed
 from tqdm.auto import tqdm
 import spacy
@@ -135,7 +135,7 @@ with open(local_file_path, 'r') as f:
 
     # Sample and tokenize the prompts for this batch
     raw_prompt = data['prompts'][i][:prompt_length]
-    control_code, prompt = ctrl_process_prompt(args.control_code, raw_prompt)
+    control_code, prompt = ctrl_process_prompt(args.control_code, copy.deepcopy(raw_prompt))
     inputs = tokenizer.encode(' '.join(prompt), return_tensors="tf")
 
     # Calculate the max_length for this prompt using the 90th percentile sentence length in the corpus
