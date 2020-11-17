@@ -27,20 +27,22 @@
       const text_id = "{{ text_id }}";
       const attention_check = {{attention_check}};
       const name = "{{ name }}";
+      const playlist = "{{ playlist }}";
 
       let current_sentence = 1;
 
-      function update_qid_in_url() {
+      function update_params_in_url() {
         const params = new URLSearchParams(window.location.search);
         if (!params.has("qid")) {
-          // If the qid was not already specified in the URL, then
-          // add it to the url.
           params.set("qid", text_id);
-          var url = new URL(window.location.href);
-          url.search = params
-          url = url.toString()
-          window.history.replaceState({url: url}, null, url);
         }
+        if (!params.has("playlist")) {
+          params.set("playlist", playlist);
+        }
+        var url = new URL(window.location.href);
+        url.search = params
+        url = url.toString()
+        window.history.replaceState({url: url}, null, url);
       }
 
       // helper function for adding new sentences
@@ -163,8 +165,8 @@
       function load_next_annotation() {
         let searchParams = new URLSearchParams(window.location.search)
 
-        if (searchParams.has('group')) {
-          window.location.replace(`/annotate?group=${searchParams.get('group')}`);
+        if (searchParams.has('playlist')) {
+          window.location.replace(`/annotate?playlist=${searchParams.get('playlist')}`);
         } else {
           window.location.replace('/annotate');
         }
@@ -172,7 +174,7 @@
 
       // user interaction logic
       $(document).ready(function() {
-        update_qid_in_url();
+        update_params_in_url();
 
         {% if annotation >= 0 %}
           current_sentence = {{ annotation }} + 1;
