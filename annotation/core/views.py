@@ -1,4 +1,3 @@
-import ast
 import json
 import random
 import re
@@ -9,8 +8,10 @@ from django.db.models import F, Q, Sum, Func, Avg, Count
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from core.models import Prompt, Tag, EvaluationText, Annotation, Group, Profile
 from markdown2 import markdown
+
+from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP
+
 
 # Batch examples into groupings of this size.
 BATCH_SIZE = 10
@@ -23,6 +24,8 @@ def _sanitize_username(username):
     # TODO(daphne): This should eventually get moved to a utils file.
     return re.sub(r'(.*)@.*', r'\1@*', username)
 
+def str_to_list(text):
+    return text.split(SEP)
 
 def onboard(request):
     if not request.user.is_authenticated:
@@ -32,8 +35,6 @@ def onboard(request):
 
 
 def splash(request):
-    if request.user.is_authenticated:
-        return redirect('/play')
     return render(request, "splash.html", {})
 
 
@@ -47,14 +48,14 @@ def play(request):
     if not request.user.is_authenticated:
         return redirect('/')
 
-    groups = Group.objects.all()
-    total_available = sum(len(g.evaluation_texts.all()) for g in groups)
+    playlists = Playlist.objects.all()
+    total_available = sum(len(playlist.generations.all()) for playlist in playlists)
 
-    for group in groups:
-        group.description = markdown(group.description)
+    for playlist in playlists:
+        playlist.description = markdown(playlist.description)
 
     return render(request, 'play.html', {
-        'groups': groups,
+        'playlists': playlists,
         'total': total_available
     })
 
@@ -87,8 +88,8 @@ def profile(request, username):
     counts['total'] = len(annotations_for_user)
 
     dist_from_boundary = annotations_for_user.annotate(
-        distance=(Func(F('boundary') - F('text__boundary'), function='ABS')))
-    counts['correct'] = len(dist_from_boundary.filter(distance=F('text__boundary')))
+        distance=(Func(F('boundary') - F('generation__prompt__num_sentences'), function='ABS')))
+    counts['correct'] = len(dist_from_boundary.filter(distance=F('generation__prompt__num_sentences')))
 
     distance = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
@@ -111,20 +112,20 @@ def annotate(request):
         return redirect('/')
 
     # TODO(daphne): Optimize these into a single query.
-    seen_set = Annotation.objects.filter(annotator=request.user).values('text')
-    unseen_set = EvaluationText.objects.exclude(id__in=seen_set)
+    seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
+    unseen_set = Generation.objects.exclude(id__in=seen_set)
 
     # available_set should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
-    counts = Annotation.objects.values('text').annotate(count=Count('annotator'))
+    counts = Annotation.objects.values('generation').annotate(count=Count('annotator'))
     available_set = counts.filter(count__gte=1,
                                   count__lte=GOAL_NUM_ANNOTATIONS,
-                                  text_id__in=unseen_set).values('text')
+                                  generation__in=unseen_set).values('generation')
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
     if not available_set.exists():
         print('no available text!')
-    available_set = unseen_set
+        available_set = unseen_set
 
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
@@ -133,19 +134,25 @@ def annotate(request):
     if 'qid' in request.GET:
         qid = int(request.GET['qid'])
         print("In annotate with qid = {}.".format(qid))
-        text = EvaluationText.objects.get(pk=qid)
-        if seen_set.filter(text=qid).exists():
+        generation = Generation.objects.get(pk=qid)
+        if seen_set.filter(generation=qid).exists():
           print('User has already annotated example with qid = {}'.format(qid))
-          annotation = Annotation.objects.filter(annotator=request.user, text_id=qid)[0].boundary
-    elif 'group' in request.GET:
-        group = Group.objects.get(id=int(request.GET['group']))
-        print("In annotate with group = {}.".format(group))
-        text = random.choice(group.evaluation_texts.filter(id__in=available_set))
+          annotation = Annotation.objects.filter(annotator=request.user, generation_id=qid)[0].boundary
+    elif 'playlist' in request.GET:
+        playlist = Playlist.objects.get(id=int(request.GET['playlist']))
+        print("In annotate with playlist = {}.".format(playlist))
+        generation = random.choice(playlist.generations.filter(id__in=available_set))
     else:
-        text = random.choice(EvaluationText.objects.filter(id__in=available_set))
+        generation = random.choice(Generation.objects.filter(id__in=available_set))
 
-    prompt = text.prompt
-    sentences = ast.literal_eval(text.body)[:10]
+    prompt_sentences = str_to_list(generation.prompt.body)
+
+    generated_sentences = str_to_list(generation.body)
+    continuation_sentences = prompt_sentences[1:] + generated_sentences
+
+    # For some datasets, most importntly recipes, the first sentence of the prompt might
+    # have new lines in it which are critical to understanding.
+    prompt_sentences[0] = prompt_sentences[0].replace("\n", "<br/>")
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=request.user).exists():
@@ -158,22 +165,21 @@ def annotate(request):
 
     # Check attention if the user is from Mechanical Turk
     attention_check = False
-    if is_turker and text.boundary == len(sentences):
+    if is_turker and generation.boundary == len(generated_sentences):
         if random.random() < ATTENTION_CHECK_RATE:
             prompt.body += " Please choose 'It's all human-written so far.' for every sentence in this example."
             attention_check = True
 
-    print("Here with text_id = {}".format(text.pk))
+    print("Here with generation_id = {}".format(generation.pk))
     return render(request, "annotate.html", {
         # "remaining": remaining,
-        "prompt": prompt,
-        "text_id": text.pk,
-        "sentences": json.dumps(sentences),
+        "prompt": prompt_sentences[0],
+        "text_id": generation.pk,
+        "sentences": json.dumps(continuation_sentences),
         "name": request.user.username,
-        "max_sentences": len(sentences),
-        "boundary": text.boundary,
+        "max_sentences": len(continuation_sentences),
+        "boundary": generation.boundary,
         "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
-        "TAXONOMY": False,
         "annotation": annotation,  # Previous annotation given by user, else -1.
         "attention_check": int(attention_check)
     })
@@ -187,16 +193,10 @@ def save(request):
     revision = request.POST['revision']
     points = request.POST['points']
     attention_check = request.POST['attention_check']
-    print(attention_check)
-
-    grammar = request.POST['grammar'] == 'true'
-    repetition = request.POST['repetition'] == 'true'
-    entailment = request.POST['entailment'] == 'true'
-    sense = request.POST['sense'] == 'true'
 
     annotation = Annotation.objects.create(
         annotator=request.user,
-        text=EvaluationText.objects.get(pk=text),
+        generation=Generation.objects.get(pk=text),
         boundary=boundary,
         revision=revision,
         points=points,
@@ -206,18 +206,17 @@ def save(request):
     remaining = request.session.get('remaining', BATCH_SIZE)
     request.session['remaining'] = remaining - 1
 
-    if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))
-    if repetition: annotation.tags.add(Tag.objects.get(name="repetition"))
-    if entailment: annotation.tags.add(Tag.objects.get(name="entailment"))
-    if sense: annotation.tags.add(Tag.objects.get(name="sense"))
     annotation.save()
 
     return JsonResponse({'status': 200})
 
 
 def log_in(request):
-    if request.method == 'GET': return render(request, 'signin.html', {})
+    if request.method == 'GET':
+        return render(request, 'signin.html', {})
+    
     username, password = request.POST['username'], request.POST['password']
+    
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
@@ -230,12 +229,15 @@ def sign_up(request):
     username = request.POST['username']
     password = request.POST['password']
     user_source = request.POST['user_source']
+    
     if User.objects.filter(username=username).exists():
         return redirect('/?signup_error=True')
+    
     user = User.objects.create_user(
             username=username, email=None, password=password)
     profile = Profile.objects.create(
             user=user, is_turker=False, source=user_source)
+
     login(request, user)
     return redirect('/onboard')
 
