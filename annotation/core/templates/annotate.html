@@ -270,7 +270,11 @@
           <br />
           <small class="text-muted">Human-Written Prompt:</small>
 
-          <p style="margin-top: 0.5rem">{{prompt}}</p>
+          <p style="margin-top: 0.5rem">
+          {% autoescape off %}
+            {{prompt}}
+          {% endautoescape  %}
+          </p>
 
           <small class="text-muted">Continuation of text:</small>
 
