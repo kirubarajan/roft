@@ -133,17 +133,24 @@ def annotate(request):
     annotation = -1  # If this one hasn't been annotated yet.
     if 'qid' in request.GET:
         qid = int(request.GET['qid'])
+        playlist_id = -1
         print("In annotate with qid = {}.".format(qid))
         generation = Generation.objects.get(pk=qid)
         if seen_set.filter(generation=qid).exists():
           print('User has already annotated example with qid = {}'.format(qid))
           annotation = Annotation.objects.filter(annotator=request.user, generation_id=qid)[0].boundary
-    elif 'playlist' in request.GET:
-        playlist = Playlist.objects.get(id=int(request.GET['playlist']))
-        print("In annotate with playlist = {}.".format(playlist))
-        generation = random.choice(playlist.generations.filter(id__in=available_set))
+
     else:
-        generation = random.choice(Generation.objects.filter(id__in=available_set))
+        playlist_id = int(request.GET.get('playlist', -1))
+        print(request.GET)
+        if playlist_id >= 0:
+            playlist = Playlist.objects.get(id=playlist_id)
+            print("In annotate with playlist = {}.".format(playlist))
+            possible_gens = playlist.generations
+        else:
+            possible_gens = Generation.objects
+        generation = random.choice(
+                possible_gens.filter(id__in=available_set))
 
     prompt_sentences = str_to_list(generation.prompt.body)
 
@@ -181,7 +188,8 @@ def annotate(request):
         "boundary": generation.boundary,
         "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
-        "attention_check": int(attention_check)
+        "attention_check": int(attention_check),
+        "playlist": playlist_id
     })
 
 
