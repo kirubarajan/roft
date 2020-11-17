@@ -226,14 +226,18 @@ def log_in(request):
 
 
 def sign_up(request):
-    username, password = request.POST['username'], request.POST['password']
+    username = request.POST['username']
+    password = request.POST['password']
+    user_source = request.POST['user_source']
     
     if User.objects.filter(username=username).exists():
         return redirect('/?signup_error=True')
     
-    user = User.objects.create_user(username=username, email=None, password=password)
-    profile = Profile.objects.create(user=user, is_turker=False)
-    
+    user = User.objects.create_user(
+            username=username, email=None, password=password)
+    profile = Profile.objects.create(
+            user=user, is_turker=False, source=user_source)
+
     login(request, user)
     return redirect('/onboard')
 
