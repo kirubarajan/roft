@@ -72,6 +72,7 @@ class Playlist(models.Model):
     """A grouping of several prompt-continuation pairs."""
     name = models.CharField(max_length=128, blank=True)
     description = models.TextField(blank=True)
+    long_description = models.TextField()
     generations = models.ManyToManyField(Generation)
     version = models.FloatField(null=True)
 
