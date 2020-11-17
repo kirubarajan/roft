@@ -64,10 +64,11 @@ class Generation(models.Model):
 
     @property
     def boundary(self):
+        # TODO(daphne): Should there be a +1 here?
         return self.prompt.num_sentences
 
     def __str__(self):
-        return self.body+1
+        return self.body
 
 
 class Annotation(models.Model):
