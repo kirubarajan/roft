@@ -74,15 +74,16 @@ WSGI_APPLICATION = 'trick.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 if DEBUG:
-    print('LOADING FROM LOCAL DEBUG DATABASE')
+    name = os.path.join(BASE_DIR, 'db.sqlite3')
+    print('LOADING FROM LOCAL DEBUG DATABASE: {}'.format(name))
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            'NAME': name,
         }
     }
 else:
-    print('LOADING FROM REMOVE DATABASE: {}'.format(os.getenv('DB_HOST')))
+    print('LOADING FROM REMOTE DATABASE: {}'.format(os.getenv('DB_HOST')))
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',

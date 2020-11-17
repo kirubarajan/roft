@@ -1,4 +1,3 @@
-import ast
 import json
 import random
 import re
@@ -11,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from markdown2 import markdown
 
-from core.models import Prompt, Generation, Annotation, Playlist, Profile
+from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP
 
 
 # Batch examples into groupings of this size.
@@ -25,6 +24,8 @@ def _sanitize_username(username):
     # TODO(daphne): This should eventually get moved to a utils file.
     return re.sub(r'(.*)@.*', r'\1@*', username)
 
+def str_to_list(text):
+    return text.split(SEP)
 
 def onboard(request):
     if not request.user.is_authenticated:
@@ -34,8 +35,6 @@ def onboard(request):
 
 
 def splash(request):
-    if request.user.is_authenticated:
-        return redirect('/play')
     return render(request, "splash.html", {})
 
 
@@ -89,8 +88,8 @@ def profile(request, username):
     counts['total'] = len(annotations_for_user)
 
     dist_from_boundary = annotations_for_user.annotate(
-        distance=(Func(F('boundary') - F('generation__boundary'), function='ABS')))
-    counts['correct'] = len(dist_from_boundary.filter(distance=F('generation__boundary')))
+        distance=(Func(F('boundary') - F('generation__prompt__num_sentences'), function='ABS')))
+    counts['correct'] = len(dist_from_boundary.filter(distance=F('generation__prompt__num_sentences')))
 
     distance = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
@@ -126,7 +125,7 @@ def annotate(request):
     # unseen set.
     if not available_set.exists():
         print('no available text!')
-    available_set = unseen_set
+        available_set = unseen_set
 
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
@@ -146,11 +145,14 @@ def annotate(request):
     else:
         generation = random.choice(Generation.objects.filter(id__in=available_set))
 
-    prompt_sentences = ast.literal_eval(generation.prompt.body)
-    generated_sentences = ast.literal_eval(generation.body)
+    prompt_sentences = str_to_list(generation.prompt.body)
+
+    generated_sentences = str_to_list(generation.body)
     continuation_sentences = prompt_sentences[1:] + generated_sentences
 
-    print(prompt_sentences[0])
+    # For some datasets, most importntly recipes, the first sentence of the prompt might
+    # have new lines in it which are critical to understanding.
+    prompt_sentences[0] = prompt_sentences[0].replace("\n", "<br/>")
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=request.user).exists():

@@ -8,7 +8,7 @@ Dependency and virtual environment management is handled using pipenv.
 1. Install dependencies using `pipenv install`.
 2. Create SQLite database with  `pipenv run python manage.py makemigrations core`
 3. Migrate SQLite database with `pipenv run python manage.py migrate`.
-4. Populate database by running `pipenv run python populate.py generations.json`.
+4. Populate database by running `pipenv run python populate_database.py --generations_path=generations.json --version=1.0.0`.
 5. Run `pipenv run python manage.py runserver`.
 
 ## Migrating Database
