@@ -147,7 +147,6 @@ def annotate(request):
 
     prompt_sentences = str_to_list(generation.prompt.body)
 
-    # For recipes only
     generated_sentences = str_to_list(generation.body)
     continuation_sentences = prompt_sentences[1:] + generated_sentences
 
