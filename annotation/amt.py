@@ -15,5 +15,5 @@ with open('users.csv', 'w') as f:
     for username in generate_usernames(int(sys.argv[1])):
         password = uuid.uuid4().hex
         user = User.objects.create_user(username=username, password=password, email=None)
-        profile = Profile.objects.create(user=user, is_turker=True)
+        profile = Profile.objects.create(user=user, is_turker=True, source="amt")
         writer.writerow([username, password])

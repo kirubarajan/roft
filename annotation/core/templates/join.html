@@ -13,19 +13,23 @@
         <div class="col-md-6">
           <br />
           <h2 class="text-muted"> <strong> Sign Up </strong> </h2>
-          <p class="text-muted" style="font-weight: 300">It's free to participate!</p>
+          <p class="text-muted" style="font-weight: 300">By signing up for an account, we can make sure you don't see the same question twice. In addition, you'll have access to stats like the number of questions you've answered. If you do well, your username may appear on the leaderboard.</p>
           <form style="width: 80%" action="/signup/" method="POST">
             {% if 'signup_error' in request.GET %}
-              <p class="text-danger">Username and/or email is already in use.</p>
+              <p class="text-danger">Username is already in use.</p>
             {% endif %}
             {% csrf_token %}
             <div class="form-group">
               <label class="text-muted" for="exampleInputEmail1">Username</label>
-              <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name here...">
+              <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Choose a username here...">
             </div>
             <div class="form-group">
               <label class="text-muted" for="exampleInputPassword1">Password</label>
-              <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password here...">
+              <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Choose a password here...">
+            </div>
+            <div class="form-group">
+              <label class="text-muted" for="user_source">Optional: How did you hear about RoFT?</label>
+              <input name="user_source" type="text" class="form-control" id="user_source" placeholder="Twitter, arXiv, EMNLP, etc." maxlength=50>
             </div>
             <button type="submit" class="btn btn-info">Sign Up</button>
           </form>
