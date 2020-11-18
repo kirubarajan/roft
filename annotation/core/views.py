@@ -188,7 +188,7 @@ def annotate(request):
         "text_id": generation.pk,
         "sentences": json.dumps(continuation_sentences[:9]),
         "name": request.user.username,
-        "max_sentences": len(continuation_sentences),
+        "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
         "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
