@@ -50,9 +50,9 @@ def play(request):
 
     playlists = Playlist.objects.all()
     total_available = sum(len(playlist.generations.all()) for playlist in playlists)
-
     for playlist in playlists:
         playlist.description = markdown(playlist.description)
+        playlist.details = markdown(playlist.details)
 
     return render(request, 'play.html', {
         'playlists': playlists,
