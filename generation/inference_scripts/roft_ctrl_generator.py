@@ -1,5 +1,5 @@
-import subprocess, json, time, argparse
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, set_seed
+import subprocess, json, time, argparse, random, copy
+from transformers import CTRLTokenizer, TFCTRLLMHeadModel, set_seed
 from tqdm.auto import tqdm
 import spacy
 from spacy.pipeline import Sentencizer
@@ -15,6 +15,24 @@ def verb_filter(generation):
     if "VERB" not in pos and "AUX" not in pos:
       return True
   return False
+
+''' https://github.com/salesforce/ctrl/blob/master/control_codes.py '''
+CONTROL_CODES = ["Pregnancy","Christianity","Explain","Fitness","Saving","Ask",
+                  "Ass","Joke","Questions","Thoughts","Retail","Feminism",
+                  "Writing","Atheism","Netflix","Computing","Opinion","Alone",
+                  "Funny","Gaming","Human","India","Joker","Diet","Legal",
+                  "Norman","Tip","Weight","Movies","Running","Science",
+                  "Horror","Confession","Finance","Scary","Support",
+                  "Technologies","Teenage","Event","Learned","Notion","Wikipedia",
+                  "Books","Extract","Confessions","Conspiracy","Links","Narcissus",
+                  "Relationship","Relationships","Reviews","News","Translation",
+                  "multilingual"]
+
+def ctrl_process_prompt(control_code, prompt):
+  if not control_code: control_code = random.choice(CONTROL_CODES)
+  prompt[0] = control_code + ' Title: ' + prompt[0]
+  if len(prompt) > 1: prompt[1] = 'Text: ' + prompt[1]
+  return control_code, prompt
 
 def cutoff_prompt(prompt, generation):
   ''' This takes in raw prompt text and raw output text made with that prompt
@@ -56,9 +74,10 @@ SPACY_VERB_FILTER = True # Do we reject a generation that contains an incomplete
 parser = argparse.ArgumentParser()
 parser.add_argument('-d','--dataset', help="Dataset ('nyt', 'reddit-stories', 'speeches', or 'wikihow')", type=str, required=True)
 parser.add_argument('-s','--split', help="Split ('train','dev','test')", type=str, required=True)
-parser.add_argument('-m','--model_name', help="Model Name ('gpt2','gpt2-medium','gpt2-large','gpt2-xl')", type=str, required=True)
 parser.add_argument('-n','--num_gens', help="The number of generations you would like to output", type=int, required=True)
+parser.add_argument('-m','--model_name', help="The CTRL model you would like to generate with ('ctrl', 'sshleifer/tiny-ctrl')")
 parser.add_argument('-p','--vary_p', help="Vary the value of the Nucleus Sampling parameter", action='store_true')
+parser.add_argument('-c','--control_code', help="Control code for CTRL ('Politics','Gaming','Books', etc.)", type=str, default='')
 
 args = parser.parse_args()
 
@@ -66,6 +85,10 @@ print(args)
 
 if args.vary_p and args.num_gens < 11 * MIN_NUM_SENTS:
   print("Warning: Please set args.num_gens higher, unable to make equal spread across p values and prompt lengths")
+  exit(0)
+
+if args.control_code and args.control_code not in CONTROL_CODES and args.control_code != "Politics":
+  print("Warning: Invalid control code selection, please select a valid control code")
   exit(0)
 
 # Download the sampling file from the Google Cloud bucket
@@ -76,22 +99,23 @@ command = "gsutil cp {0} {1}".format(file_url, local_file_path)
 process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
 
 # Initialize the tokenizer and the model
-tokenizer = GPT2Tokenizer.from_pretrained(args.model_name)
-model = GPT2LMHeadModel.from_pretrained(args.model_name, return_dict=True).cuda()
+tokenizer = CTRLTokenizer.from_pretrained(args.model_name)
+model = TFCTRLLMHeadModel.from_pretrained(args.model_name, return_dict=True)
 
 # Calculate the 99 percentile length of a prompt with MIN_NUM_SENTS sentences in it
 with open(local_file_path, 'r') as f:
   data = json.load(f)
   tokenized_prompts = []
   for prompt in data['prompts']:
-    inputs = tokenizer(' '.join(prompt[:MIN_NUM_SENTS]), return_tensors="pt")
+    inputs = tokenizer(' '.join([args.control_code] + prompt[:MIN_NUM_SENTS]), return_tensors="tf")
     tokenized_prompts.append(float(len(inputs['input_ids'][0])) / float(MIN_NUM_SENTS))
 sorted_lens = sorted(tokenized_prompts)
-ninety_nine_percentile_sent_len = sorted_lens[int(0.99*len(sorted_lens))]
+ninety_percentile_sent_len = sorted_lens[int(0.90*len(sorted_lens))]
 
 nlp = spacy.load("en")
 
 set_seed(RANDOM_SEED)
+random.seed(RANDOM_SEED)
 
 generations = []
 failure_causes = [0] * 6
@@ -110,30 +134,31 @@ with open(local_file_path, 'r') as f:
     p_value = round(math.floor(float(float(i%prompts_per_length) / (float(prompts_per_length) / 11.0))) / 10.0, 1) if args.vary_p else 0.4
 
     # Sample and tokenize the prompts for this batch
-    prompt = data['prompts'][i][:prompt_length]
-    inputs = tokenizer.encode(' '.join(prompt), return_tensors="pt")
+    raw_prompt = data['prompts'][i][:prompt_length]
+    control_code, prompt = ctrl_process_prompt(args.control_code, copy.deepcopy(raw_prompt))
+    inputs = tokenizer.encode(' '.join(prompt), return_tensors="tf")
 
     # Calculate the max_length for this prompt using the 90th percentile sentence length in the corpus
     longest_prompt_len = max([len(ids) for ids in inputs])
-    max_len = longest_prompt_len + int((MIN_NUM_SENTS - prompt_length) * ninety_nine_percentile_sent_len)
+    max_len = longest_prompt_len + int((MIN_NUM_SENTS - prompt_length) * ninety_percentile_sent_len)
 
-    if longest_prompt_len >= 1024:
+    if longest_prompt_len >= 256:
       failure_causes[0] += 1
       continue
 
     if prompt_length >= MIN_NUM_SENTS:
-      generations.append({'prompt': prompt, 'generation': [], 'p': p_value, 'prompt-index': i})
+      generations.append({'prompt': raw_prompt, 'generation': [], 'p': p_value, 'prompt-index': i, 'control-code': control_code})
       continue
 
     # Generate the outputs
     output_sequences = model.generate(
-      inputs.to(model.device),
+      inputs,
       do_sample=True,
       top_p=min(p_value,1.0),
       top_k=0,
       repetition_penalty=1.2,
       pad_token_id=tokenizer.eos_token_id,
-      max_length=min(max_len, 1024)
+      max_length=min(max_len, 256)
     )
 
     # Decode the batched outputs (making sure to skip the special padding token)
@@ -141,7 +166,7 @@ with open(local_file_path, 'r') as f:
 
     generated_text = cutoff_prompt(' '.join(prompt), outputs[0]).strip()
     processed_lines = [nlp(line) for line in generated_text.split('\n\n')]
-    generated_sents = list(chain.from_iterable([line.sents for line in processed_lines]))[len(prompt):]
+    generated_sents = list(chain.from_iterable([line.sents for line in processed_lines]))
     generation = fix_quotation_marks([str(sent).replace('\n', '') for sent in generated_sents])
 
     # Reject all generations that don't meet the minimum sentence length requirements
@@ -149,6 +174,7 @@ with open(local_file_path, 'r') as f:
       failure_causes[1] += 1
       continue
 
+    # calculate truncated generation based on MIN_NUM_SENTS
     truncated = generation[:MIN_NUM_SENTS-len(prompt)]
 
     # Reject generations with lines that are too short
@@ -165,9 +191,10 @@ with open(local_file_path, 'r') as f:
       failure_causes[4] += 1
       continue
 
+    # Truncate the generation if we want to truncate it
     if TRUNCATE: generation = truncated
 
-    generations.append({'prompt': prompt, 'generation': generation, 'p': p_value, 'prompt-index': i})
+    generations.append({'prompt': raw_prompt, 'generation': generation, 'p': p_value, 'prompt-index': i, 'control-code': control_code})
 
   print("Failure Rate: " + str(float(sum(failure_causes)) / float(num_gens)))
   print("Causes:")
@@ -187,5 +214,6 @@ to_save = {
   'generations': generations
 }
 
-with open('generations-{}.json'.format('-'.join([args.model_name, args.dataset, args.split])), 'w') as f:
+control_code = args.control_code if args.control_code else "nocode"
+with open('generations-{}.json'.format('-'.join([args.model_name, control_code, args.dataset, args.split])), 'w') as f:
   json.dump(to_save, f, indent=2)
