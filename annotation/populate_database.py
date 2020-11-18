@@ -139,15 +139,16 @@ def populate_db(generations_path, version):
                 # TODO(daphne): Add support for others besides top-p.
                 decoding_strategy = _try_create_decoding_strategy(
                         "top-p", generation["p"])
-
-                generation =  _try_create_generation(
+                try:
+                    generation =  _try_create_generation(
                         prompt=prompt,
                         system=system,
                         decoding_strategy=decoding_strategy,
                         gen_text=SEP.join(generation["generation"]))
-        
-                # linking generation with playlist
-                playlist.generations.add(generation)
+                    playlist.generations.add(generation)
+                except Exception as e:
+                    print("failure adding generation")
+                    print(e)
 
 
 if __name__ == '__main__':
