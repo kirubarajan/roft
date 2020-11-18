@@ -26,7 +26,7 @@ def _read_json(f):
     return json.loads(_clean_json(text))
 
 def _try_create_playlist(name, shortname, version, description, details):
-    playlist = Playlist.objects.filter(shortname=shortname, version=version) 
+    playlist = Playlist.objects.filter(shortname=shortname, version=version)
     playlist = playlist[0] if playlist else None
     if not playlist:
         playlist = Playlist.objects.create(
@@ -100,7 +100,7 @@ def populate_db(generations_path, version):
 
     with open(generations_path) as file:
         playlists_json = _read_json(file)
-    
+
     for playlist_json in playlists_json:
         # creating playlist
         playlist = _try_create_playlist(
@@ -120,7 +120,7 @@ def populate_db(generations_path, version):
             desc = "Generated " + generations_json["date-generated"]
             system = _try_create_system(
                     generations_json["generation-model"],
-                    description=desc)  
+                    description=desc)
 
             # Create dataset if it does not already exist.
             dataset = _try_create_dataset(
@@ -128,6 +128,13 @@ def populate_db(generations_path, version):
                     generations_json["split"])
 
             for generation in generations_json["generations"]:
+                # Skip loading the generation if length is less than MIN_LENGTH
+                if len(generation["prompt"]) + len(generation["generation"]) < MIN_LENGTH:
+                  continue
+
+                # Truncate the generation so that prompt + generation = MIN_LENGTH
+                gen_text = generation["generation"][:MIN_LENGTH - len(generation["prompt"])]
+
                 # Create prompt if it does not already exist.
                 prompt = _try_create_prompt(
                         prompt_id=generation["prompt-index"],
