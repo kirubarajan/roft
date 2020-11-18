@@ -8,6 +8,18 @@ from operator import eq
 from itertools import chain
 import math
 
+def cutoff_prompt(prompt, generation):
+  ''' This takes in raw prompt text and raw output text made with that prompt
+      and determines where the prompt ends and the generation begins '''
+  prompt_cutoff = prompt[int(len(prompt)*0.9):]
+  start = generation.find(prompt_cutoff)
+  if start == -1:
+    print("Error: couldn't find the substring!")
+    print(repr(prompt))
+    print(repr(generation))
+    return generation[start+len(prompt):]
+  return generation[start+len(prompt_cutoff):]
+
 def fix_quotation_marks(generation):
   ''' This is a quick postprocessing step we do to improve spacy sentence
   tokenization on output generations. It looks for a line with a single
@@ -132,8 +144,8 @@ with open(local_file_path, 'r') as f:
           else:
               continue
         else:
-          output = outputs[j]
-          processed_lines = [nlp(line) for line in outputs[0].split('\n\n')]
+          generated_text = cutoff_prompt(' '.join(prompt), outputs[j]).strip()
+          processed_lines = [nlp(line) for line in generated_text.split('\n\n')]
           generated_sents = list(chain.from_iterable([line.sents for line in processed_lines]))[len(prompt):]
           generation = fix_quotation_marks([str(sent).replace('\n', '') for sent in generated_sents])
 
