@@ -121,13 +121,23 @@ def annotate(request):
     available_set = counts.filter(count__gte=1,
                                   count__lte=GOAL_NUM_ANNOTATIONS,
                                   generation__in=unseen_set).values('generation')
+
+    # Mark only examples in the correct playlist (if one was specified) as available.
+    playlist_id = int(request.GET.get('playlist', -1))
+    if playlist_id >= 0:
+        playlist = Playlist.objects.get(id=playlist_id)
+        print("In annotate with playlist = {}.".format(playlist))
+        available_set = playlist.generations.filter(id__in=available_set)
+    else:
+        playlist = None
+
     print(len(available_set))
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
     if not available_set.exists():
         print('no available text!')
-        available_set = unseen_set
-
+        available_set = (playlist.generations.filter(id__in=unseen_set) if playlist
+                else unseen_set)
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
 
@@ -139,20 +149,12 @@ def annotate(request):
         generation = Generation.objects.get(pk=qid)
         if seen_set.filter(generation=qid).exists():
           print('User has already annotated example with qid = {}'.format(qid))
-          annotation = Annotation.objects.filter(annotator=request.user, generation_id=qid)[0].boundary
-
+          annotation = Annotation.objects.filter(
+                  annotator=request.user, generation_id=qid)[0].boundary
     else:
-        playlist_id = int(request.GET.get('playlist', -1))
-        if playlist_id >= 0:
-            playlist = Playlist.objects.get(id=playlist_id)
-            print("In annotate with playlist = {}.".format(playlist))
-            possible_gens = playlist.generations
-        else:
-            possible_gens = Generation.objects
-
-        # print(playlist.generations)
-        generation = random.choice(
-                possible_gens.filter(id__in=available_set))
+        # TODO(daphne): We do eventually need logic here to handle when all annotations
+        # for a playlist have been completed. This code will still fail in this case.
+        generation = random.choice(available_set)
 
     prompt_sentences = str_to_list(generation.prompt.body)
 
