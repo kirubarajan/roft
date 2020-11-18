@@ -121,6 +121,7 @@ def annotate(request):
     available_set = counts.filter(count__gte=1,
                                   count__lte=GOAL_NUM_ANNOTATIONS,
                                   generation__in=unseen_set).values('generation')
+    print(len(available_set))
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
     if not available_set.exists():
@@ -142,13 +143,14 @@ def annotate(request):
 
     else:
         playlist_id = int(request.GET.get('playlist', -1))
-        print(request.GET)
         if playlist_id >= 0:
             playlist = Playlist.objects.get(id=playlist_id)
             print("In annotate with playlist = {}.".format(playlist))
             possible_gens = playlist.generations
         else:
             possible_gens = Generation.objects
+
+        # print(playlist.generations)
         generation = random.choice(
                 possible_gens.filter(id__in=available_set))
 
@@ -182,7 +184,7 @@ def annotate(request):
         # "remaining": remaining,
         "prompt": prompt_sentences[0],
         "text_id": generation.pk,
-        "sentences": json.dumps(continuation_sentences),
+        "sentences": json.dumps(continuation_sentences[:9]),
         "name": request.user.username,
         "max_sentences": len(continuation_sentences),
         "boundary": generation.boundary,
@@ -227,7 +229,7 @@ def log_in(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('/play')
+        return redirect('/onboard')
     else:
         return redirect('/join?login_error=True')
 
