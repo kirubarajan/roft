@@ -132,6 +132,9 @@ def populate_db(generations_path, version):
                 if len(generation["prompt"]) + len(generation["generation"]) < MIN_LENGTH:
                   continue
 
+                # Truncate the generation so that prompt + generation = MIN_LENGTH
+                gen_text = generation["generation"][:MIN_LENGTH - len(generation["prompt"])]
+
                 # Create prompt if it does not already exist.
                 prompt = _try_create_prompt(
                         prompt_id=generation["prompt-index"],
@@ -148,7 +151,7 @@ def populate_db(generations_path, version):
                         prompt=prompt,
                         system=system,
                         decoding_strategy=decoding_strategy,
-                        gen_text=SEP.join(generation["generation"]))
+                        gen_text=SEP.join(gen_text))
 
                 # linking generation with playlist
                 playlist.generations.add(generation)
