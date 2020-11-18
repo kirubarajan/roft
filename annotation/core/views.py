@@ -221,16 +221,15 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
-        return render(request, 'signin.html', {})
+        return render(request, 'join.html', {})
     
     username, password = request.POST['username'], request.POST['password']
-    
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('/')
+        return redirect('/play')
     else:
-        return redirect('/?login_error=True')
+        return redirect('/join?login_error=True')
 
 
 def sign_up(request):
@@ -239,7 +238,7 @@ def sign_up(request):
     user_source = request.POST['user_source']
     
     if User.objects.filter(username=username).exists():
-        return redirect('/?signup_error=True')
+        return redirect('/join?signup_error=True')
     
     user = User.objects.create_user(
             username=username, email=None, password=password)
