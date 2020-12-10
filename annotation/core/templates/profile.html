@@ -48,6 +48,12 @@
             <a class="badge badge-info text-white" style="margin-bottom: 0.5rem">Mechanical Turk User</a>
           {% endif %}
           <p style="margin-bottom: 1rem" class="text-muted">Joined on {{this_user.date_joined|date:'Y-m-d'}}</p>
+          <p style="margin-bottom: 1rem" class="text-muted">
+            Trophies:
+            {% for trophy in trophies %}
+              <span title="{{trophy.description}}"  style="cursor:pointer; font-size: 2rem">{{trophy.emoji}}</span>
+            {% endfor %}
+          </p>
           <div class="card" style="width: 100%; margin-top: 0.5rem">
             <ul class="list-group list-group-flush">
               <li class="list-group-item">Total points: <strong>{{counts.points}}</strong></li>

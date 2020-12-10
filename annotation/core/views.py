@@ -80,15 +80,12 @@ def profile(request, username):
 
     user = User.objects.get(username=username)
     counts = defaultdict(int)
-    distances = []
 
-    annotations_for_user = Annotation.objects.filter(
-            annotator=user, attention_check=False)
+    annotations_for_user = Annotation.objects.filter(annotator=user, attention_check=False)
     counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
     counts['total'] = len(annotations_for_user)
 
-    dist_from_boundary = annotations_for_user.annotate(
-        distance=(Func(F('boundary') - F('generation__prompt__num_sentences'), function='ABS')))
+    dist_from_boundary = annotations_for_user.annotate(distance=(Func(F('boundary') - F('generation__prompt__num_sentences'), function='ABS')))
     counts['correct'] = len(dist_from_boundary.filter(distance=F('generation__prompt__num_sentences')))
 
     distance = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
@@ -99,11 +96,21 @@ def profile(request, username):
     else:
         is_turker = False
 
+    trophies = []
+    
+    if counts['total'] > 0:
+        trophies.append({'emoji': '🤖', 'description': 'Complete one annotation.'})
+    if counts['points'] > 50:
+        trophies.append({'emoji': '✨', 'description': 'Acheive 50 points.'})
+    if counts['correct'] > 0:
+        trophies.append({'emoji': '🔎', 'description': 'Correctly identify one boundary.'})
+
     return render(request, 'profile.html', {
         'this_user': user,
         'is_turker': is_turker,
         'counts': counts,
-        'distance': distance
+        'distance': distance,
+        'trophies': trophies
     })
 
 
