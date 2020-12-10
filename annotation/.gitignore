@@ -3,3 +3,4 @@ env.sh
 env_variables.yaml
 migrations/
 raw_data/
+.vscode/
