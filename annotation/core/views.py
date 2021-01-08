@@ -116,35 +116,31 @@ def profile(request, username):
 
 def annotate(request):
     if not request.user.is_authenticated:
-        return redirect('/')
-
+        # TODO: save annotations to session and prompt to save after X annotations
+        unseen_set = Generation.objects.all()
+    else:
     # TODO(daphne): Optimize these into a single query.
-    seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
-    unseen_set = Generation.objects.exclude(id__in=seen_set)
+        seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
+        unseen_set = Generation.objects.exclude(id__in=seen_set)
 
-    # available_set should contain all examples that have between 1 and 3 annotations and
+    # counts should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
+    playlist, available_set = None, None
     counts = Annotation.objects.values('generation').annotate(count=Count('annotator'))
-    available_set = counts.filter(count__gte=1,
-                                  count__lte=GOAL_NUM_ANNOTATIONS,
-                                  generation__in=unseen_set).values('generation')
+    counts = counts.filter(count__gte=1, count__lte=GOAL_NUM_ANNOTATIONS, generation__in=unseen_set).values('generation')
 
     # Mark only examples in the correct playlist (if one was specified) as available.
     playlist_id = int(request.GET.get('playlist', -1))
     if playlist_id >= 0:
         playlist = Playlist.objects.get(id=playlist_id)
-        print("In annotate with playlist = {}.".format(playlist))
-        available_set = playlist.generations.filter(id__in=available_set)
-    else:
-        playlist = None
+        available_set = playlist.generations.filter(id__in=counts)
+        print("Annotating playlist = {}.".format(playlist))
 
-    print(len(available_set))
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
-    if not available_set.exists():
+    if not available_set or not available_set.exists():
         print('no available text!')
-        available_set = (playlist.generations.filter(id__in=unseen_set) if playlist
-                else unseen_set)
+        available_set = playlist.generations.filter(id__in=unseen_set) if playlist else unseen_set
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
 
@@ -154,17 +150,16 @@ def annotate(request):
         playlist_id = -1
         print("In annotate with qid = {}.".format(qid))
         generation = Generation.objects.get(pk=qid)
-        if seen_set.filter(generation=qid).exists():
+        if request.user.is_authenticated and seen_set.filter(generation=qid).exists():
           print('User has already annotated example with qid = {}'.format(qid))
-          annotation = Annotation.objects.filter(
-                  annotator=request.user, generation_id=qid)[0].boundary
+          annotation = Annotation.objects.filter(annotator=request.user, generation_id=qid)[0].boundary
     else:
         # TODO(daphne): We do eventually need logic here to handle when all annotations
         # for a playlist have been completed. This code will still fail in this case.
         generation = random.choice(available_set)
 
+    # breakpoint()
     prompt_sentences = str_to_list(generation.prompt.body)
-
     generated_sentences = str_to_list(generation.body)
     continuation_sentences = prompt_sentences[1:] + generated_sentences
 
@@ -173,12 +168,12 @@ def annotate(request):
     prompt_sentences[0] = prompt_sentences[0].replace("\n", "<br/>")
 
     # Check if the user has a profile object
-    if Profile.objects.filter(user=request.user).exists():
+    if request.user.is_authenticated and Profile.objects.filter(user=request.user).exists():
         is_turker = Profile.objects.get(user=request.user).is_turker
     else:
         is_turker = False
 
-    # The %age of all-human examples that will be converted to attention checks for turkers
+    # The percentage of all-human examples that will be converted to attention checks for turkers
     ATTENTION_CHECK_RATE = 0.5
 
     # Check attention if the user is from Mechanical Turk
@@ -197,7 +192,6 @@ def annotate(request):
         "name": request.user.username,
         "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
-        "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
         "attention_check": int(attention_check),
         "playlist": playlist_id
