@@ -258,7 +258,7 @@
       </nav>
 
       <div class="row">
-        <div class="col-md" />
+        <div class="col-md">
         <div class="col-md" style="padding: 2rem">
           <h2 class="text-muted"> <strong>Is the following written by a person or by a machine?</strong> </h2>
           <p class="text-muted" style="margin-bottom: 1rem;">
@@ -299,14 +299,73 @@
             </div>
 
             <div class="card-body" id="analysis" style="display: none">
-              <p class="text-muted">
-                Thank you for your response!
+              <p class="text-info">
+                Why do you think this sentence is computer-generated? Select all that applies. 
               </p>
               <form id="revision-form">
                 <div>
-                  <small class="text-muted">Why do you think this sentence is computer-generated?</small>
-                  <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="Describe the problem you noticed here..." />
+                  <div class="text-dark">Basic Fluency Errors: The sentence...</div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="grammar" value="grammar error">
+                    <label class="form-check-label text-muted" for="grammar" style="font-size: .95rem;">
+                      is not grammatical.
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="repetition" value="repetition">
+                    <label class="text-muted" for="repetition" style="font-size: .95rem;">
+                      substantially repeats previous text or itself.
+                    </label>
+                  </div>
+
+                  <div class="text-dark">Substance Errors: The sentence... </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="irrelevant" value="irrelevant to previous sentences">
+                    <label class="form-check-label text-muted" for="irrelevant" style="font-size: .95rem;">
+                      is irrelevant or unrelated to the previous ones.
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="contradicts_sentence" value="contradicts previous sentences">
+                    <label class="form-check-label text-muted" for="contradicts_sentence" style="font-size: .95rem;">
+                      contradicts some previous sentence(s).
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="contradicts_knowledge" value="contradicts understanding of world facts">
+                    <label class="form-check-label text-muted" for="contradicts_knowledge" style="font-size: .95rem;">
+                      contradicts your understanding of the people, events, or concepts involved. 
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="common_sense" value="commons-sense or basic logic errors">
+                    <label class="form-check-label text-muted" for="common_sense" style="font-size: .95rem;">
+                      contains common-sense or basic logic errors. 
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="coreference" value="coreference error- mixes up agents">
+                    <label class="form-check-label text-muted" for="coreference" style="font-size: .95rem;">
+                      mixes up or swaps agents (characters) mentioned previously. 
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="generic" value="generic or uninteresting language">
+                    <label class="text-muted" for="coreference" style="font-size: .95rem;">
+                      contains language that is generic or uninteresting.
+                    </label>
+                  </div>
                 </div>
+                <div>
+                  <div class="text-dark">Other</div>
+                  <input type="text" id="other_reason" name="other_reason" style="margin-bottom: 1rem; margin-top: .4rem" class="form-control" placeholder="Describe the problem you noticed ..." />
+                </div>
+                <!---
+                  <div>
+                    <small class="text-muted">Why do you think this sentence is computer-generated?</small>
+                    <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="Describe the problem you noticed here..." />
+                  </div>
+                -->
                 <button type="submit" class="btn btn-info"> Reveal </button>
               </form>
             </div>
