@@ -25,6 +25,13 @@ def _read_json(f):
         text = text.decode("utf-8")
     return json.loads(_clean_json(text))
 
+def _try_create_feedback_option(shortname, description):
+    feedback_option = FeedbackOption.objects.filter(shortname = shortname)
+    if not feedback_option:
+        feedback_option = FeedbackOption.objects.create(shortname = shortname, description = description)
+        print("Successful created new FeedbackOption: {}: {}".format(shortname, description))
+    return feedback_option
+
 def _try_create_playlist(name, shortname, version, description, details):
     playlist = Playlist.objects.filter(shortname=shortname, version=version)
     playlist = playlist[0] if playlist else None
@@ -95,6 +102,40 @@ def _try_create_generation(gen_text, system, prompt, decoding_strategy):
 @click.option('--generations_path', help='JSON file containing generations.')
 @click.option('--version', help='Version number.')
 def populate_db(generations_path, version):
+    # populate pre-set feedback options
+    grammar_option = _try_create_feedback_option(
+        shortname = "grammar",
+        description = "The sentence is not grammatical."
+    )
+    repetition_option = _try_create_feedback_option(
+        shortname = "repetition",
+        description = "The sentence substantially repeats previous text or itself."
+    )
+    irrelevant_option = _try_create_feedback_option(
+        shortname = "irrelevant",
+        description = "The sentence is irrelevant or unrelated to the previous ones."
+    )
+    contradicts_sentence_option = _try_create_feedback_option(
+        shortname = "contradicts_sentence",
+        description = "The sentence contradicts the previous sentences."
+    )
+    contradicts_knowledge_option = _try_create_feedback_option(
+        shortname = "contradicts_knowledge",
+        description = "The sentence contradicts your understanding of the people, events, or concepts involved."
+    )
+    common_sense_option = _try_create_feedback_option(
+        shortname = "common_sense",
+        description = "The sentence contains common-sense or basic logic errors."
+    )
+    coreference_option = _try_create_feedback_option(
+        shortname = "coreference",
+        description = "The sentence mixes up or swaps agents (characters) mentioned previously."
+    )
+    generic_option = _try_create_feedback_option(
+        shortname = "generic",
+        description = "The sentence contains language that is generic or uninteresting."
+    )
+
     # open saved generations and parse JSON
     click.echo("Loading generations...")
 
@@ -163,6 +204,6 @@ if __name__ == '__main__':
     django.setup()
 
     from django.contrib.auth import get_user_model
-    from core.models import System, Dataset, Prompt, Generation, DecodingStrategy, Playlist, SEP
+    from core.models import System, Dataset, Prompt, Generation, DecodingStrategy, Playlist, SEP, FeedbackOption
 
     populate_db()

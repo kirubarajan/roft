@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from markdown2 import markdown
 
-from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP
+from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, FeedbackOption
 
 
 # Batch examples into groupings of this size.
@@ -223,16 +223,19 @@ def save(request):
         points=points,
         attention_check=attention_check
     )
+    
+    if grammar: annotation.reason.add(FeedbackOption.objects.get(shortname="grammar"))
+    if repetition: annotation.reason.add(FeedbackOption.objects.get(shortname="repetition"))
+    if irrelevant: annotation.reason.add(FeedbackOption.objects.get(shortname="irrelevant"))
+    if contradicts_sentence: annotation.reason.add(FeedbackOption.objects.get(shortname="contradicts_sentence"))
+    if contradicts_knowledge: annotation.reason.add(FeedbackOption.objects.get(shortname="contradicts_knowledge"))
+    if common_sense: annotation.reason.add(FeedbackOption.objects.get(shortname="common_sense"))
+    if coreference: annotation.reason.add(FeedbackOption.objects.get(shortname="coreference"))
+    if generic: annotation.reason.add(FeedbackOption.objects.get(shortname="generic"))
 
-    # TODO: but feedback reasons into db. This is how it was done before: 
-    # if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))
-    # if repetition: annotation.tags.add(Tag.objects.get(name="repetition"))
-    # if irrelevant: annotation.tags.add(Tag.objects.get(name="irrelevant"))
-    # if contradicts_sentence: annotation.tags.add(Tag.objects.get(name="contradicts_sentence"))
-    # if contradicts_knowledge: annotation.tags.add(Tag.objects.get(name="contradicts_knowledge"))
-    # if common_sense: annotation.tags.add(Tag.objects.get(name="common_sense"))
-    # if coreference: annotation.tags.add(Tag.objects.get(name="coreference"))
-    # if generic: annotation.tags.add(Tag.objects.get(name="generic"))
+    if revision: #TODO: change to revision "other_reason"
+        new_reason = FeedbackOption.objects.create(shortname = "other_reason", description = revision)
+        annotation.reason.add(new_reason)
 
     remaining = request.session.get('remaining', BATCH_SIZE)
     request.session['remaining'] = remaining - 1
