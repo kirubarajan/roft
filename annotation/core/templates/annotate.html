@@ -113,9 +113,13 @@
         // get checkbox values and reset
         const grammar = $('#grammar').is(":checked");
         const repetition = $('#repetition').is(":checked");
-        const entailment = $('#entailment').is(":checked");
-        const sense = $('#sense').is(":checked");
-        const revision = $("#revision").val();
+        const irrelevant = $('#irrelevant').is(":checked");
+        const contradicts_sentence = $('#contradicts_sentence').is(":checked");
+        const contradicts_knowledge = $('#contradicts_knowledge').is(":checked");
+        const common_sense = $('#common_sense').is(":checked");
+        const coreference = $('#coreference').is(":checked");
+        const generic = $('#generic').is(":checked");
+        const other_reason = $("#other_reason").val();
 
         $("#note").val('');
         $('input[type=checkbox]').each(function() {
@@ -146,9 +150,13 @@
             "name": name,
             "grammar": grammar,
             "repetition": repetition,
-            "entailment": entailment,
-            "sense": sense,
-            "revision": revision,
+            "irrelevant": irrelevant,
+            "contradicts_sentence": contradicts_sentence,
+            "contradicts_knowledge": contradicts_knowledge,
+            "common_sense": common_sense,
+            "coreference": coreference,
+            "generic": generic,
+            "revision": other_reason, //TODO: Change to other reason 
             "points": points,
             "attention_check": attention_check
           },
@@ -272,7 +280,7 @@
           <br />
           <small class="text-muted">Human-Written Prompt:</small>
 
-          <p style="margin-top: 0.5rem">
+          <p class="alert alert-info">
           {% autoescape off %}
             {{prompt}}
           {% endautoescape  %}

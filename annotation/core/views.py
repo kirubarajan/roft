@@ -202,9 +202,18 @@ def save(request):
     text = int(request.POST['text'])
     name = request.POST['name']
     boundary = int(request.POST['boundary'])
-    revision = request.POST['revision']
+    revision = request.POST['revision'] #TODO: change to other other_reason
     points = request.POST['points']
     attention_check = request.POST['attention_check']
+
+    grammar = request.POST['grammar'] == 'true'
+    repetition = request.POST['repetition'] == 'true'
+    irrelevant = request.POST['irrelevant'] == 'true'
+    contradicts_sentence = request.POST['contradicts_sentence'] == 'true'
+    contradicts_knowledge = request.POST['contradicts_knowledge'] == 'true'
+    common_sense = request.POST['common_sense'] == 'true'
+    coreference = request.POST['coreference'] == 'true'
+    generic = request.POST['generic'] == 'true'
 
     annotation = Annotation.objects.create(
         annotator=request.user,
@@ -214,6 +223,16 @@ def save(request):
         points=points,
         attention_check=attention_check
     )
+
+    # TODO: but feedback reasons into db. This is how it was done before: 
+    # if grammar: annotation.tags.add(Tag.objects.get(name="grammar"))
+    # if repetition: annotation.tags.add(Tag.objects.get(name="repetition"))
+    # if irrelevant: annotation.tags.add(Tag.objects.get(name="irrelevant"))
+    # if contradicts_sentence: annotation.tags.add(Tag.objects.get(name="contradicts_sentence"))
+    # if contradicts_knowledge: annotation.tags.add(Tag.objects.get(name="contradicts_knowledge"))
+    # if common_sense: annotation.tags.add(Tag.objects.get(name="common_sense"))
+    # if coreference: annotation.tags.add(Tag.objects.get(name="coreference"))
+    # if generic: annotation.tags.add(Tag.objects.get(name="generic"))
 
     remaining = request.session.get('remaining', BATCH_SIZE)
     request.session['remaining'] = remaining - 1
