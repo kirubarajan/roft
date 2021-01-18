@@ -85,7 +85,6 @@ class Annotation(models.Model):
     generation = models.ForeignKey(Generation, on_delete=models.DO_NOTHING)
     boundary = models.IntegerField()
     points = models.IntegerField()
-    revision = models.TextField() #TODO: change to other_reason 
     reason = models.ManyToManyField(FeedbackOption) 
     attention_check = models.BooleanField(default=False)
 

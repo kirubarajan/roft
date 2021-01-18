@@ -202,7 +202,6 @@ def save(request):
     text = int(request.POST['text'])
     name = request.POST['name']
     boundary = int(request.POST['boundary'])
-    revision = request.POST['revision'] #TODO: change to other other_reason
     points = request.POST['points']
     attention_check = request.POST['attention_check']
 
@@ -214,12 +213,12 @@ def save(request):
     common_sense = request.POST['common_sense'] == 'true'
     coreference = request.POST['coreference'] == 'true'
     generic = request.POST['generic'] == 'true'
+    other_reason = request.POST['other_reason']
 
     annotation = Annotation.objects.create(
         annotator=request.user,
         generation=Generation.objects.get(pk=text),
         boundary=boundary,
-        revision=revision,
         points=points,
         attention_check=attention_check
     )
@@ -233,8 +232,8 @@ def save(request):
     if coreference: annotation.reason.add(FeedbackOption.objects.get(shortname="coreference"))
     if generic: annotation.reason.add(FeedbackOption.objects.get(shortname="generic"))
 
-    if revision: #TODO: change to revision "other_reason"
-        new_reason = FeedbackOption.objects.create(shortname = "other_reason", description = revision)
+    if other_reason:
+        new_reason = FeedbackOption.objects.create(shortname = "other_reason", description = other_reason)
         annotation.reason.add(new_reason)
 
     remaining = request.session.get('remaining', BATCH_SIZE)
