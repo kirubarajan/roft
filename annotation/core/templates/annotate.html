@@ -26,7 +26,6 @@
       const max_sentences = {{max_sentences}};
       const text_id = "{{ text_id }}";
       const attention_check = {{attention_check}};
-      const name = "{{ name }}";
       const playlist = "{{ playlist }}";
 
       let current_sentence = 1;
@@ -143,7 +142,6 @@
           data: {
             "boundary": current_sentence_index,
             "text": text_id,
-            "name": name,
             "grammar": grammar,
             "repetition": repetition,
             "entailment": entailment,
