@@ -1,6 +1,7 @@
+import re
 import json
 import random
-import re
+from string import ascii_lowercase, digits
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -19,6 +20,18 @@ BATCH_SIZE = 10
 # assigned to this many users before any new annotation gets assigned.
 GOAL_NUM_ANNOTATIONS = 3
 
+# helper function taken from (https://gist.github.com/jcinis/2866253)
+def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
+    username = ''.join(random.choice(chars) for i in range(length + 1))
+
+    if split:
+        username = delimiter.join([username[start:start+split] for start in range(0, len(username), split)])
+
+    try:
+        User.objects.get(username=username)
+        return generate_random_username(length=length, chars=chars, split=split, delimiter=delimiter)
+    except User.DoesNotExist:
+        return username;
 
 def _sanitize_username(username):
     # TODO(daphne): This should eventually get moved to a utils file.
@@ -82,11 +95,11 @@ def profile(request, username):
     counts = defaultdict(int)
 
     annotations_for_user = Annotation.objects.filter(annotator=user, attention_check=False)
-    counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
-    counts['total'] = len(annotations_for_user)
-
     dist_from_boundary = annotations_for_user.annotate(distance=(Func(F('boundary') - F('generation__prompt__num_sentences'), function='ABS')))
+    
+    counts['total'] = len(annotations_for_user)
     counts['correct'] = len(dist_from_boundary.filter(distance=F('generation__prompt__num_sentences')))
+    counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
 
     distance = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
@@ -100,9 +113,9 @@ def profile(request, username):
     
     if counts['total'] > 0:
         trophies.append({'emoji': '🤖', 'description': 'Complete one annotation.'})
-    if counts['points'] > 50:
+    if counts['points'] and counts['points'] > 50:
         trophies.append({'emoji': '✨', 'description': 'Acheive 50 points.'})
-    if counts['correct'] > 0:
+    if counts['correct'] and counts['correct'] > 0:
         trophies.append({'emoji': '🔎', 'description': 'Correctly identify one boundary.'})
 
     return render(request, 'profile.html', {
@@ -118,10 +131,13 @@ def annotate(request):
     if not request.user.is_authenticated:
         # TODO: save annotations to session and prompt to save after X annotations
         unseen_set = Generation.objects.all()
-    else:
+
+        # TODO: allow temporary user to set password by checking user.has_usable_password()
+        user = User.objects.create(username=generate_random_username())
+        login(request, user)
     # TODO(daphne): Optimize these into a single query.
-        seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
-        unseen_set = Generation.objects.exclude(id__in=seen_set)
+    seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
+    unseen_set = Generation.objects.exclude(id__in=seen_set)
 
     # counts should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
@@ -178,10 +194,13 @@ def annotate(request):
 
     # Check attention if the user is from Mechanical Turk
     attention_check = False
-    if is_turker and generation.boundary == len(generated_sentences):
-        if random.random() < ATTENTION_CHECK_RATE:
-            prompt.body += " Please choose 'It's all human-written so far.' for every sentence in this example."
-            attention_check = True
+    if (
+        is_turker
+        and generation.boundary == len(generated_sentences)
+        and random.random() < ATTENTION_CHECK_RATE
+    ):
+        prompt.body += " Please choose 'It's all human-written so far.' for every sentence in this example."
+        attention_check = True
 
     print("Here with generation_id = {}".format(generation.pk))
     return render(request, "annotate.html", {
@@ -189,7 +208,6 @@ def annotate(request):
         "prompt": prompt_sentences[0],
         "text_id": generation.pk,
         "sentences": json.dumps(continuation_sentences[:9]),
-        "name": request.user.username,
         "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
         "annotation": annotation,  # Previous annotation given by user, else -1.
@@ -201,7 +219,6 @@ def annotate(request):
 @csrf_exempt
 def save(request):
     text = int(request.POST['text'])
-    name = request.POST['name']
     boundary = int(request.POST['boundary'])
     revision = request.POST['revision']
     points = request.POST['points']
