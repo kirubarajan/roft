@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-SEP="_SEP_"
+SEP = "_SEP_"
 
 class Profile(models.Model):
     """A wrapper around the User class to store state for a given user"""
