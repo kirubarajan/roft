@@ -17,9 +17,21 @@ with open(args.file, 'r') as f:
     p_value_cnt = Counter([gen['p'] for gen in data['generations']])
     both_cnt = Counter([(len(gen['prompt']),gen['p']) for gen in data['generations']])
 
+    total_num_issues = 0
+    # Note: check for if length adds up to 10
+    for gen in data['generations']:
+      prompt_len = len(gen['prompt'])
+      gen_len = len(gen['generation'])
+      if prompt_len + gen_len < 10:
+        total_num_issues += 1
+        print(gen['prompt-index'])
+
     print("Analysis results for file: " + str(args.file))
     print("-------------------------")
     print("Total Number of Generations: " + str(num_gens))
+    print("-------------------------")
+    print("Total Number of Generations that don't add up to 10: " + str(total_num_issues))
+    print("% bugged generations: " + str(float(total_num_issues) / float(num_gens)))
     print("-------------------------")
     print("Expected number of Generations per prompt length: " + str(num_gens/10))
     print("Expected number of Generations per p value: " + str(num_gens/11))
