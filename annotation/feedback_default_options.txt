@@ -1,0 +1,9 @@
+shortname,category,description
+grammar,fluency,The sentence is not grammatical.
+reptition,fluency,The sentence substantially repeats previous text or itself.
+irrelevant,substance,The sentence is irrelevant or unrelated to the previous ones.
+contradicts_sentence,substance,The sentence contradicts the previous sentences.
+contradicts_knowledge,substance,The sentence contradicts your understanding of the people, events, or concepts involved.
+common_sense,substance,The sentence contains common-sense or basic logic errors.
+coreference,substance,The sentence mixes up or swaps agents (characters) mentioned previously.
+generic,substance,The sentence contains language that is generic or uninteresting.

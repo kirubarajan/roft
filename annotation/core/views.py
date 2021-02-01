@@ -205,16 +205,6 @@ def save(request):
     points = request.POST['points']
     attention_check = request.POST['attention_check']
 
-    grammar = request.POST['grammar'] == 'true'
-    repetition = request.POST['repetition'] == 'true'
-    irrelevant = request.POST['irrelevant'] == 'true'
-    contradicts_sentence = request.POST['contradicts_sentence'] == 'true'
-    contradicts_knowledge = request.POST['contradicts_knowledge'] == 'true'
-    common_sense = request.POST['common_sense'] == 'true'
-    coreference = request.POST['coreference'] == 'true'
-    generic = request.POST['generic'] == 'true'
-    other_reason = request.POST['other_reason']
-
     annotation = Annotation.objects.create(
         annotator=request.user,
         generation=Generation.objects.get(pk=text),
@@ -223,17 +213,14 @@ def save(request):
         attention_check=attention_check
     )
     
-    if grammar: annotation.reason.add(FeedbackOption.objects.get(shortname="grammar"))
-    if repetition: annotation.reason.add(FeedbackOption.objects.get(shortname="repetition"))
-    if irrelevant: annotation.reason.add(FeedbackOption.objects.get(shortname="irrelevant"))
-    if contradicts_sentence: annotation.reason.add(FeedbackOption.objects.get(shortname="contradicts_sentence"))
-    if contradicts_knowledge: annotation.reason.add(FeedbackOption.objects.get(shortname="contradicts_knowledge"))
-    if common_sense: annotation.reason.add(FeedbackOption.objects.get(shortname="common_sense"))
-    if coreference: annotation.reason.add(FeedbackOption.objects.get(shortname="coreference"))
-    if generic: annotation.reason.add(FeedbackOption.objects.get(shortname="generic"))
-
+    feedback_options  = [v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
+    for option in feedback_options:
+        if request.POST[option] == 'true':
+            annotation.reason.add(FeedbackOption.objects.get(shortname=option))
+   
+    other_reason = request.POST['other_reason']
     if other_reason:
-        new_reason = FeedbackOption.objects.create(shortname = "other_reason", description = other_reason)
+        new_reason = FeedbackOption.objects.create(shortname = str(hash(other_reason)), category = "other", description = other_reason, is_default = False)
         annotation.reason.add(new_reason)
 
     remaining = request.session.get('remaining', BATCH_SIZE)

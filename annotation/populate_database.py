@@ -6,6 +6,7 @@ import re
 import django
 import requests
 import click
+import csv
 from django.db import IntegrityError
 
 # kirubarajan: django model imports at bottom since you have to configure the environment first
@@ -25,11 +26,11 @@ def _read_json(f):
         text = text.decode("utf-8")
     return json.loads(_clean_json(text))
 
-def _try_create_feedback_option(shortname, description):
+def _try_create_feedback_option(shortname, category, description):
     feedback_option = FeedbackOption.objects.filter(shortname = shortname)
     if not feedback_option:
-        feedback_option = FeedbackOption.objects.create(shortname = shortname, description = description)
-        print("Successful created new FeedbackOption: {}: {}".format(shortname, description))
+        feedback_option = FeedbackOption.objects.create(shortname = shortname, description = description, category = category)
+        print("Successful created new FeedbackOption of category {}: {}: {}".format(category, shortname, description))
     return feedback_option
 
 def _try_create_playlist(name, shortname, version, description, details):
@@ -103,38 +104,18 @@ def _try_create_generation(gen_text, system, prompt, decoding_strategy):
 @click.option('--version', help='Version number.')
 def populate_db(generations_path, version):
     # populate pre-set feedback options
-    grammar_option = _try_create_feedback_option(
-        shortname = "grammar",
-        description = "The sentence is not grammatical."
-    )
-    repetition_option = _try_create_feedback_option(
-        shortname = "repetition",
-        description = "The sentence substantially repeats previous text or itself."
-    )
-    irrelevant_option = _try_create_feedback_option(
-        shortname = "irrelevant",
-        description = "The sentence is irrelevant or unrelated to the previous ones."
-    )
-    contradicts_sentence_option = _try_create_feedback_option(
-        shortname = "contradicts_sentence",
-        description = "The sentence contradicts the previous sentences."
-    )
-    contradicts_knowledge_option = _try_create_feedback_option(
-        shortname = "contradicts_knowledge",
-        description = "The sentence contradicts your understanding of the people, events, or concepts involved."
-    )
-    common_sense_option = _try_create_feedback_option(
-        shortname = "common_sense",
-        description = "The sentence contains common-sense or basic logic errors."
-    )
-    coreference_option = _try_create_feedback_option(
-        shortname = "coreference",
-        description = "The sentence mixes up or swaps agents (characters) mentioned previously."
-    )
-    generic_option = _try_create_feedback_option(
-        shortname = "generic",
-        description = "The sentence contains language that is generic or uninteresting."
-    )
+
+    with open('feedback_default_options.txt') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count > 0:
+                new_option = _try_create_feedback_option(
+                    shortname = row[0],
+                    category = rowl[1],
+                    description = row[2],
+                )
+            line_count += 1
 
     # open saved generations and parse JSON
     click.echo("Loading generations...")
