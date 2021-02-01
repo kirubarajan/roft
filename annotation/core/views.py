@@ -182,6 +182,10 @@ def annotate(request):
             attention_check = True
 
     print("Here with generation_id = {}".format(generation.pk))
+
+    fluency_reasons  = FeedbackOption.objects.filter(is_default=True, category="fluency")
+    substance_reasons = FeedbackOption.objects.filter(is_default=True, category="substance")
+
     return render(request, "annotate.html", {
         # "remaining": remaining,
         "prompt": prompt_sentences[0],
@@ -193,7 +197,9 @@ def annotate(request):
         "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
         "attention_check": int(attention_check),
-        "playlist": playlist_id
+        "playlist": playlist_id,
+        "fluency_reasons": fluency_reasons,
+        "substance_reasons": substance_reasons
     })
 
 
