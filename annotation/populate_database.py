@@ -112,7 +112,7 @@ def populate_db(generations_path, version):
             if line_count > 0:
                 new_option = _try_create_feedback_option(
                     shortname = row[0],
-                    category = rowl[1],
+                    category = row[1],
                     description = row[2],
                 )
             line_count += 1
