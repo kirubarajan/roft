@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from markdown2 import markdown
 
-from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP
+from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, FeedbackOption
 
 
 # Batch examples into groupings of this size.
@@ -182,6 +182,10 @@ def annotate(request):
             attention_check = True
 
     print("Here with generation_id = {}".format(generation.pk))
+
+    fluency_reasons  = FeedbackOption.objects.filter(is_default=True, category="fluency")
+    substance_reasons = FeedbackOption.objects.filter(is_default=True, category="substance")
+
     return render(request, "annotate.html", {
         # "remaining": remaining,
         "prompt": prompt_sentences[0],
@@ -193,7 +197,9 @@ def annotate(request):
         "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
         "attention_check": int(attention_check),
-        "playlist": playlist_id
+        "playlist": playlist_id,
+        "fluency_reasons": fluency_reasons,
+        "substance_reasons": substance_reasons
     })
 
 
@@ -202,7 +208,6 @@ def save(request):
     text = int(request.POST['text'])
     name = request.POST['name']
     boundary = int(request.POST['boundary'])
-    revision = request.POST['revision']
     points = request.POST['points']
     attention_check = request.POST['attention_check']
 
@@ -210,10 +215,19 @@ def save(request):
         annotator=request.user,
         generation=Generation.objects.get(pk=text),
         boundary=boundary,
-        revision=revision,
         points=points,
         attention_check=attention_check
     )
+    
+    feedback_options  = [v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
+    for option in feedback_options:
+        if request.POST[option] == 'true':
+            annotation.reason.add(FeedbackOption.objects.get(shortname=option))
+   
+    other_reason = request.POST['other_reason']
+    if other_reason:
+        new_reason = FeedbackOption.objects.create(shortname = str(hash(other_reason)), category = "other", description = other_reason, is_default = False)
+        annotation.reason.add(new_reason)
 
     remaining = request.session.get('remaining', BATCH_SIZE)
     request.session['remaining'] = remaining - 1
