@@ -133,6 +133,11 @@ with open(local_file_path, 'r') as f:
     prompt_length = int((i / prompts_per_length) + 1)
     p_value = round(math.floor(float(float(i%prompts_per_length) / (float(prompts_per_length) / 11.0))) / 10.0, 1) if args.vary_p else 0.4
 
+    # If the prompt isn't long enough to support the prompt_length we want, continue
+    if len(data['prompts'][i]) < prompt_length:
+      failure_causes[5] += 1
+      continue
+
     # Sample and tokenize the prompts for this batch
     raw_prompt = data['prompts'][i][:prompt_length]
     control_code, prompt = ctrl_process_prompt(args.control_code, copy.deepcopy(raw_prompt))
