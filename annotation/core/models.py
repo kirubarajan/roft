@@ -73,9 +73,9 @@ class Generation(models.Model):
 
 class FeedbackOption(models.Model):
     """The types of reasons people give for thinking sentence is machine generated text"""
-    shortname = models.CharField(max_length=100, primary_key=True)
+    shortname = models.CharField(max_length=40, primary_key=True)
     description = models.CharField(max_length=250)
-    category = models.CharField(max_length=100)
+    category = models.CharField(max_length=20)
     is_default = models.BooleanField(default=True)
     def __str__(self):
         return self.description

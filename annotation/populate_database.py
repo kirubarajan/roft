@@ -105,7 +105,7 @@ def _try_create_generation(gen_text, system, prompt, decoding_strategy):
 def populate_db(generations_path, version):
     # populate pre-set feedback options
 
-    with open('feedback_default_options.txt') as csv_file:
+    with open('feedback_default_options.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for row in csv_reader:
