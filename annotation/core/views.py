@@ -80,7 +80,7 @@ def leaderboard(request):
         points=Sum(F('annotation__points'))).order_by('-points')
     username_point_pairs = [
         (_sanitize_username(u.username), u.points)
-        for u in top_users if u.points]
+        for u in top_users if u.points and u.has_usable_password()]
 
     return render(request, 'leaderboard.html', {
         'sorted_usernames': tuple(username_point_pairs)
@@ -134,6 +134,7 @@ def annotate(request):
 
         # TODO: allow temporary user to set password by checking user.has_usable_password()
         user = User.objects.create(username=generate_random_username())
+        user.set_unusable_password()
         login(request, user)
     # TODO(daphne): Optimize these into a single query.
     seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
