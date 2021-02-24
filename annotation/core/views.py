@@ -141,22 +141,22 @@ def annotate(request):
 
     # counts should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
-    playlist, available_set = None, None
+    playlist, generations = None, None
     counts = Annotation.objects.values('generation').annotate(count=Count('annotator'))
-    counts = counts.filter(count__gte=1, count__lte=GOAL_NUM_ANNOTATIONS, generation__in=unseen_set).values('generation')
+    available_generations = counts.filter(count__gte=1, count__lte=GOAL_NUM_ANNOTATIONS, generation__in=unseen_set).values('generation')
 
     # Mark only examples in the correct playlist (if one was specified) as available.
     playlist_id = int(request.GET.get('playlist', -1))
     if playlist_id >= 0:
         playlist = Playlist.objects.get(id=playlist_id)
-        available_set = playlist.generations.filter(id__in=counts)
+        generations = playlist.generations.filter(id__in=available_generations)
         print("Annotating playlist = {}.".format(playlist))
 
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
-    if not available_set or not available_set.exists():
+    if not generations or not generations.exists():
         print('no available text!')
-        available_set = playlist.generations.filter(id__in=unseen_set) if playlist else unseen_set
+        generations = playlist.generations.filter(id__in=unseen_set) if playlist else unseen_set
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
 
@@ -172,7 +172,7 @@ def annotate(request):
     else:
         # TODO(daphne): We do eventually need logic here to handle when all annotations
         # for a playlist have been completed. This code will still fail in this case.
-        generation = random.choice(available_set)
+        generation = random.choice(generations)
 
     # breakpoint()
     prompt_sentences = str_to_list(generation.prompt.body)
