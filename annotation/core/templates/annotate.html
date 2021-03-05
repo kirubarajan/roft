@@ -1,279 +1,356 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block content %}
-  <script>
-    const all_sentences = {{ sentences|safe }};
-    const boundary = {{boundary}};
-    const max_sentences = {{max_sentences}};
-    const text_id = "{{ text_id }}";
-    const attention_check = {{attention_check}};
-    const playlist = "{{ playlist }}";
+    <title>Real or Fake Text</title>
 
-    let current_sentence = 1;
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104989157-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-104989157-3');
+    </script>
 
-    function update_params_in_url() {
-      const params = new URLSearchParams(window.location.search);
-      if (!params.has("qid")) {
-        params.set("qid", text_id);
-      }
-      if (!params.has("playlist")) {
-        params.set("playlist", playlist);
-      }
-      var url = new URL(window.location.href);
-      url.search = params
-      url = url.toString()
-      window.history.replaceState({url: url}, null, url);
-    }
+    <script>
+      const all_sentences = {{ sentences|safe }};
+      const boundary = {{boundary}};
+      const max_sentences = {{max_sentences}};
+      const text_id = "{{ text_id }}";
+      const attention_check = {{attention_check}};
+      const name = "{{ name }}";
+      const playlist = "{{ playlist }}";
 
-    // helper function for adding new sentences
-    function redraw_sentences(current_sentence) {
-      const sentences = all_sentences.slice(0, current_sentence);
-      let cards_html = "";
+      let current_sentence = 1;
 
-      for (let i = 0; i < sentences.length; i++) {
-        const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + sentences[i] +  '</div> </div> ';
-        cards_html += card;
-      }
-
-      $("#cards").html(cards_html);
-      $("#remaining").html((max_sentences - current_sentence).toString() + " sentences remaining")
-    }
-
-    // helper function for adding highlights and emojis
-    function reveal_solutions() {
-      let cards_html = "";
-
-      const human_image = '👩🏽‍💻';
-      const robot_image = '🤖';
-      for (let i = 0; i < all_sentences.length; i++) {
-        const emoji = ((i < boundary) ? human_image : robot_image);
-        const card = (
-            '<div class="card" style="margin-bottom: 0.5rem" id="' +
-            i.toString() +
-            '" style=""> <div class="card-body" style="padding: 0.5em">' +
-            '<table><tr><td><h1 style="margin-right: 1rem">' +
-            emoji +
-            "</h1></td><td>" +
-            all_sentences[i] +
-            '</td></tr></table></div> </div> ');
-        cards_html += card;
-      }
-
-      $("#cards").html(cards_html);
-      $("#remaining").html("All sentences displayed.");
-
-      const current_sentence_index = current_sentence - 1
-      $('#' + current_sentence_index.toString()).addClass('bg-info');
-      $('#' + current_sentence_index.toString()).css('color', 'white');
-
-      if (boundary > current_sentence_index) {
-        $("#result-text").html("Good try! You guessed machine-generated but that sentence was still human-written.")
-      } else if (boundary == current_sentence_index) {
-        $("#result-text").html("Nice job! You guessed correctly.")
-      } else {
-        $("#result-text").html(`Good try! The machine-generated sentences have been revealed. Your guess was ${current_sentence_index - boundary} sentence(s) away from the true boundary.`)
-      }
-
-      $("#analysis").hide();
-      $("#reveal").show();
-
-      const marker = document.querySelector("#marker-after");
-      marker.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function show_points(points) {
-      if (points > 0) {
-        $("#remaining").notify(`You earned ${points} points!`, "success");
-      }
-    }
-
-    function submit_annotation(e) {
-      e.preventDefault();
-
-      // get checkbox values and reset
-      const grammar = $('#grammar').is(":checked");
-      const repetition = $('#repetition').is(":checked");
-      const entailment = $('#entailment').is(":checked");
-      const sense = $('#sense').is(":checked");
-      const revision = $("#revision").val();
-
-      $("#note").val('');
-      $('input[type=checkbox]').each(function() {
-        this.checked = false;
-      });
-
-      const max_points = 5;
-      let points = 0;
-
-      const current_sentence_index = current_sentence - 1;
-      if (attention_check) {
-        points = 0;
-      } else if (current_sentence_index == boundary) {
-        points = max_points;
-      } else if (current_sentence_index > boundary) {
-        points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0);
-      }
-
-      // make ajax request to log annotation
-      console.log('Making ajax call with boundary = ' + current_sentence_index);
-      const url = '{% url "save" %}';
-      $.ajax({
-        type: 'POST',
-        url: url,
-        data: {
-          "boundary": current_sentence_index,
-          "text": text_id,
-          "grammar": grammar,
-          "repetition": repetition,
-          "entailment": entailment,
-          "sense": sense,
-          "revision": revision,
-          "points": points,
-          "attention_check": attention_check
-        },
-        success: function (response) {
-          reveal_solutions();
-          show_points(points);
-        },
-        error: function (error) {
-          console.log(error);
+      function update_params_in_url() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has("qid")) {
+          params.set("qid", text_id);
         }
-      });
-    }
-
-    function load_next_annotation() {
-      let searchParams = new URLSearchParams(window.location.search)
-
-      if (searchParams.has('playlist')) {
-        window.location.replace(`/annotate?playlist=${searchParams.get('playlist')}`);
-      } else {
-        window.location.replace('/annotate');
+        if (!params.has("playlist")) {
+          params.set("playlist", playlist);
+        }
+        var url = new URL(window.location.href);
+        url.search = params
+        url = url.toString()
+        window.history.replaceState({url: url}, null, url);
       }
-    }
 
-    // user interaction logic
-    $(document).ready(function() {
-      update_params_in_url();
+      // helper function for adding new sentences
+      function redraw_sentences(current_sentence) {
+        const sentences = all_sentences.slice(0, current_sentence);
+        let cards_html = "";
 
-      {% if annotation >= 0 %}
-        current_sentence = {{ annotation }} + 1;
-        reveal_solutions()
-        $("#another").show();
-        $("#reveal").hide();
-        $("#select-text").html("You've already annotated this one.")
-      {% else %}
-        $("#machine").show();
-        $("#next").show();
-        $("#selection").show();
-        redraw_sentences(current_sentence);
-      {% endif %}
+        for (let i = 0; i < sentences.length; i++) {
+          const card = '<div class="card" id="' + i.toString() + '" style="margin-bottom: 0.5rem"> <div class="card-body"> ' + sentences[i] +  '</div> </div> ';
+          cards_html += card;
+        }
 
-      // adding new sentence
-      $("#next").click(function() {
-        current_sentence += 1;
+        $("#cards").html(cards_html);
+        $("#remaining").html((max_sentences - current_sentence).toString() + " sentences remaining")
+      }
 
-        if (current_sentence <= max_sentences) {
-          redraw_sentences(current_sentence);
+      // helper function for adding highlights and emojis
+      function reveal_solutions() {
+        let cards_html = "";
 
-          if (current_sentence == max_sentences) {
-            $("#next").hide();
-            $("#human").show();
+        const human_image = '👩🏽‍💻';
+        const robot_image = '🤖';
+        for (let i = 0; i < all_sentences.length; i++) {
+          const emoji = ((i < boundary) ? human_image : robot_image);
+          const card = (
+              '<div class="card" style="margin-bottom: 0.5rem" id="' +
+              i.toString() +
+              '" style=""> <div class="card-body" style="padding: 0.5em">' +
+              '<table><tr><td><h1 style="margin-right: 1rem">' +
+              emoji +
+              "</h1></td><td>" +
+              all_sentences[i] +
+              '</td></tr></table></div> </div> ');
+          cards_html += card;
+        }
+
+        $("#cards").html(cards_html);
+        $("#remaining").html("All sentences displayed.");
+
+        const current_sentence_index = current_sentence - 1
+        $('#' + current_sentence_index.toString()).addClass('bg-info');
+        $('#' + current_sentence_index.toString()).css('color', 'white');
+
+        if (boundary > current_sentence_index) {
+          $("#result-text").html("Good try! You guessed machine-generated but that sentence was still human-written.")
+        } else if (boundary == current_sentence_index) {
+          $("#result-text").html("Nice job! You guessed correctly.")
+        } else {
+          $("#result-text").html(`Good try! The machine-generated sentences have been revealed. Your guess was ${current_sentence_index - boundary} sentence(s) away from the true boundary.`)
+        }
+
+        $("#analysis").hide();
+        $("#reveal").show();
+
+        const marker = document.querySelector("#marker-after");
+        marker.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function show_points(points) {
+        if (points > 0) {
+          $("#remaining").notify(`You earned ${points} points!`, "success");
+        }
+      }
+
+      function submit_annotation(e) {
+        e.preventDefault();
+
+        // get checkbox values and reset
+        const grammar = $('#grammar').is(":checked");
+        const repetition = $('#repetition').is(":checked");
+        const irrelevant = $('#irrelevant').is(":checked");
+        const contradicts_sentence = $('#contradicts_sentence').is(":checked");
+        const contradicts_knowledge = $('#contradicts_knowledge').is(":checked");
+        const common_sense = $('#common_sense').is(":checked");
+        const coreference = $('#coreference').is(":checked");
+        const generic = $('#generic').is(":checked");
+        const other_reason = $("#other_reason").val();
+
+        $("#note").val('');
+        $('input[type=checkbox]').each(function() {
+          this.checked = false;
+        });
+
+        const max_points = 5;
+        let points = 0;
+
+        const current_sentence_index = current_sentence - 1;
+        if (attention_check) {
+          points = 0;
+        } else if (current_sentence_index == boundary) {
+          points = max_points;
+        } else if (current_sentence_index > boundary) {
+          points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0);
+        }
+
+        // make ajax request to log annotation
+        console.log('Making ajax call with boundary = ' + current_sentence_index);
+        const url = '{% url "save" %}';
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: {
+            "boundary": current_sentence_index,
+            "text": text_id,
+            "name": name,
+            "grammar": grammar,
+            "repetition": repetition,
+            "irrelevant": irrelevant,
+            "contradicts_sentence": contradicts_sentence,
+            "contradicts_knowledge": contradicts_knowledge,
+            "common_sense": common_sense,
+            "coreference": coreference,
+            "generic": generic,
+            "other_reason": other_reason, 
+            "points": points,
+            "attention_check": attention_check
+          },
+          success: function (response) {
+            reveal_solutions();
+            show_points(points);
+          },
+          error: function (error) {
+            console.log(error);
           }
+        });
+      }
+
+      function load_next_annotation() {
+        let searchParams = new URLSearchParams(window.location.search)
+
+        if (searchParams.has('playlist')) {
+          window.location.replace(`/annotate?playlist=${searchParams.get('playlist')}`);
+        } else {
+          window.location.replace('/annotate');
         }
+      }
+
+      // user interaction logic
+      $(document).ready(function() {
+        update_params_in_url();
+
+        {% if annotation >= 0 %}
+          current_sentence = {{ annotation }} + 1;
+          reveal_solutions()
+          $("#another").show();
+          $("#reveal").hide();
+          $("#select-text").html("You've already annotated this one.")
+        {% else %}
+					$("#machine").show();
+					$("#next").show();
+					$("#selection").show();
+          redraw_sentences(current_sentence);
+        {% endif %}
+
+        // adding new sentence
+        $("#next").click(function() {
+          current_sentence += 1;
+
+          if (current_sentence <= max_sentences) {
+            redraw_sentences(current_sentence);
+
+            if (current_sentence == max_sentences) {
+              $("#next").hide();
+              $("#human").show();
+            }
+          }
+        });
+
+        $("#continue").click(function() {
+          load_next_annotation()
+        })
+
+        $("#another").click(function() {
+          load_next_annotation()
+        })
+
+        $("#machine").click(function() {
+          $("#selection").hide();
+          $("#analysis").show();
+          $("#revision").show();
+          // $("#revision").val(all_sentences[current_sentence - 1]);
+        });
+
+        $("#human").click(function(e) {
+          current_sentence = max_sentences + 1;
+          $("#revision-form").hide();
+          $("#selection").hide();
+          $("#analysis").show();
+          submit_annotation(e);
+        });
+
+        // processing annotator decision
+        $("#revision-form").submit(submit_annotation);
+
       });
+    </script>
+  </head>
 
-      $("#continue").click(function() {
-        load_next_annotation()
-      })
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
+        <a class="navbar-brand text-muted" href="/">
+          <strong> Real or Fake Text? </strong>
+          <a class="badge badge-info text-white" style="margin-right: 1rem;">{{num_annotations}} completed</a>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      $("#another").click(function() {
-        load_next_annotation()
-      })
-
-      $("#machine").click(function() {
-        $("#selection").hide();
-        $("#analysis").show();
-        $("#revision").show();
-        // $("#revision").val(all_sentences[current_sentence - 1]);
-      });
-
-      $("#human").click(function(e) {
-        current_sentence = max_sentences + 1;
-        $("#revision-form").hide();
-        $("#selection").hide();
-        $("#analysis").show();
-        submit_annotation(e);
-      });
-
-      // processing annotator decision
-      $("#revision-form").submit(submit_annotation);
-
-    });
-  </script>
-
-  <div class="row">
-    <div class="col-md" />
-    <div class="col-md" style="padding: 2rem">
-      <h2 class="text-muted"> <strong>Is the following written by a person or by a machine?</strong> </h2>
-      <p class="text-muted" style="margin-bottom: 1rem;">
-        Your task is to decide at what point (if at all) the text you see begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
-        Don't be surprised if some excerpts are entirely human-written.
-
-        You will be awarded 5 points if you guess correctly, with decreasing amount of points if you guess after the true boundary.
-        <!--The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.-->
-      </p>
-
-      <br />
-      <small class="text-muted">Human-Written Prompt:</small>
-
-      <p style="margin-top: 0.5rem">
-      {% autoescape off %}
-        {{prompt}}
-      {% endautoescape  %}
-      </p>
-
-      <small class="text-muted">Continuation of text:</small>
-
-      <div style="margin-top: 0.5rem" id="cards"></div>
-
-      <small id="remaining" class="text-muted"></small>
-      <br /> <br />
-      <div class="card" style="margin-bottom: 2rem">
-        <div class="card-body" id="selection">
-          <p id="select-text" class="text-muted">Select an option:</p>
-          <button id="next" type="button" class="btn btn-secondary" style="display: none">
-            It's all human-written so far.</button>
-          <button type="button" id="human" type="button" class="btn btn-primary" style="display: none; color: white">
-            The entire thing was human-written.
-          </button>
-          <button type="button" id="machine" type="button" class="btn btn-info" style="display: none; color: white">
-            This sentence is machine-generated.
-          </button>
-          <a class="btn btn-primary" id="another" style="display: none; color: white">Annotate another.</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            {% if user.is_authenticated %}
+              <li class="nav-item"> <a class="nav-link" href="/play">Play</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/onboard">Help</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
+            {% endif %}
+          </ul>
         </div>
+      </nav>
 
-        <div class="card-body" id="analysis" style="display: none">
-          <p class="text-muted">
-            Thank you for your response!
+      <div class="row">
+        <div class="col-md">
+        <div class="col-md" style="padding: 2rem">
+          <h2 class="text-muted"> <strong>Is the following written by a person or by a machine?</strong> </h2>
+          <p class="text-muted" style="margin-bottom: 1rem;">
+            Your task is to decide at what point (if at all) the text you see begins to be written by a computer. Please click the blue button <strong> as soon as</strong> you are confident.
+            Don't be surprised if some excerpts are entirely human-written.
+
+            You will be awarded 5 points if you guess correctly, with decreasing amount of points if you guess after the true boundary.
+            <!--The boundaries are not uniformly or normally distributed, so treat every single instance in isolation.-->
           </p>
-          <form id="revision-form">
-            <div>
-              <small class="text-muted">Why do you think this sentence is computer-generated?</small>
-              <input type="text" id="revision" name="revision" style="margin-bottom: 1rem; margin-top: 1rem" class="form-control" placeholder="Describe the problem you noticed here..." />
-            </div>
-            <button type="submit" class="btn btn-info"> Reveal </button>
-          </form>
-        </div>
 
-        <div class="card-body" id="reveal" style="display: none">
-          <p class="text-muted" id="result-text"> </p>
-          <a class="btn btn-primary" style="color: white" id="continue">Continue</a>
+          <br />
+          <small class="text-muted">Human-Written Prompt:</small>
+
+          <p class="alert alert-info">
+          {% autoescape off %}
+            {{prompt}}
+          {% endautoescape  %}
+          </p>
+
+          <small class="text-muted">Continuation of text:</small>
+
+          <div style="margin-top: 0.5rem" id="cards"></div>
+
+          <small id="remaining" class="text-muted"></small>
+          <br /> <br />
+          <div class="card" style="margin-bottom: 2rem">
+            <div class="card-body" id="selection">
+              <p id="select-text" class="text-muted">Select an option:</p>
+              <button id="next" type="button" class="btn btn-secondary" style="display: none">
+                It's all human-written so far.</button>
+              <button type="button" id="human" type="button" class="btn btn-primary" style="display: none; color: white">
+                The entire thing was human-written.
+              </button>
+              <button type="button" id="machine" type="button" class="btn btn-info" style="display: none; color: white">
+                This sentence is machine-generated.
+              </button>
+              <a class="btn btn-primary" id="another" style="display: none; color: white">Annotate another.</a>
+            </div>
+
+            <div class="card-body" id="analysis" style="display: none">
+              <p class="text-info">
+                Why do you think this sentence is computer-generated? Select all that apply. 
+              </p>
+              <form id="revision-form">
+                <div>
+                  <div class="text-dark">Basic Fluency Errors: The sentence...</div>
+                  {% for reason in fluency_reasons %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="{{reason.shortname}}" value="{{reason.shortname}} error">
+                      <label class="form-check-label text-muted" for="{{reason.shortname}}" style="font-size: .95rem;">
+                        {{reason.description}}
+                      </label>
+                    </div>
+                  {% endfor %}
+
+                  <div class="text-dark">Substance Errors: The sentence... </div>
+                  {% for reason in substance_reasons %}
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="{{reason.shortname}}" value="{{reason.shortname}} error">
+                      <label class="form-check-label text-muted" for="{{reason.shortname}}" style="font-size: .95rem;">
+                        {{reason.description}}
+                      </label>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div>
+                  <div class="text-dark">Other</div>
+                  <input type="text" id="other_reason" name="other_reason" style="margin-bottom: 1rem; margin-top: .4rem" class="form-control" placeholder="Describe the problem you noticed" />
+                </div>
+                <button type="submit" class="btn btn-info"> Reveal </button>
+              </form>
+            </div>
+
+            <div class="card-body" id="reveal" style="display: none">
+              <p class="text-muted" id="result-text"> </p>
+              <a class="btn btn-primary" style="color: white" id="continue">Continue</a>
+            </div>
+          </div>
+          <div id="marker-after" />
         </div>
+        <div class="col-md" />
       </div>
-      <div id="marker-after" />
     </div>
-    <div class="col-md" />
-  </div>
+  </body>
 
   <script>
     $(function() {
@@ -329,5 +406,4 @@
       });
     });
   </script>
-
-{% endblock %}
+</html>

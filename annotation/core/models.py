@@ -71,7 +71,15 @@ class Generation(models.Model):
     def __str__(self):
         return self.body
 
-
+class FeedbackOption(models.Model):
+    """The types of reasons people give for thinking sentence is machine generated text"""
+    shortname = models.CharField(max_length=40, primary_key=True)
+    description = models.CharField(max_length=250)
+    category = models.CharField(max_length=20)
+    is_default = models.BooleanField(default=True)
+    def __str__(self):
+        return self.description
+    
 class Annotation(models.Model):
     """A human annotation of a prompt-continuation pair."""
     timestamp = models.DateTimeField(auto_now=True, null=True)
@@ -79,7 +87,7 @@ class Annotation(models.Model):
     generation = models.ForeignKey(Generation, on_delete=models.DO_NOTHING)
     boundary = models.IntegerField()
     points = models.IntegerField()
-    revision = models.TextField()
+    reason = models.ManyToManyField(FeedbackOption) 
     attention_check = models.BooleanField(default=False)
 
     def __str__(self):

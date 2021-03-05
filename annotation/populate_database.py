@@ -6,6 +6,7 @@ import re
 import django
 import requests
 import click
+import csv
 from django.db import IntegrityError
 
 # kirubarajan: django model imports at bottom since you have to configure the environment first
@@ -24,6 +25,13 @@ def _read_json(f):
     if isinstance(text, bytes):
         text = text.decode("utf-8")
     return json.loads(_clean_json(text))
+
+def _try_create_feedback_option(shortname, category, description):
+    feedback_option = FeedbackOption.objects.filter(shortname = shortname)
+    if not feedback_option:
+        feedback_option = FeedbackOption.objects.create(shortname = shortname, description = description, category = category)
+        print("Successful created new FeedbackOption of category {}: {}: {}".format(category, shortname, description))
+    return feedback_option
 
 def _try_create_playlist(name, shortname, version, description, details):
     playlist = Playlist.objects.filter(shortname=shortname, version=version)
@@ -95,6 +103,20 @@ def _try_create_generation(gen_text, system, prompt, decoding_strategy):
 @click.option('--generations_path', help='JSON file containing generations.')
 @click.option('--version', help='Version number.')
 def populate_db(generations_path, version):
+    # populate pre-set feedback options
+
+    with open('feedback_default_options.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count > 0:
+                new_option = _try_create_feedback_option(
+                    shortname = row[0],
+                    category = row[1],
+                    description = row[2],
+                )
+            line_count += 1
+
     # open saved generations and parse JSON
     click.echo("Loading generations...")
 
@@ -164,6 +186,6 @@ if __name__ == '__main__':
     django.setup()
 
     from django.contrib.auth import get_user_model
-    from core.models import System, Dataset, Prompt, Generation, DecodingStrategy, Playlist, SEP
+    from core.models import System, Dataset, Prompt, Generation, DecodingStrategy, Playlist, SEP, FeedbackOption
 
     populate_db()
