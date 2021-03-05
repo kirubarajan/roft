@@ -44,17 +44,23 @@ def onboard(request):
     if not request.user.is_authenticated:
         return redirect('/')
 
-    return render(request, "onboard.html", {})
+    return render(request, "onboard.html", {
+        'profile': Profile.objects.get(user=request.user)
+    })
 
 
 def splash(request):
-    return render(request, "splash.html", {})
+    return render(request, "splash.html", {
+        'profile': Profile.objects.get(user=request.user)
+    })
 
 
 def join(request):
     if request.user.is_authenticated:
         return redirect('/play')
-    return render(request, 'join.html')
+    return render(request, 'join.html', {
+        'profile': Profile.objects.get(user=request.user)
+    })
 
 
 def play(request):
@@ -69,7 +75,8 @@ def play(request):
 
     return render(request, 'play.html', {
         'playlists': playlists,
-        'total': total_available
+        'total': total_available,
+        'profile': Profile.objects.get(user=request.user)
     })
 
 
@@ -83,7 +90,8 @@ def leaderboard(request):
         for u in top_users if u.points and u.has_usable_password()]
 
     return render(request, 'leaderboard.html', {
-        'sorted_usernames': tuple(username_point_pairs)
+        'sorted_usernames': tuple(username_point_pairs),
+        'profile': Profile.objects.get(user=request.user)
     })
 
 
@@ -119,6 +127,7 @@ def profile(request, username):
         trophies.append({'emoji': '🔎', 'description': 'Correctly identify one boundary.'})
 
     return render(request, 'profile.html', {
+        'profile': Profile.objects.get(user=request.user),
         'this_user': user,
         'is_turker': is_turker,
         'counts': counts,
@@ -132,11 +141,11 @@ def annotate(request):
         # TODO: save annotations to session and prompt to save after X annotations
         unseen_set = Generation.objects.all()
 
-        # TODO: allow temporary user to set password by checking user.has_usable_password()
         user = User.objects.create(username=generate_random_username())
-        user.set_unusable_password()
+        profile = Profile.objects.create(user=user, is_temporary=True)
         login(request, user)
-    # TODO(daphne): Optimize these into a single query.
+
+    # TODO(daphne): Optimize these into a single qucery.
     seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
     unseen_set = Generation.objects.exclude(id__in=seen_set)
 
@@ -175,7 +184,6 @@ def annotate(request):
         # for a playlist have been completed. This code will still fail in this case.
         generation = random.choice(generations)
 
-    # breakpoint()
     prompt_sentences = str_to_list(generation.prompt.body)
     generated_sentences = str_to_list(generation.body)
     continuation_sentences = prompt_sentences[1:] + generated_sentences
@@ -210,6 +218,7 @@ def annotate(request):
 
     return render(request, "annotate.html", {
         # "remaining": remaining,
+        'profile': Profile.objects.get(user=request.user),
         "prompt": prompt_sentences[0],
         "text_id": generation.pk,
         "sentences": json.dumps(continuation_sentences[:9]),
@@ -258,7 +267,7 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
-        return render(request, 'join.html', {})
+        return render(request, 'join.html')
     
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
@@ -277,10 +286,8 @@ def sign_up(request):
     if User.objects.filter(username=username).exists():
         return redirect('/join?signup_error=True')
     
-    user = User.objects.create_user(
-            username=username, email=None, password=password)
-    profile = Profile.objects.create(
-            user=user, is_turker=False, source=user_source)
+    user = User.objects.create_user(username=username, email=None, password=password)
+    profile = Profile.objects.create(user=user, source=user_source)
 
     login(request, user)
     return redirect('/onboard')
