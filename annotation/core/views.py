@@ -42,7 +42,7 @@ def str_to_list(text):
 
 def onboard(request):
     if not request.user.is_authenticated:
-        return redirect('/')
+        return redirect('/login')
 
     return render(request, "onboard.html", {
         'profile': Profile.objects.get(user=request.user)
@@ -50,17 +50,14 @@ def onboard(request):
 
 
 def splash(request):
-    return render(request, "splash.html", {
-        'profile': Profile.objects.get(user=request.user)
-    })
+    return render(request, "splash.html")
 
 
 def join(request):
     if request.user.is_authenticated:
         return redirect('/play')
-    return render(request, 'join.html', {
-        'profile': Profile.objects.get(user=request.user)
-    })
+
+    return render(request, 'join.html')
 
 
 def play(request):
@@ -81,6 +78,9 @@ def play(request):
 
 
 def leaderboard(request):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+
     points = defaultdict(int)
 
     top_users = User.objects.filter().annotate(
