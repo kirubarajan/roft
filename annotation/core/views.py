@@ -88,8 +88,7 @@ def leaderboard(request):
 
     # slow, should be an offline job instead of re-computing on page request
     users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
-    top_users = User.objects.filter(pk__in=users)
-        .annotate(points=Sum(F('annotation__points'))).order_by('-points')
+    top_users = User.objects.filter(pk__in=users).annotate(points=Sum(F('annotation__points'))).order_by('-points')
     username_point_pairs = [
         (_sanitize_username(u.username), u.points)
         for u in top_users if u.points and u.has_usable_password()]
