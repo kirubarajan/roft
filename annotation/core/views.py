@@ -42,7 +42,12 @@ def str_to_list(text):
 
 def onboard(request):
     if not request.user.is_authenticated:
-        return redirect('/login')
+        # TODO: save annotations to session and prompt to save after X annotations
+        unseen_set = Generation.objects.all()
+
+        user = User.objects.create(username=generate_random_username())
+        profile = Profile.objects.create(user=user, is_temporary=True)
+        login(request, user)
 
     return render(request, "onboard.html", {
         'profile': Profile.objects.get(user=request.user)
@@ -81,10 +86,10 @@ def leaderboard(request):
     if not request.user.is_authenticated:
         return redirect('/login')
 
-    points = defaultdict(int)
-
-    top_users = User.objects.filter().annotate(
-        points=Sum(F('annotation__points'))).order_by('-points')
+    # slow, should be an offline job instead of re-computing on page request
+    users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
+    top_users = User.objects.filter(pk__in=users)
+        .annotate(points=Sum(F('annotation__points'))).order_by('-points')
     username_point_pairs = [
         (_sanitize_username(u.username), u.points)
         for u in top_users if u.points and u.has_usable_password()]
@@ -138,12 +143,7 @@ def profile(request, username):
 
 def annotate(request):
     if not request.user.is_authenticated:
-        # TODO: save annotations to session and prompt to save after X annotations
-        unseen_set = Generation.objects.all()
-
-        user = User.objects.create(username=generate_random_username())
-        profile = Profile.objects.create(user=user, is_temporary=True)
-        login(request, user)
+        return redirect('/login')
 
     # TODO(daphne): Optimize these into a single qucery.
     seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
