@@ -56,11 +56,24 @@
               <li class="list-group-item">Average distance from correct boundary: <strong>{{distance|stringformat:".2f"}}</strong></li>
             </ul>
           </div>
+
           <p style="margin-top: 1.5rem">
             <a href="/play">Want to improve? Play another round.</a>
           </p>
         </div>
-        <div class="col-md" />
+        <div class="col-md">
+          <div class="card" style="padding: 1rem">
+            <p class="text-info"><strong>How are my points calculated per annotation?</strong></p>
+            <dl class="row">
+              <dt class="col-sm-3">5 Points</dt>
+              <dd class="col-sm-9">Guessing the correct boundary between human-written and robot-generated text</dd>
+              <dt class="col-sm-3">0 Points</dt>
+              <dd class="col-sm-9">Guessing before the correct boundary</dd>
+              <dt class="col-sm-3">5 - x Points</dt>
+              <dd class="col-sm-9">Guessing at x sentences after the correct boundary: -1 point for every sentence past the true boundary</dd>
+          </dl>
+          </div>
+        </div>
       </div>
     </div>
   </body>

@@ -78,7 +78,6 @@
               '</td></tr></table></div> </div> ');
           cards_html += card;
         }
-
         $("#cards").html(cards_html);
         $("#remaining").html("All sentences displayed.");
 
@@ -91,7 +90,7 @@
         } else if (boundary == current_sentence_index) {
           $("#result-text").html("Nice job! You guessed correctly.")
         } else {
-          $("#result-text").html(`Good try! The machine-generated sentences have been revealed. Your guess was ${current_sentence_index - boundary} sentence(s) away from the true boundary.`)
+          $("#result-text").html(`Good try! The machine-generated sentences have been revealed. Your guess was ${current_sentence_index - boundary} sentence(s) after the true boundary.`)
         }
 
         $("#analysis").hide();
@@ -102,6 +101,9 @@
       }
 
       function show_points(points) {
+        if (points == 0) {
+          $("#remaining").notify('You received 0 points. Try again!', "success");
+        }
         if (points > 0) {
           $("#remaining").notify(`You earned ${points} points!`, "success");
         }
@@ -148,6 +150,7 @@
             "boundary": current_sentence_index,
             "text": text_id,
             "name": name,
+            "playlist_id": playlist,
             "grammar": grammar,
             "repetition": repetition,
             "irrelevant": irrelevant,
