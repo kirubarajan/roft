@@ -3,13 +3,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-SEP="_SEP_"
+SEP = "_SEP_"
+
 
 class Profile(models.Model):
     """A wrapper around the User class to store state for a given user"""
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     is_turker = models.BooleanField(default=False)
+    is_temporary = models.BooleanField(default=False)
     source = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return self.user.username + " " + str(self.is_turker)

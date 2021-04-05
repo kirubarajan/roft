@@ -1,81 +1,41 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Real or Fake Text?</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-104989157-3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-104989157-3');
-    </script>
-    <style>
-      tr.clickable {
-          cursor: pointer;
-      }
+{% extends 'base.html' %}
 
-      tr.clickable:hover {
-          background-color: #D3D3D3;
-      }
-    </style>
-  </head>
+{% block content %}
+  <style>
+    tr.clickable {
+        cursor: pointer;
+    }
 
-  <body>
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
-        <a class="navbar-brand text-muted" href="/">
-          <strong> Real or Fake Text? </strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    tr.clickable:hover {
+        background-color: #D3D3D3;
+    }
+  </style>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            {% if user.is_authenticated %}
-              <li class="nav-item"> <a class="nav-link" href="/play">Play</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/onboard">Help</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-      <div class="row" style="padding: 1rem">
-        <div class="col-md" />
-        <div class="col-md-6" style="padding: 1rem">
-          <h1 class="text-muted"> <strong> Leaderboard </strong> </h1>
-          <p style="margin-bottom: 1rem" class="text-muted">RoFt's top players:</p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Username</th>
-                <th scope="col">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for username, score in sorted_usernames %}
-                <tr class="clickable" onclick="window.location='/profile/{{username}}';">
-                  <th scope="row">{{username}}</th>
-                  <td>{{score}}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          <p style="margin-top: 1.5rem">
-            <a href="/play">Want to improve your score? Play another round.</a>
-          </p>
-        </div>
-        <div class="col-md" />
-      </div>
+  <div class="row" style="padding: 1rem">
+    <div class="col-md" />
+    <div class="col-md-6" style="padding: 1rem">
+      <h1 class="text-muted"> <strong> Leaderboard </strong> </h1>
+      <p style="margin-bottom: 1rem" class="text-muted">RoFT's top players:</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for username, score in sorted_usernames %}
+            <tr class="clickable" onclick="window.location='/profile/{{username}}';">
+              <th scope="row">{{username}}</th>
+              <td>{{score}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p style="margin-top: 1.5rem">
+        <a href="/play">Want to improve? Play another round.</a>
+      </p>
     </div>
-  </body>
-</html>
+    <div class="col-md" />
+  </div>
+{% endblock %}

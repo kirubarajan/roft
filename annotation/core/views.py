@@ -1,6 +1,7 @@
+import re
 import json
 import random
-import re
+from string import ascii_lowercase, digits
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -19,6 +20,18 @@ BATCH_SIZE = 10
 # assigned to this many users before any new annotation gets assigned.
 GOAL_NUM_ANNOTATIONS = 3
 
+# helper function taken from (https://gist.github.com/jcinis/2866253)
+def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
+    username = ''.join(random.choice(chars) for i in range(length + 1))
+
+    if split:
+        username = delimiter.join([username[start:start+split] for start in range(0, len(username), split)])
+
+    try:
+        User.objects.get(username=username)
+        return generate_random_username(length=length, chars=chars, split=split, delimiter=delimiter)
+    except User.DoesNotExist:
+        return username;
 
 def _sanitize_username(username):
     # TODO(daphne): This should eventually get moved to a utils file.
@@ -29,18 +42,26 @@ def str_to_list(text):
 
 def onboard(request):
     if not request.user.is_authenticated:
-        return redirect('/')
+        # TODO: save annotations to session and prompt to save after X annotations
+        unseen_set = Generation.objects.all()
 
-    return render(request, "onboard.html", {})
+        user = User.objects.create(username=generate_random_username())
+        profile = Profile.objects.create(user=user, is_temporary=True)
+        login(request, user)
+
+    return render(request, "onboard.html", {
+        'profile': Profile.objects.get(user=request.user)
+    })
 
 
 def splash(request):
-    return render(request, "splash.html", {})
+    return render(request, "splash.html")
 
 
 def join(request):
     if request.user.is_authenticated:
         return redirect('/play')
+
     return render(request, 'join.html')
 
 
@@ -56,21 +77,25 @@ def play(request):
 
     return render(request, 'play.html', {
         'playlists': playlists,
-        'total': total_available
+        'total': total_available,
+        'profile': Profile.objects.get(user=request.user)
     })
 
 
 def leaderboard(request):
-    points = defaultdict(int)
+    if not request.user.is_authenticated:
+        return redirect('/login')
 
-    top_users = User.objects.filter().annotate(
-        points=Sum(F('annotation__points'))).order_by('-points')
+    # slow, should be an offline job instead of re-computing on page request
+    users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
+    top_users = User.objects.filter(pk__in=users).annotate(points=Sum(F('annotation__points'))).order_by('-points')
     username_point_pairs = [
         (_sanitize_username(u.username), u.points)
-        for u in top_users if u.points]
+        for u in top_users if u.points and u.has_usable_password()]
 
     return render(request, 'leaderboard.html', {
-        'sorted_usernames': tuple(username_point_pairs)
+        'sorted_usernames': tuple(username_point_pairs),
+        'profile': Profile.objects.get(user=request.user)
     })
 
 
@@ -116,51 +141,57 @@ def profile(request, username):
         counts[name] = playlist_counts
 
     print("BIG COUNT: \n", counts)
-    
+ 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
         is_turker = Profile.objects.get(user=user).is_turker
     else:
         is_turker = False
+
+    trophies = []
     
+    if counts['general']['total'] > 0:
+        trophies.append({'emoji': '🤖', 'description': 'Complete one annotation.'})
+    if counts['general']['points'] and counts['general']['points'] > 50:
+        trophies.append({'emoji': '✨', 'description': 'Acheive 50 points.'})
+    if counts['general']['correct'] and counts['general']['correct'] > 0:
+        trophies.append({'emoji': '🔎', 'description': 'Correctly identify one boundary.'})
+
     return render(request, 'profile.html', {
+        'profile': Profile.objects.get(user=request.user),
         'this_user': user,
         'is_turker': is_turker,
         'counts': counts,
+        'trophies': trophies
     })
 
 
 def annotate(request):
     if not request.user.is_authenticated:
-        return redirect('/')
+        return redirect('/login')
 
-    # TODO(daphne): Optimize these into a single query.
+    # TODO(daphne): Optimize these into a single qucery.
     seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
     unseen_set = Generation.objects.exclude(id__in=seen_set)
 
-    # available_set should contain all examples that have between 1 and 3 annotations and
+    # counts should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
+    playlist, generations = None, None
     counts = Annotation.objects.values('generation').annotate(count=Count('annotator'))
-    available_set = counts.filter(count__gte=1,
-                                  count__lte=GOAL_NUM_ANNOTATIONS,
-                                  generation__in=unseen_set).values('generation')
+    available_generations = counts.filter(count__gte=1, count__lte=GOAL_NUM_ANNOTATIONS, generation__in=unseen_set).values('generation')
 
     # Mark only examples in the correct playlist (if one was specified) as available.
     playlist_id = int(request.GET.get('playlist', -1))
     if playlist_id >= 0:
         playlist = Playlist.objects.get(id=playlist_id)
-        print("In annotate with playlist = {}.".format(playlist))
-        available_set = playlist.generations.filter(id__in=available_set)
-    else:
-        playlist = None
+        generations = playlist.generations.filter(id__in=available_generations)
+        print("Annotating playlist = {}.".format(playlist))
 
-    print(len(available_set))
     # If the available set is empty, then instead choose from all the examples in the
     # unseen set.
-    if not available_set.exists():
+    if not generations or not generations.exists():
         print('no available text!')
-        available_set = (playlist.generations.filter(id__in=unseen_set) if playlist
-                else unseen_set)
+        generations = playlist.generations.filter(id__in=unseen_set) if playlist else unseen_set
     # TODO(daphne): We still need logic to handle the case where the user has
     # completed every available annotation. This code will crash in this case.
 
@@ -170,17 +201,15 @@ def annotate(request):
         # playlist_id = -1
         print("In annotate with qid = {}.".format(qid))
         generation = Generation.objects.get(pk=qid)
-        if seen_set.filter(generation=qid).exists():
+        if request.user.is_authenticated and seen_set.filter(generation=qid).exists():
           print('User has already annotated example with qid = {}'.format(qid))
-          annotation = Annotation.objects.filter(
-                  annotator=request.user, generation_id=qid)[0].boundary
+          annotation = Annotation.objects.filter(annotator=request.user, generation_id=qid)[0].boundary
     else:
         # TODO(daphne): We do eventually need logic here to handle when all annotations
         # for a playlist have been completed. This code will still fail in this case.
-        generation = random.choice(available_set)
+        generation = random.choice(generations)
 
     prompt_sentences = str_to_list(generation.prompt.body)
-
     generated_sentences = str_to_list(generation.body)
     continuation_sentences = prompt_sentences[1:] + generated_sentences
 
@@ -189,20 +218,23 @@ def annotate(request):
     prompt_sentences[0] = prompt_sentences[0].replace("\n", "<br/>")
 
     # Check if the user has a profile object
-    if Profile.objects.filter(user=request.user).exists():
+    if request.user.is_authenticated and Profile.objects.filter(user=request.user).exists():
         is_turker = Profile.objects.get(user=request.user).is_turker
     else:
         is_turker = False
 
-    # The %age of all-human examples that will be converted to attention checks for turkers
+    # The percentage of all-human examples that will be converted to attention checks for turkers
     ATTENTION_CHECK_RATE = 0.5
 
     # Check attention if the user is from Mechanical Turk
     attention_check = False
-    if is_turker and generation.boundary == len(generated_sentences):
-        if random.random() < ATTENTION_CHECK_RATE:
-            prompt.body += " Please choose 'It's all human-written so far.' for every sentence in this example."
-            attention_check = True
+    if (
+        is_turker
+        and generation.boundary == len(generated_sentences)
+        and random.random() < ATTENTION_CHECK_RATE
+    ):
+        prompt.body += " Please choose 'It's all human-written so far.' for every sentence in this example."
+        attention_check = True
 
     print("Here with generation_id = {}".format(generation.pk))
 
@@ -211,13 +243,13 @@ def annotate(request):
 
     return render(request, "annotate.html", {
         # "remaining": remaining,
+        'profile': Profile.objects.get(user=request.user),
         "prompt": prompt_sentences[0],
         "text_id": generation.pk,
         "sentences": json.dumps(continuation_sentences[:9]), 
         "name": request.user.username,
         "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
-        "num_annotations": len(Annotation.objects.filter(annotator=request.user, attention_check=False)),
         "annotation": annotation,  # Previous annotation given by user, else -1.
         "attention_check": int(attention_check),
         "playlist": playlist_id,
@@ -232,7 +264,7 @@ def save(request):
     name = request.POST['name']
     playlist_id = request.POST['playlist_id']
     print("Playlist id in save: ", playlist_id)
-    
+
     boundary = int(request.POST['boundary'])
     points = request.POST['points']
     attention_check = request.POST['attention_check']
@@ -266,7 +298,7 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
-        return render(request, 'join.html', {})
+        return render(request, 'join.html')
     
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
@@ -285,10 +317,8 @@ def sign_up(request):
     if User.objects.filter(username=username).exists():
         return redirect('/join?signup_error=True')
     
-    user = User.objects.create_user(
-            username=username, email=None, password=password)
-    profile = Profile.objects.create(
-            user=user, is_turker=False, source=user_source)
+    user = User.objects.create_user(username=username, email=None, password=password)
+    profile = Profile.objects.create(user=user, source=user_source)
 
     login(request, user)
     return redirect('/onboard')
