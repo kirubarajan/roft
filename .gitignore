@@ -14,4 +14,10 @@ generation/process_datasets/recipe1M_layers
 generation/process_datasets/Reddit-Stories
 generation/process_datasets/speeches
 generation/process_datasets/WikiHow
+generation/finetuned_models
+generation/nyt
+generation/reddit-stories
+generation/recipes
+generation/speeches
+generation/postprocessing_scripts
 .DS_Store
