@@ -16,21 +16,20 @@ In this project, we aim to measure how good neural langauge models are at writin
 We hope that by testing how good humans are at detecting text we can better understand what makes text sound "human".
 
 ## How does it work?
-
 1. See text one sentence at a time
 2. Determine when the text switches from human written text to machine-generated text
 3. Recieve points according to your precision 
 4. Climb the leaderboard and see how good you are at detecting generated text!
 
-
 ## Research Questions
-1. Which domains are more likely to give text generation systems trouble with?
-2. Which qualitative categories are most likely for generation systems to mess up on?
-3. Does the distribution of errors within these categories change with the length of the prompt?
-4. How does the sampling strategy affect the errors made by these generation systems?
-5. How reliably can humans detect generated text?
-6. How reliably can humans detect generated text to begin with?
-7. How much do our annotators agree on the boundary sentence and how much do they agree on the reasonings between mistakes?
+1. How reliably can humans detect generated text?
+2. Can we train humans to detect genrated text?
+3. How does the size of model affect human detection accuracy?
+4. How does the length of prompt affect human detection accuracy?
+5. How does the genre of prompt text affect human detection accuracy?
+6. How does the sampling strategy used for generation affect human detection accuracy?
+7. How does fine-tuning affect human detection accuracy?
+8. How do control codes for conditional generative models affect human detection accuracy?
 
 ## Data Sources
 1. [New York Times Annotated Corpus (Sandhaus, 2008)](https://catalog.ldc.upenn.edu/LDC2008T19)
@@ -39,9 +38,9 @@ We hope that by testing how good humans are at detecting text we can better unde
 4. [Recipe1M+ (Marin et al., 2019)](http://pic2recipe.csail.mit.edu/)
 
 ## Language Models
-1. [GPT2-XL (Radford et al., 2019)](https://openai.com/blog/better-language-models/)
-2. [CTRL (Keskar et al., 2019)](https://blog.einstein.ai/introducing-a-conditional-transformer-language-model-for-controllable-generation/)
-3. [GROVER (Zellers et al., 2019)](https://rowanzellers.com/grover/)
+1. [GPT2 (Radford et al., 2019)](https://openai.com/blog/better-language-models/)
+2. [GPT2-XL (Radford et al., 2019)](https://openai.com/blog/better-language-models/)
+3. [CTRL (Keskar et al., 2019)](https://blog.einstein.ai/introducing-a-conditional-transformer-language-model-for-controllable-generation/)
 
 ## Citation
 If you use the RoFT tool for your research, please cite us as:
