@@ -88,6 +88,7 @@ class Annotation(models.Model):
     timestamp = models.DateTimeField(auto_now=True, null=True)
     annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     generation = models.ForeignKey(Generation, on_delete=models.DO_NOTHING)
+    playlist = models.CharField(max_length=30, default ='')
     boundary = models.IntegerField()
     points = models.IntegerField()
     reason = models.ManyToManyField(FeedbackOption) 

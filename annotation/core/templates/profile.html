@@ -1,32 +1,128 @@
 {% extends 'base.html' %}
-
 {% block content %}
-  <div class="row" style="padding: 1rem">
-    <div class="col-md" />
-    <div class="col-md-6" style="padding: 1rem">
-      <h1 class="text-muted"> <strong> {{this_user.username}} </strong> </h1>
-      {% if is_turker %}
-        <a class="badge badge-info text-white" style="margin-bottom: 0.5rem">Mechanical Turk User</a>
-      {% endif %}
-      <p style="margin-bottom: 1rem" class="text-muted">Joined on {{this_user.date_joined|date:'Y-m-d'}}</p>
-      <p style="margin-bottom: 1rem" class="text-muted">
-        Trophies:
-        {% for trophy in trophies %}
-          <span title="{{trophy.description}}"  style="cursor:pointer; font-size: 2rem">{{trophy.emoji}}</span>
-        {% endfor %}
-      </p>
-      <div class="card" style="width: 100%; margin-top: 0.5rem">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Total points: <strong>{{counts.points}}</strong></li>
-          <li class="list-group-item">Number total annotations: <strong>{{counts.total}}</strong></li>
-          <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.correct}}</strong></li>
-          <li class="list-group-item">Average distance from correct boundary: <strong>{{distance|stringformat:".2f"}}</strong></li>
-        </ul>
+
+  <body>
+    <div class="container">
+      
+      <div style="margin: 1rem">
+        <h1 class="text-muted"> <strong> {{this_user.username}} </strong> </h1>
+        {% if is_turker %}
+          <a class="badge badge-info text-white" style="margin-bottom: 0.5rem">Mechanical Turk User</a>
+        {% endif %}
+        <p style="margin-bottom: 1rem" class="text-muted">Joined on {{this_user.date_joined|date:'Y-m-d'}}</p>
+        <p style="margin-bottom: 1rem" class="text-muted">
+          Trophies:
+          {% for trophy in trophies %}
+            <span title="{{trophy.description}}"  style="cursor:pointer; font-size: 2rem">{{trophy.emoji}}</span>
+          {% endfor %}
+        </p>
       </div>
-      <p style="margin-top: 1.5rem">
-        <a href="/play">Want to improve? Play another round.</a>
-      </p>
-    </div>
-    <div class="col-md" />
+        
+      <div class="row" >
+        <div class="col-md" style="margin:15px 0px 15px">
+          <div class="card" style="text-align: center" >
+            <div class="card-body">
+              <h5 class="card-title">Total Points Earned</h5>
+              <h1>{{counts.general.points}}</h1>
+              <a href="/leaderboard" class="btn btn-primary" style="width: 80%">Ranking</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md" style="margin:15px 0px 15px">
+          <div class="card" style="text-align: center" >
+            <div class="card-body">
+              <h5 class="card-title">Fooled by a Robot</h5>
+              <h1>{{counts.general.past_boundary}}x</h1>
+              <a href="/play" class="btn btn-primary" style="width: 80%">Get Better</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md" style="margin:15px 0px 15px">
+          <div class="card" style="text-align: center" >
+            <div class="card-body">
+              <h5 class="card-title">Number of Games Played</h5>
+              <h1>{{counts.general.total}}</h1>
+              <a href="/play" class="btn btn-primary" style="width: 80%">Play Again</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+          <div class="card" style="width: 100%; margin-top: 0.5rem">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.general.correct}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.general.avg_distance|stringformat:".2f"}}</strong></li>
+            </ul>
+          </div>
+          <p class="text-muted">* A negative number means you guessed before the correct robot/human boundary</p>
+      </div>
+         
+      <div class="row" style="margin-top: 3rem">
+        <div class="col-md-6">
+          <h3 class="text-info">Reddit Short Stories</h3>
+          <div class="card" style="width: 100%; margin-top: 0.5rem">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Number of games played: <strong>{{counts.reddit.total}}</strong></li>
+              <li class="list-group-item">Total points from this category : <strong>{{counts.reddit.points}}</strong></li>
+              <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.reddit.past_boundary}}</strong></li>
+              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.general.correct}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.general.avg_distance|stringformat:".2f"}}</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3 class="text-info">New York Times</h3>
+          <div class="card" style="width: 100%; margin-top: 0.5rem">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Number of games played: <strong>{{counts.nyt.total}}</strong></li>
+              <li class="list-group-item">Total points from this category : <strong>{{counts.nyt.points}}</strong></li>
+              <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.nyt.past_boundary}}</strong></li>
+              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.nyt.correct}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.nyt.avg_distance|stringformat:".2f"}}</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 1rem">
+        <div class="col-md-6">
+          <h3 class="text-info">Presidential Speeches</h3>
+          <div class="card" style="width: 100%; margin-top: 0.5rem">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Number of games played: <strong>{{counts.speeches.total}}</strong></li>
+              <li class="list-group-item">Total points from this category : <strong>{{counts.speeches.points}}</strong></li>
+              <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.speeches.past_boundary}}</strong></li>
+              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.speeches.correct}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.speeches.avg_distance|stringformat:".2f"}}</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h3 class="text-info">Recipes</h3>
+          <div class="card" style="width: 100%; margin-top: 0.5rem">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Number of games played: <strong>{{counts.recipes.total}}</strong></li>
+              <li class="list-group-item">Total points from this category : <strong>{{counts.recipes.points}}</strong></li>
+              <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.recipes.past_boundary}}</strong></li>
+              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.recipes.correct}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.recipes.avg_distance|stringformat:".2f"}}</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+       
+      <div style="margin: 2rem auto 4rem">
+          <div class="card" style="padding: 1rem">
+            <p class="text-dark"><strong>How are my points calculated per annotation?</strong></p>
+            <dl class="row">
+              <dt class="col-sm-3">5 Points</dt>
+              <dd class="col-sm-9">Guessing the correct boundary between human-written and robot-generated text</dd>
+              <dt class="col-sm-3">0 Points</dt>
+              <dd class="col-sm-9">Guessing before the correct boundary</dd>
+              <dt class="col-sm-3">(5 - x) Points</dt>
+              <dd class="col-sm-9">Guessing at x sentences after the correct boundary: -1 point for every sentence past the true boundary</dd>
+            </dl>
+          </div>
+      </div>  
   </div>
 {% endblock %}
