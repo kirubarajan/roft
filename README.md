@@ -1,5 +1,5 @@
 # RoFT: Real or Fake Text? 
-<h2 align="center"> Do you think you can reliably detect generated text? Test your skills at <a href="http://roft.io" text>http://roft.io</a></h2>
+> Can you detect AI written text? Test your skills at <a href="http://roft.io" text>roft.io</a>!
 </p>
 <p align="center">
 <img align="center" src="./resources/demo.gif" >
@@ -16,9 +16,9 @@ In this project, we aim to measure how good neural langauge models are at writin
 We hope that by testing how good humans are at detecting text we can better understand what makes text sound "human".
 
 ## How does it work?
-1. See text one sentence at a time
-2. Determine when the text switches from human written text to machine-generated text
-3. Recieve points according to your precision 
+1. View text *one sentence at a time*.
+2. Determine **when** the text switches from human written text to machine-generated text.
+3. Recieve points according to your precision.
 4. Climb the leaderboard and see how good you are at detecting generated text!
 
 ## Research Questions
