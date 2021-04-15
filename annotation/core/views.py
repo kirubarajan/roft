@@ -71,6 +71,10 @@ def join(request):
       if not Profile.objects.get(user=request.user).is_temporary:
         return redirect('/play')
 
+      return render(request, 'join.html', {
+          'profile': Profile.objects.get(user=request.user)
+      })
+
     return render(request, 'join.html')
 
 
