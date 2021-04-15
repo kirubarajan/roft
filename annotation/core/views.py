@@ -42,9 +42,8 @@ def str_to_list(text):
 
 def onboard(request):
     if not request.user.is_authenticated:
+        # Note: This should be the *only* time where the user is not authenticated
         # TODO: save annotations to session and prompt to save after X annotations
-        unseen_set = Generation.objects.all()
-
         user = User.objects.create(username=generate_random_username())
         profile = Profile.objects.create(user=user, is_temporary=True)
         login(request, user)
@@ -59,17 +58,12 @@ def splash(request):
 
 
 def join(request):
-    if request.user.is_authenticated:
-        return redirect('/play')
-
     return render(request, 'join.html')
 
 
 def play(request):
-    if not request.user.is_authenticated:
-        return redirect('/')
-
     playlists = Playlist.objects.all()
+    enum_playlists = enumerate(playlists)
     total_available = sum(len(playlist.generations.all()) for playlist in playlists)
     for playlist in playlists:
         playlist.description = markdown(playlist.description)
@@ -77,15 +71,13 @@ def play(request):
 
     return render(request, 'play.html', {
         'playlists': playlists,
+        'enum_playlists': enum_playlists,
         'total': total_available,
         'profile': Profile.objects.get(user=request.user)
     })
 
 
 def leaderboard(request):
-    if not request.user.is_authenticated:
-        return redirect('/login')
-
     # slow, should be an offline job instead of re-computing on page request
     users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
     top_users = User.objects.filter(pk__in=users).annotate(points=Sum(F('annotation__points'))).order_by('-points')
@@ -100,12 +92,9 @@ def leaderboard(request):
 
 
 def profile(request, username):
-    if not request.user.is_authenticated:
-        return redirect('/')
-
     user = User.objects.get(username=username)
     counts = {}
-    
+
     # GENERAL DATA
     general_counts = defaultdict(int)
     annotations_for_user = Annotation.objects.filter(
@@ -116,14 +105,14 @@ def profile(request, username):
     # boundary is 0 indexed starting from "continuation of text"
     # prompt__num_sentences is a 1-indexed count, starting from first prompt sentence.
     general_counts['correct'] = len(annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-    general_counts['past_boundary'] = len(annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences'))) 
-    
+    general_counts['past_boundary'] = len(annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
+
     dist_from_boundary = annotations_for_user.annotate(
         distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
     general_counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
     counts['general'] = general_counts
 
-    for id, name in enumerate(['reddit', 'nyt', 'speeches', 'recipes'],1): 
+    for id, name in enumerate(['reddit', 'nyt', 'speeches', 'recipes'],1):
         print(id)
         playlist_counts = defaultdict(int)
         playlist_annotations_for_user = Annotation.objects.filter(
@@ -132,8 +121,8 @@ def profile(request, username):
         playlist_counts['total'] = len(playlist_annotations_for_user)
 
         playlist_counts['correct'] = len(playlist_annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-        playlist_counts['past_boundary'] = len(playlist_annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences'))) 
-        
+        playlist_counts['past_boundary'] = len(playlist_annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
+
         playlist_dist_from_boundary = playlist_annotations_for_user.annotate(
             distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
         playlist_counts['avg_distance'] = playlist_dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
@@ -141,7 +130,7 @@ def profile(request, username):
         counts[name] = playlist_counts
 
     print("BIG COUNT: \n", counts)
- 
+
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
         is_turker = Profile.objects.get(user=user).is_turker
@@ -149,7 +138,7 @@ def profile(request, username):
         is_turker = False
 
     trophies = []
-    
+
     if counts['general']['total'] > 0:
         trophies.append({'emoji': '🤖', 'description': 'Complete one annotation.'})
     if counts['general']['points'] and counts['general']['points'] > 50:
@@ -167,9 +156,6 @@ def profile(request, username):
 
 
 def annotate(request):
-    if not request.user.is_authenticated:
-        return redirect('/login')
-
     # TODO(daphne): Optimize these into a single qucery.
     seen_set = Annotation.objects.filter(annotator=request.user).values('generation')
     unseen_set = Generation.objects.exclude(id__in=seen_set)
@@ -201,7 +187,7 @@ def annotate(request):
         # playlist_id = -1
         print("In annotate with qid = {}.".format(qid))
         generation = Generation.objects.get(pk=qid)
-        if request.user.is_authenticated and seen_set.filter(generation=qid).exists():
+        if seen_set.filter(generation=qid).exists():
           print('User has already annotated example with qid = {}'.format(qid))
           annotation = Annotation.objects.filter(annotator=request.user, generation_id=qid)[0].boundary
     else:
@@ -218,7 +204,7 @@ def annotate(request):
     prompt_sentences[0] = prompt_sentences[0].replace("\n", "<br/>")
 
     # Check if the user has a profile object
-    if request.user.is_authenticated and Profile.objects.filter(user=request.user).exists():
+    if Profile.objects.filter(user=request.user).exists():
         is_turker = Profile.objects.get(user=request.user).is_turker
     else:
         is_turker = False
@@ -246,7 +232,7 @@ def annotate(request):
         'profile': Profile.objects.get(user=request.user),
         "prompt": prompt_sentences[0],
         "text_id": generation.pk,
-        "sentences": json.dumps(continuation_sentences[:9]), 
+        "sentences": json.dumps(continuation_sentences[:9]),
         "name": request.user.username,
         "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
@@ -268,7 +254,7 @@ def save(request):
     boundary = int(request.POST['boundary'])
     points = request.POST['points']
     attention_check = request.POST['attention_check']
-    
+
     annotation = Annotation.objects.create(
         annotator=request.user,
         generation=Generation.objects.get(pk=text),
@@ -277,12 +263,12 @@ def save(request):
         points=points,
         attention_check=attention_check
     )
-    
+
     feedback_options  = [v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
     for option in feedback_options:
         if request.POST[option] == 'true':
             annotation.reason.add(FeedbackOption.objects.get(shortname=option))
-   
+
     other_reason = request.POST['other_reason']
     if other_reason:
         new_reason = FeedbackOption.objects.create(shortname = str(hash(other_reason)), category = "other", description = other_reason, is_default = False)
@@ -299,7 +285,7 @@ def save(request):
 def log_in(request):
     if request.method == 'GET':
         return render(request, 'join.html')
-    
+
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None:
@@ -313,10 +299,10 @@ def sign_up(request):
     username = request.POST['username']
     password = request.POST['password']
     user_source = request.POST['user_source']
-    
+
     if User.objects.filter(username=username).exists():
         return redirect('/join?signup_error=True')
-    
+
     user = User.objects.create_user(username=username, email=None, password=password)
     profile = Profile.objects.create(user=user, source=user_source)
 
