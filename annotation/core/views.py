@@ -55,11 +55,20 @@ def onboard(request):
 
 
 def splash(request):
-    return render(request, "splash.html")
+
+    if request.user.is_authenticated:
+      is_temporary = Profile.objects.get(user=request.user).is_temporary
+    else:
+      is_temporary = True
+
+    return render(request, "splash.html", {
+        'is_temporary': is_temporary
+    })
 
 
 def join(request):
     if request.user.is_authenticated:
+      if not Profile.objects.get(user=request.user).is_temporary:
         return redirect('/play')
 
     return render(request, 'join.html')
@@ -105,7 +114,7 @@ def profile(request, username):
 
     user = User.objects.get(username=username)
     counts = {}
-    
+
     # GENERAL DATA
     general_counts = defaultdict(int)
     annotations_for_user = Annotation.objects.filter(
@@ -116,14 +125,14 @@ def profile(request, username):
     # boundary is 0 indexed starting from "continuation of text"
     # prompt__num_sentences is a 1-indexed count, starting from first prompt sentence.
     general_counts['correct'] = len(annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-    general_counts['past_boundary'] = len(annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences'))) 
-    
+    general_counts['past_boundary'] = len(annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
+
     dist_from_boundary = annotations_for_user.annotate(
         distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
     general_counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
     counts['general'] = general_counts
 
-    for id, name in enumerate(['reddit', 'nyt', 'speeches', 'recipes'],1): 
+    for id, name in enumerate(['reddit', 'nyt', 'speeches', 'recipes'],1):
         print(id)
         playlist_counts = defaultdict(int)
         playlist_annotations_for_user = Annotation.objects.filter(
@@ -132,8 +141,8 @@ def profile(request, username):
         playlist_counts['total'] = len(playlist_annotations_for_user)
 
         playlist_counts['correct'] = len(playlist_annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-        playlist_counts['past_boundary'] = len(playlist_annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences'))) 
-        
+        playlist_counts['past_boundary'] = len(playlist_annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
+
         playlist_dist_from_boundary = playlist_annotations_for_user.annotate(
             distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
         playlist_counts['avg_distance'] = playlist_dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
@@ -141,7 +150,7 @@ def profile(request, username):
         counts[name] = playlist_counts
 
     print("BIG COUNT: \n", counts)
- 
+
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
         is_turker = Profile.objects.get(user=user).is_turker
@@ -149,7 +158,7 @@ def profile(request, username):
         is_turker = False
 
     trophies = []
-    
+
     if counts['general']['total'] > 0:
         trophies.append({'emoji': '🤖', 'description': 'Complete one annotation.'})
     if counts['general']['points'] and counts['general']['points'] > 50:
@@ -246,7 +255,7 @@ def annotate(request):
         'profile': Profile.objects.get(user=request.user),
         "prompt": prompt_sentences[0],
         "text_id": generation.pk,
-        "sentences": json.dumps(continuation_sentences[:9]), 
+        "sentences": json.dumps(continuation_sentences[:9]),
         "name": request.user.username,
         "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
@@ -268,7 +277,7 @@ def save(request):
     boundary = int(request.POST['boundary'])
     points = request.POST['points']
     attention_check = request.POST['attention_check']
-    
+
     annotation = Annotation.objects.create(
         annotator=request.user,
         generation=Generation.objects.get(pk=text),
@@ -277,12 +286,12 @@ def save(request):
         points=points,
         attention_check=attention_check
     )
-    
+
     feedback_options  = [v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
     for option in feedback_options:
         if request.POST[option] == 'true':
             annotation.reason.add(FeedbackOption.objects.get(shortname=option))
-   
+
     other_reason = request.POST['other_reason']
     if other_reason:
         new_reason = FeedbackOption.objects.create(shortname = str(hash(other_reason)), category = "other", description = other_reason, is_default = False)
@@ -298,8 +307,8 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
-        return render(request, 'join.html')
-    
+        return redirect('/')
+
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
     if user is not None:
@@ -313,10 +322,10 @@ def sign_up(request):
     username = request.POST['username']
     password = request.POST['password']
     user_source = request.POST['user_source']
-    
+
     if User.objects.filter(username=username).exists():
         return redirect('/join?signup_error=True')
-    
+
     user = User.objects.create_user(username=username, email=None, password=password)
     profile = Profile.objects.create(user=user, source=user_source)
 
