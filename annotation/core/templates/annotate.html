@@ -140,7 +140,7 @@
         "common_sense": common_sense,
         "coreference": coreference,
         "generic": generic,
-        "other_reason": other_reason, 
+        "other_reason": other_reason,
         "points": points,
         "attention_check": attention_check
       },
@@ -245,7 +245,7 @@
             "common_sense": common_sense,
             "coreference": coreference,
             "generic": generic,
-            "other_reason": other_reason, 
+            "other_reason": other_reason,
             "points": points,
             "attention_check": attention_check
           },
@@ -271,6 +271,12 @@
       $("#analysis").show();
       $("#revision").show();
       // $("#revision").val(all_sentences[current_sentence - 1]);
+    });
+
+    $("#go_back").click(function() {
+      $("#selection").show();
+      $("#analysis").hide();
+      $("#revision").hide();
     });
 
     $("#human").click(function(e) {
@@ -330,7 +336,7 @@
 
       <div class="card-body" id="analysis" style="display: none">
         <p class="text-info">
-          Why do you think this sentence is computer-generated? Select all that apply. 
+          Why do you think this sentence is computer-generated? Select all that apply.
         </p>
         <form id="revision-form">
           <div>
@@ -358,6 +364,7 @@
             <div class="text-dark">Other</div>
             <input type="text" id="other_reason" name="other_reason" style="margin-bottom: 1rem; margin-top: .4rem" class="form-control" placeholder="Describe the problem you noticed" />
           </div>
+          <button type="button" id="go_back" class="btn btn-secondary"> Go Back </button>
           <button type="submit" class="btn btn-info"> Reveal </button>
         </form>
       </div>
@@ -371,7 +378,7 @@
   </div>
   <div class="col-md" />
 </div>
-  
+
   <script>
     $(function() {
       // This function gets cookie with a given name
