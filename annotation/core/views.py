@@ -104,7 +104,7 @@ def leaderboard(request):
     top_users = User.objects.filter(pk__in=users).annotate(points=Sum(F('annotation__points'))).order_by('-points')
     username_point_pairs = [
         (_sanitize_username(u.username), u.points)
-        for u in top_users if u.points and u.has_usable_password()]
+        for u in top_users if u.points is not None and u.has_usable_password()]
 
     return render(request, 'leaderboard.html', {
         'sorted_usernames': tuple(username_point_pairs),
