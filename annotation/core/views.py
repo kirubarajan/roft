@@ -55,12 +55,25 @@ def onboard(request):
 
 
 def splash(request):
-    return render(request, "splash.html")
+
+    if request.user.is_authenticated:
+      is_temporary = Profile.objects.get(user=request.user).is_temporary
+    else:
+      is_temporary = True
+
+    return render(request, "splash.html", {
+        'is_temporary': is_temporary
+    })
 
 
 def join(request):
     if request.user.is_authenticated:
+      if not Profile.objects.get(user=request.user).is_temporary:
         return redirect('/play')
+
+      return render(request, 'join.html', {
+          'profile': Profile.objects.get(user=request.user)
+      })
 
     return render(request, 'join.html')
 
@@ -298,7 +311,7 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
-        return render(request, 'join.html')
+        return redirect('/')
 
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
