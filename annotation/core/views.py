@@ -323,17 +323,35 @@ def log_in(request):
 
 
 def sign_up(request):
+    if request.method == 'GET':
+        return render(request, 'signup.html')
+
     username = request.POST['username']
     password = request.POST['password']
     user_source = request.POST['user_source']
 
     if User.objects.filter(username=username).exists():
-        return redirect('/join?signup_error=True')
+        return redirect('/signup?error=True')
 
-    user = User.objects.create_user(username=username, email=None, password=password)
-    profile = Profile.objects.create(user=user, source=user_source)
+    # handle logic for saving progress
+    if request.user.is_authenticated and Profile.objects.get(user=request.user).is_temporary:
+        request.user.set_password(password)
+        request.user.username = username
+        request.user.save()
+        login(request, request.user)
 
-    login(request, user)
+        profile = Profile.objects.get(user=request.user)
+        profile.is_temporary = False
+        profile.save()
+
+        assert request.user.is_authenticated and request.user.username == username
+        return redirect('/profile/' + request.user.username)
+    else:
+        # handle first-time user creation
+        user = User.objects.create_user(username=username, email=None, password=password)
+        profile = Profile.objects.create(user=user, source=user_source)
+        login(request, user)
+
     return redirect('/onboard')
 
 
