@@ -64,10 +64,6 @@ def _build_counts_dict(user, playlist_id=None, attention_check=False):
       boundary__gte=F('generation__prompt__num_sentences')))
   counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
-  # Quick null check to ensure rounding works on frontend
-  if not counts['avg_distance']:
-    counts['avg_distance'] = 0.00
-
   return counts
 
 def onboard(request):
