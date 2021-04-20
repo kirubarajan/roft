@@ -40,6 +40,32 @@ def _sanitize_username(username):
 def str_to_list(text):
     return text.split(SEP)
 
+def _build_counts_dict(user, playlist_id=None, attention_check=False):
+
+  # Query for the data on annotations for the given playlist id
+  if playlist_id:
+    user_annotations = Annotation.objects.filter(
+        annotator=user, attention_check=attention_check, playlist=playlist_id)
+  else:
+    user_annotations = Annotation.objects.filter(
+        annotator=user, attention_check=attention_check)
+
+  # Calculate the average distance from boundary from the annotations
+  dist_from_boundary = user_annotations.annotate(
+      distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
+
+  # Fill in the dictionary with the appropriate values
+  counts = defaultdict(int)
+  counts['points'] = user_annotations.aggregate(Sum('points'))['points__sum']
+  counts['total'] = len(user_annotations)
+  counts['correct'] = len(user_annotations.filter(
+      boundary=F('generation__prompt__num_sentences')-1))
+  counts['past_boundary'] = len(user_annotations.filter(
+      boundary__gte=F('generation__prompt__num_sentences')))
+  counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
+
+  return counts
+
 def onboard(request):
     if not request.user.is_authenticated:
         # TODO: save annotations to session and prompt to save after X annotations
@@ -120,40 +146,11 @@ def profile(request, username):
     counts = {}
 
     # GENERAL DATA
-    general_counts = defaultdict(int)
-    annotations_for_user = Annotation.objects.filter(
-            annotator=user, attention_check=False)
-    general_counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
-    general_counts['total'] = len(annotations_for_user)
-
-    # boundary is 0 indexed starting from "continuation of text"
-    # prompt__num_sentences is a 1-indexed count, starting from first prompt sentence.
-    general_counts['correct'] = len(annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-    general_counts['past_boundary'] = len(annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
-
-    dist_from_boundary = annotations_for_user.annotate(
-        distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
-    general_counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
-    counts['general'] = general_counts
-
-    for id, name in enumerate(['reddit', 'nyt', 'speeches', 'recipes'],1):
-        print(id)
-        playlist_counts = defaultdict(int)
-        playlist_annotations_for_user = Annotation.objects.filter(
-                annotator=user, attention_check=False, playlist=id)
-        playlist_counts['points'] = playlist_annotations_for_user.aggregate(Sum('points'))['points__sum']
-        playlist_counts['total'] = len(playlist_annotations_for_user)
-
-        playlist_counts['correct'] = len(playlist_annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-        playlist_counts['past_boundary'] = len(playlist_annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
-
-        playlist_dist_from_boundary = playlist_annotations_for_user.annotate(
-            distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
-        playlist_counts['avg_distance'] = playlist_dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
-        print(name + " COUNTS: ", playlist_counts)
-        counts[name] = playlist_counts
-
-    print("BIG COUNT: \n", counts)
+    counts['general'] = _build_counts_dict(user)
+    counts['reddit'] = _build_counts_dict(user, 1)
+    counts['nyt'] = _build_counts_dict(user, 2)
+    counts['speeches'] = _build_counts_dict(user, 3)
+    counts['recipes'] = _build_counts_dict(user, 4)
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
