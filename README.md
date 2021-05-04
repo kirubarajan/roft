@@ -1,14 +1,10 @@
 # RoFT: Real or Fake Text? 
 > Can you detect AI written text? Test your skills at <a href="http://roft.io" text>roft.io</a>!
 </p>
-<p align="center">
 <img align="center" src="./resources/demo.gif" >
-</p>
 
-<h3 align="center">
 (Read <a href="https://arxiv.org/abs/2010.03070" text>our demo paper</a>
-at EMNLP 2020 for more on our methodology)
-</h3>
+at EMNLP 2020 for more on our methodology.)
 
 # Project Goal
 In this project, we aim to measure how good neural langauge models are at writing text. If you're familiar with the Turing Test, RoFT is a very similar experiment!

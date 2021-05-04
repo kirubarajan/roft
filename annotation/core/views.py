@@ -40,6 +40,32 @@ def _sanitize_username(username):
 def str_to_list(text):
     return text.split(SEP)
 
+def _build_counts_dict(user, playlist_id=None, attention_check=False):
+
+  # Query for the data on annotations for the given playlist id
+  if playlist_id:
+    user_annotations = Annotation.objects.filter(
+        annotator=user, attention_check=attention_check, playlist=playlist_id)
+  else:
+    user_annotations = Annotation.objects.filter(
+        annotator=user, attention_check=attention_check)
+
+  # Calculate the average distance from boundary from the annotations
+  dist_from_boundary = user_annotations.annotate(
+      distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
+
+  # Fill in the dictionary with the appropriate values
+  counts = defaultdict(int)
+  counts['points'] = user_annotations.aggregate(Sum('points'))['points__sum']
+  counts['total'] = len(user_annotations)
+  counts['correct'] = len(user_annotations.filter(
+      boundary=F('generation__prompt__num_sentences')-1))
+  counts['past_boundary'] = len(user_annotations.filter(
+      boundary__gte=F('generation__prompt__num_sentences')))
+  counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
+
+  return counts
+
 def onboard(request):
     if not request.user.is_authenticated:
         # TODO: save annotations to session and prompt to save after X annotations
@@ -55,12 +81,25 @@ def onboard(request):
 
 
 def splash(request):
-    return render(request, "splash.html")
+
+    if request.user.is_authenticated:
+      is_temporary = Profile.objects.get(user=request.user).is_temporary
+    else:
+      is_temporary = True
+
+    return render(request, "splash.html", {
+        'is_temporary': is_temporary
+    })
 
 
 def join(request):
     if request.user.is_authenticated:
+      if not Profile.objects.get(user=request.user).is_temporary:
         return redirect('/play')
+
+      return render(request, 'join.html', {
+          'profile': Profile.objects.get(user=request.user)
+      })
 
     return render(request, 'join.html')
 
@@ -91,7 +130,7 @@ def leaderboard(request):
     top_users = User.objects.filter(pk__in=users).annotate(points=Sum(F('annotation__points'))).order_by('-points')
     username_point_pairs = [
         (_sanitize_username(u.username), u.points)
-        for u in top_users if u.points and u.has_usable_password()]
+        for u in top_users if u.points is not None and u.has_usable_password()]
 
     return render(request, 'leaderboard.html', {
         'sorted_usernames': tuple(username_point_pairs),
@@ -107,40 +146,11 @@ def profile(request, username):
     counts = {}
 
     # GENERAL DATA
-    general_counts = defaultdict(int)
-    annotations_for_user = Annotation.objects.filter(
-            annotator=user, attention_check=False)
-    general_counts['points'] = annotations_for_user.aggregate(Sum('points'))['points__sum']
-    general_counts['total'] = len(annotations_for_user)
-
-    # boundary is 0 indexed starting from "continuation of text"
-    # prompt__num_sentences is a 1-indexed count, starting from first prompt sentence.
-    general_counts['correct'] = len(annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-    general_counts['past_boundary'] = len(annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
-
-    dist_from_boundary = annotations_for_user.annotate(
-        distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
-    general_counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
-    counts['general'] = general_counts
-
-    for id, name in enumerate(['reddit', 'nyt', 'speeches', 'recipes'],1):
-        print(id)
-        playlist_counts = defaultdict(int)
-        playlist_annotations_for_user = Annotation.objects.filter(
-                annotator=user, attention_check=False, playlist=id)
-        playlist_counts['points'] = playlist_annotations_for_user.aggregate(Sum('points'))['points__sum']
-        playlist_counts['total'] = len(playlist_annotations_for_user)
-
-        playlist_counts['correct'] = len(playlist_annotations_for_user.filter(boundary=F('generation__prompt__num_sentences')-1))
-        playlist_counts['past_boundary'] = len(playlist_annotations_for_user.filter(boundary__gte=F('generation__prompt__num_sentences')))
-
-        playlist_dist_from_boundary = playlist_annotations_for_user.annotate(
-            distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
-        playlist_counts['avg_distance'] = playlist_dist_from_boundary.aggregate(Avg('distance'))['distance__avg'] # negative means avg is before correct boundary
-        print(name + " COUNTS: ", playlist_counts)
-        counts[name] = playlist_counts
-
-    print("BIG COUNT: \n", counts)
+    counts['general'] = _build_counts_dict(user)
+    counts['reddit'] = _build_counts_dict(user, 1)
+    counts['nyt'] = _build_counts_dict(user, 2)
+    counts['speeches'] = _build_counts_dict(user, 3)
+    counts['recipes'] = _build_counts_dict(user, 4)
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
@@ -298,7 +308,11 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
+<<<<<<< HEAD
         return render(request, 'join.html')
+=======
+        return redirect('/')
+>>>>>>> bc95dead42441f49d3f8f0fd0a7f5072f9b0df64
 
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
@@ -310,17 +324,42 @@ def log_in(request):
 
 
 def sign_up(request):
+    if request.method == 'GET':
+        return render(request, 'signup.html')
+
     username = request.POST['username']
     password = request.POST['password']
     user_source = request.POST['user_source']
 
     if User.objects.filter(username=username).exists():
+<<<<<<< HEAD
         return redirect('/join?signup_error=True')
 
     user = User.objects.create_user(username=username, email=None, password=password)
     profile = Profile.objects.create(user=user, source=user_source)
+=======
+        return redirect('/signup?error=True')
 
-    login(request, user)
+    # handle logic for saving progress
+    if request.user.is_authenticated and Profile.objects.get(user=request.user).is_temporary:
+        request.user.set_password(password)
+        request.user.username = username
+        request.user.save()
+        login(request, request.user)
+
+        profile = Profile.objects.get(user=request.user)
+        profile.is_temporary = False
+        profile.save()
+
+        assert request.user.is_authenticated and request.user.username == username
+        return redirect('/profile/' + request.user.username)
+    else:
+        # handle first-time user creation
+        user = User.objects.create_user(username=username, email=None, password=password)
+        profile = Profile.objects.create(user=user, source=user_source)
+        login(request, user)
+>>>>>>> bc95dead42441f49d3f8f0fd0a7f5072f9b0df64
+
     return redirect('/onboard')
 
 

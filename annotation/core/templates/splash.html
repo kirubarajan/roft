@@ -37,7 +37,7 @@
             <br /> <br />
 
             <a type="button" class="btn btn-primary" href="/onboard">Play Now!</a>
-            {% if request.user.is_authenticated %}
+            {% if not is_temporary %}
               <a type="button" class="btn btn-info" href="/logout">Log Out</a> <br />
             {% else %}
               <a type="button" class="btn btn-info" href="/join">Log In</a> <br />

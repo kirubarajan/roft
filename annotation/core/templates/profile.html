@@ -3,7 +3,7 @@
 
   <body>
     <div class="container">
-      
+
       <div style="margin: 1rem">
         <h1 class="text-muted"> <strong> {{this_user.username}} </strong> </h1>
         {% if is_turker %}
@@ -17,7 +17,7 @@
           {% endfor %}
         </p>
       </div>
-        
+
       <div class="row" >
         <div class="col-md" style="margin:15px 0px 15px">
           <div class="card" style="text-align: center" >
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="col-md" style="margin:15px 0px 15px">
           <div class="card" style="text-align: center" >
             <div class="card-body">
@@ -52,12 +52,20 @@
           <div class="card" style="width: 100%; margin-top: 0.5rem">
             <ul class="list-group list-group-flush">
               <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.general.correct}}</strong></li>
-              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.general.avg_distance|stringformat:".2f"}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary:
+                <strong>
+                  {% if counts.general.avg_distance != None %}
+                    {{counts.general.avg_distance|stringformat:".2f"}}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </strong>
+              </li>
             </ul>
           </div>
           <p class="text-muted">* A negative number means you guessed before the correct robot/human boundary</p>
       </div>
-         
+
       <div class="row" style="margin-top: 3rem">
         <div class="col-md-6">
           <h3 class="text-info">Reddit Short Stories</h3>
@@ -66,8 +74,16 @@
               <li class="list-group-item">Number of games played: <strong>{{counts.reddit.total}}</strong></li>
               <li class="list-group-item">Total points from this category : <strong>{{counts.reddit.points}}</strong></li>
               <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.reddit.past_boundary}}</strong></li>
-              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.general.correct}}</strong></li>
-              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.general.avg_distance|stringformat:".2f"}}</strong></li>
+              <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.reddit.correct}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary:
+                <strong>
+                  {% if counts.reddit.avg_distance != None %}
+                    {{counts.reddit.avg_distance|stringformat:".2f"}}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </strong>
+              </li>
             </ul>
           </div>
         </div>
@@ -79,7 +95,15 @@
               <li class="list-group-item">Total points from this category : <strong>{{counts.nyt.points}}</strong></li>
               <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.nyt.past_boundary}}</strong></li>
               <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.nyt.correct}}</strong></li>
-              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.nyt.avg_distance|stringformat:".2f"}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary:
+                <strong>
+                  {% if counts.nyt.avg_distance != None %}
+                    {{counts.nyt.avg_distance|stringformat:".2f"}}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </strong>
+              </li>
             </ul>
           </div>
         </div>
@@ -93,7 +117,15 @@
               <li class="list-group-item">Total points from this category : <strong>{{counts.speeches.points}}</strong></li>
               <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.speeches.past_boundary}}</strong></li>
               <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.speeches.correct}}</strong></li>
-              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.speeches.avg_distance|stringformat:".2f"}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary:
+                <strong>
+                  {% if counts.speeches.avg_distance != None %}
+                    {{counts.speeches.avg_distance|stringformat:".2f"}}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </strong>
+              </li>
             </ul>
           </div>
         </div>
@@ -105,12 +137,20 @@
               <li class="list-group-item">Total points from this category : <strong>{{counts.recipes.points}}</strong></li>
               <li class="list-group-item">Number of times fooled by robot : <strong>{{counts.recipes.past_boundary}}</strong></li>
               <li class="list-group-item">Number of correctly identified boundaries: <strong>{{counts.recipes.correct}}</strong></li>
-              <li class="list-group-item">Average distance from correct boundary: <strong>{{counts.recipes.avg_distance|stringformat:".2f"}}</strong></li>
+              <li class="list-group-item">Average distance from correct boundary:
+                <strong>
+                  {% if counts.recipes.avg_distance != None %}
+                    {{counts.recipes.avg_distance|stringformat:".2f"}}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </strong>
+              </li>
             </ul>
           </div>
         </div>
       </div>
-       
+
       <div style="margin: 2rem auto 4rem">
           <div class="card" style="padding: 1rem">
             <p class="text-dark"><strong>How are my points calculated per annotation?</strong></p>
@@ -123,6 +163,6 @@
               <dd class="col-sm-9">Guessing at x sentences after the correct boundary: -1 point for every sentence past the true boundary</dd>
             </dl>
           </div>
-      </div>  
+      </div>
   </div>
 {% endblock %}
