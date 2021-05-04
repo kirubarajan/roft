@@ -308,11 +308,7 @@ def save(request):
 
 def log_in(request):
     if request.method == 'GET':
-<<<<<<< HEAD
-        return render(request, 'join.html')
-=======
         return redirect('/')
->>>>>>> bc95dead42441f49d3f8f0fd0a7f5072f9b0df64
 
     username, password = request.POST['username'], request.POST['password']
     user = authenticate(username=username, password=password)
@@ -332,12 +328,6 @@ def sign_up(request):
     user_source = request.POST['user_source']
 
     if User.objects.filter(username=username).exists():
-<<<<<<< HEAD
-        return redirect('/join?signup_error=True')
-
-    user = User.objects.create_user(username=username, email=None, password=password)
-    profile = Profile.objects.create(user=user, source=user_source)
-=======
         return redirect('/signup?error=True')
 
     # handle logic for saving progress
@@ -358,7 +348,6 @@ def sign_up(request):
         user = User.objects.create_user(username=username, email=None, password=password)
         profile = Profile.objects.create(user=user, source=user_source)
         login(request, user)
->>>>>>> bc95dead42441f49d3f8f0fd0a7f5072f9b0df64
 
     return redirect('/onboard')
 
