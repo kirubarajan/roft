@@ -304,7 +304,7 @@ def log_in(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('/onboard')
+        return redirect('/')
     else:
         return redirect('/join?login_error=True')
 

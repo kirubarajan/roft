@@ -38,6 +38,7 @@
                 <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
                 <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
               {% else %}
+                <strong><li class="nav-item"> <a class="nav-link" href="/join">Log In</a> </li></strong>
                 <strong><li class="nav-item"> <a class="nav-link" href="/signup?save_progress=True">Save Progress</a> </li></strong>
               {% endif %}
             {% endif %}
