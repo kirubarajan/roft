@@ -67,29 +67,15 @@ def _build_counts_dict(user, playlist_id=None, attention_check=False):
 
   return counts
 
-def onboard(request):
-    if not request.user.is_authenticated:
-        # TODO: save annotations to session and prompt to save after X annotations
-        unseen_set = Generation.objects.all()
-
-        user = User.objects.create(username=generate_random_username())
-        profile = Profile.objects.create(user=user, is_temporary=True)
-        login(request, user)
-
-    return render(request, "onboard.html", {
+def help(request):
+    return render(request, "help.html", {
         'profile': Profile.objects.get(user=request.user)
     })
 
 
-def splash(request):
-
-    if request.user.is_authenticated:
-      is_temporary = Profile.objects.get(user=request.user).is_temporary
-    else:
-      is_temporary = True
-
-    return render(request, "splash.html", {
-        'is_temporary': is_temporary
+def about(request):
+    return render(request, "about.html", {
+        'profile': Profile.objects.get(user=request.user)
     })
 
 
@@ -107,7 +93,11 @@ def join(request):
 
 def play(request):
     if not request.user.is_authenticated:
-        return redirect('/')
+        # TODO: save annotations to session and prompt to save after X annotations
+        unseen_set = Generation.objects.all()
+        user = User.objects.create(username=generate_random_username())
+        profile = Profile.objects.create(user=user, is_temporary=True)
+        login(request, user)
 
     playlists = Playlist.objects.all()
     total_available = sum(len(playlist.generations.all()) for playlist in playlists)
@@ -315,7 +305,7 @@ def log_in(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('/onboard')
+        return redirect('/')
     else:
         return redirect('/join?login_error=True')
 
@@ -376,7 +366,7 @@ def sign_up(request):
         profile = Profile.objects.create(user=user, source=user_source)
         login(request, user)
 
-    return redirect('/onboard')
+    return redirect('/help')
 
 
 def log_out(request):

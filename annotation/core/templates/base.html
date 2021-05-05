@@ -42,13 +42,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             {% if user.is_authenticated %}
-              <li class="nav-item"> <a class="nav-link" href="/play">Play</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/onboard">Help</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/help">Help</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="/about">About</a> </li>
               <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
               {% if not profile.is_temporary %}
                 <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
                 <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
               {% else %}
+                <strong><li class="nav-item"> <a class="nav-link" href="/join">Log In</a> </li></strong>
                 <strong><li class="nav-item"> <a class="nav-link" href="/signup?save_progress=True">Save Progress</a> </li></strong>
               {% endif %}
             {% endif %}

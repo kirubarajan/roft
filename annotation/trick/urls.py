@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from core.views import (
     annotate,
-    splash,
-    onboard,
+    about,
+    help,
     leaderboard,
     save,
     join,
@@ -39,7 +39,7 @@ urlpatterns = [
     path('join/', join, name='join'),
     path('signup/', sign_up, name='sign_up'),
     path('logout/', log_out, name="log_out"),
-    path('onboard/', onboard, name="onboard"),
-    path('play/', play, name="play"),
-    path('', splash, name="splash")
+    path('help/', help, name="help"),
+    path('about/', about, name="about"),
+    path('', play, name="play")
 ]
