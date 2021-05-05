@@ -9,7 +9,6 @@ from django.db.models import F, Q, Sum, Func, Avg, Count
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import ValidationError, validate_password, password_validators_help_text_html
 from markdown2 import markdown
 
 from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, FeedbackOption
@@ -322,40 +321,14 @@ def log_in(request):
 
 def sign_up(request):
     if request.method == 'GET':
-      if request.GET:
-        return render(request, 'signup.html', {
-          'error': request.GET['error']
-        })
-      else:
         return render(request, 'signup.html')
 
     username = request.POST['username']
     password = request.POST['password']
-    password2 = request.POST['password2']
     user_source = request.POST['user_source']
 
     if User.objects.filter(username=username).exists():
-      return redirect('/signup?error=0')
-
-    if re.search('^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$', username):
-      return redirect('/signup?error=1')
-
-    if password != password2:
-      return redirect('/signup?error=2')
-
-    try:
-      validate_password(password)
-    except ValidationError as e:
-      for error_string in e:
-        if error_string == 'This password is too short. It must contain at least 8 characters.':
-          return redirect('/signup?error=3')
-        elif error_string == 'This password is too common.':
-          return redirect('/signup?error=4')
-        elif error_string == 'This password is entirely numeric.':
-          return redirect('/signup?error=5')
-        else:
-          return redirect('/signup?error=6')
-
+        return redirect('/signup?error=True')
 
     # handle logic for saving progress
     if request.user.is_authenticated and Profile.objects.get(user=request.user).is_temporary:

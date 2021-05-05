@@ -14,20 +14,8 @@
           <h2 class="text-muted"> <strong> Sign Up </strong> </h2>
           <p class="text-muted" style="font-weight: 300">By signing up for an account, you'll have access to stats like the number of questions you've answered. If you do well, your username may appear on the leaderboard!</p>
           <form style="width: 80%" action="/signup/" method="POST">
-            {% if error == "0" %}
-              <p class="text-danger">User already exists.</p>
-            {% elif error == "1" %}
-              <p class="text-danger">Username must not be an email address.</p>
-            {% elif error == "2" %}
-              <p class="text-danger">Passwords do not match.</p>
-            {% elif error == "3" %}
-              <p class="text-danger">Password is too short. It must contain at least 8 characters.</p>
-            {% elif error == "4" %}
-              <p class="text-danger">Password is too common.</p>
-            {% elif error == "5" %}
-              <p class="text-danger">Password can not be entirely numeric.</p>
-            {% elif error == "6" %}
-              <p class="text-danger">Unknown Error</p>
+            {% if 'error' in request.GET %}
+              <p class="text-danger">Username already exists.</p>
             {% endif %}
             {% csrf_token %}
             <div class="form-group">
@@ -37,10 +25,6 @@
             <div class="form-group">
               <label class="text-muted" for="exampleInputPassword1">Password</label>
               <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Choose a password here...">
-            </div>
-            <div class="form-group">
-              <label class="text-muted" for="exampleInputPassword2">Confirm Password</label>
-              <input name="password2" type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirm your password...">
             </div>
             <div class="form-group">
               <label class="text-muted" for="user_source">Optional: How did you hear about RoFT?</label>
