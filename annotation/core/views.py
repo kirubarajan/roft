@@ -312,12 +312,15 @@ def log_in(request):
 
 def sign_up(request):
     if request.method == 'GET':
-      if request.GET:
+      if 'error' in request.GET:
         return render(request, 'signup.html', {
+          'profile': Profile.objects.get(user=request.user),
           'error': request.GET['error']
         })
       else:
-        return render(request, 'signup.html')
+        return render(request, 'signup.html', {
+            'profile': Profile.objects.get(user=request.user)
+        })
 
     username = request.POST['username']
     password = request.POST['password']
