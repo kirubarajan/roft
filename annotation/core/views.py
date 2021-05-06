@@ -312,7 +312,7 @@ def log_in(request):
 
 def sign_up(request):
     if request.method == 'GET':
-      if request.GET:
+      if 'error' in request.GET:
         return render(request, 'signup.html', {
           'error': request.GET['error']
         })
