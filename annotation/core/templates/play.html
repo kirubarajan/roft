@@ -4,41 +4,42 @@
 <div class="row" style="padding: 1rem">
   <div class="col-md">
     <div class="row" style="padding: 1rem">
-    <div class="col-sm">
-      <h1 class="text-muted"> <strong> Play </strong> </h1>
-      <p class="text-muted"> Select a category of AI-continued passages: </p>
+      <div class="col-sm text-center my-auto">
+        <img width="300" src="https://storage.googleapis.com/roft_datasets/robo_human_collab.png" />
+      </div>
+      <div class="col-sm text-center my-auto">
+        <p class="text-muted"> How good are you at knowing when text has been written by a computer? How many sentences can a computer write before it no longer has you fooled? Find out for yourself!</p>
+        <button href="/annotate" class="btn btn-primary">Start Random Game</button>
+      </div>
     </div>
+    <div class="row" style="padding: 1rem">
+      <div class="col-sm">
+        <h2 class="text-muted"> <strong> Play by Category</strong> </h2>
+        <p class="text-muted"> Select a category of AI-continued passages: </p>
+      </div>
 
-    <div class="row">
-    {% for playlist in playlists %}
-      {% if forloop.counter0|divisibleby:2 %}
-        {% if forloop.first %}
-          <div class="col-md">
-        {% else %}
-          </div><div class="col-md">
-        {% endif %}
-      {% endif %}
-          <div class="card" style="width: 100%; margin-bottom: 1rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{playlist.name}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{playlist.generations.all.count}} Available</h6>
-              <p class="card-text">{{playlist.description|safe}}</p>
-              <p class="card-text text-muted">{{playlist.details|safe}}</p>
-              <a href="/annotate?playlist={{playlist.id}}" class="btn btn-primary">Start Game</a>
+      <div class="row" style="padding: 1rem">
+        {% for playlist in playlists %}
+          {% if forloop.counter0|divisibleby:2 %}
+            {% if forloop.first %}
+              <div class="col-md">
+            {% else %}
+              </div><div class="col-md">
+            {% endif %}
+          {% endif %}
+              <div class="card" style="width: 100%; margin-bottom: 1rem;">
+                <div class="card-body">
+                  <h5 class="card-title">{{playlist.name}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{playlist.generations.all.count}} Available</h6>
+                  <p class="card-text">{{playlist.description|safe}}</p>
+                  <p class="card-text text-muted">{{playlist.details|safe}}</p>
+                  <a href="/annotate?playlist={{playlist.id}}" class="btn btn-primary">Start Game</a>
+                </div>
+              </div>
+          {% if forloop.last %}
             </div>
-          </div>
-      {% if forloop.last %}
-        </div>
-      {% endif %}
-    {% endfor %}
-    </div>
-      <div class="card" style="width: 100%">
-        <div class="card-body">
-          <h5 class="card-title">Random</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{total}} Available</h6>
-          <p class="card-text">Category will be selected randomly each round.</p>
-          <a href="/annotate" class="btn btn-info">Start Game</a>
-        </div>
+          {% endif %}
+        {% endfor %}
       </div>
   </div>
 </div>
