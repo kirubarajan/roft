@@ -9,6 +9,7 @@ from django.db.models import F, Q, Sum, Func, Avg, Count
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import ValidationError, validate_password, password_validators_help_text_html
 from markdown2 import markdown
 
 from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, FeedbackOption
@@ -66,29 +67,15 @@ def _build_counts_dict(user, playlist_id=None, attention_check=False):
 
   return counts
 
-def onboard(request):
-    if not request.user.is_authenticated:
-        # TODO: save annotations to session and prompt to save after X annotations
-        unseen_set = Generation.objects.all()
-
-        user = User.objects.create(username=generate_random_username())
-        profile = Profile.objects.create(user=user, is_temporary=True)
-        login(request, user)
-
-    return render(request, "onboard.html", {
+def help(request):
+    return render(request, "help.html", {
         'profile': Profile.objects.get(user=request.user)
     })
 
 
-def splash(request):
-
-    if request.user.is_authenticated:
-      is_temporary = Profile.objects.get(user=request.user).is_temporary
-    else:
-      is_temporary = True
-
-    return render(request, "splash.html", {
-        'is_temporary': is_temporary
+def about(request):
+    return render(request, "about.html", {
+        'profile': Profile.objects.get(user=request.user)
     })
 
 
@@ -106,7 +93,11 @@ def join(request):
 
 def play(request):
     if not request.user.is_authenticated:
-        return redirect('/')
+        # TODO: save annotations to session and prompt to save after X annotations
+        unseen_set = Generation.objects.all()
+        user = User.objects.create(username=generate_random_username())
+        profile = Profile.objects.create(user=user, is_temporary=True)
+        login(request, user)
 
     playlists = Playlist.objects.all()
     total_available = sum(len(playlist.generations.all()) for playlist in playlists)
@@ -314,21 +305,50 @@ def log_in(request):
     user = authenticate(username=username, password=password)
     if user is not None:
         login(request, user)
-        return redirect('/onboard')
+        return redirect('/')
     else:
         return redirect('/join?login_error=True')
 
 
 def sign_up(request):
     if request.method == 'GET':
-        return render(request, 'signup.html')
+      if 'error' in request.GET:
+        return render(request, 'signup.html', {
+          'profile': Profile.objects.get(user=request.user),
+          'error': request.GET['error']
+        })
+      else:
+        return render(request, 'signup.html', {
+            'profile': Profile.objects.get(user=request.user)
+        })
 
     username = request.POST['username']
     password = request.POST['password']
+    password2 = request.POST['password2']
     user_source = request.POST['user_source']
 
     if User.objects.filter(username=username).exists():
-        return redirect('/signup?error=True')
+      return redirect('/signup?error=0')
+
+    if re.search('^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$', username):
+      return redirect('/signup?error=1')
+
+    if password != password2:
+      return redirect('/signup?error=2')
+
+    try:
+      validate_password(password)
+    except ValidationError as e:
+      for error_string in e:
+        if error_string == 'This password is too short. It must contain at least 8 characters.':
+          return redirect('/signup?error=3')
+        elif error_string == 'This password is too common.':
+          return redirect('/signup?error=4')
+        elif error_string == 'This password is entirely numeric.':
+          return redirect('/signup?error=5')
+        else:
+          return redirect('/signup?error=6')
+
 
     # handle logic for saving progress
     if request.user.is_authenticated and Profile.objects.get(user=request.user).is_temporary:
@@ -349,7 +369,7 @@ def sign_up(request):
         profile = Profile.objects.create(user=user, source=user_source)
         login(request, user)
 
-    return redirect('/onboard')
+    return redirect('/help')
 
 
 def log_out(request):
