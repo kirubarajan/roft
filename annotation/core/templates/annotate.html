@@ -372,11 +372,55 @@
       <div class="card-body" id="reveal" style="display: none">
         <p class="text-muted" id="result-text"> </p>
         <a class="btn btn-primary" style="color: white" id="continue">Continue</a>
+        <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#helpModal">
+          Need some help?
+        </button>
       </div>
     </div>
     <div id="marker-after" />
   </div>
   <div class="col-md" />
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Common Problems in Generated Text</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tr>
+          <th>Problem</th>
+          <th>Example</th>
+          </tr>
+          <tr>
+            <td>Repetition</td>
+            <td>-<code>The cat slept on the window and on the window and on the window.</code><br/>-<code>To make a good cup of tea, you first have to make a good cup of tea.</code></td>
+          </tr>
+          <tr>
+            <td>Common-sense errors</td>
+            <td>-<code>The unicorn had four horns.</code><br/>-<code>Shortly after sunset, the sun was bright in the sky.</code></td>
+          </tr>
+          <tr>
+            <td>Factual errors</td>
+            <td><code>The president of the United States is Clark Kent.</code></td>
+          </tr>
+          <tr>
+            <td>Incoherency and topic drift</td>
+            <td>Consecutive sentences rapidly switch between topics so that there is little or no logical progression between ideas.</td>
+          </tr>
+        <table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="margin:auto;display:block" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
   <script>
