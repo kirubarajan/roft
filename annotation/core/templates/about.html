@@ -4,7 +4,7 @@
 <div class="row" style="padding: 1rem">
   <div class="col-md" />
   <div class="col-md-8" style="padding: 1rem">
-    <h1 class="text-muted"> <strong> About the Experiment </strong> </h1>
+    <h1 class="text-muted"> <strong> About the RoFT Experiment </strong> </h1>
     <p class="text-muted" style="margin-bottom: 2rem;">
       How good are you (and other humans) at knowing when text has been written by a computer?
       How many sentences can a computer write before it no longer has you fooled?
@@ -13,11 +13,7 @@
       <br/> <br />
       In this research project, we're asking for YOUR help to answer these questions.
       If you're familiar with the Turing Test, you'll be participating in a similar experiment!
-      <br /> <br />
-
       <img width="300" style="margin-top: 2rem" src="https://storage.googleapis.com/roft_datasets/robo_human_collab.png" />
-
-      <br />
     </p>
 
     <h2 style="margin-top: 1rem" class="text-muted"><strong>Why participate?</strong></h2>
@@ -32,20 +28,49 @@
       Plus, do all this while aiding in academic research! We especially interested in which domains are harder/easier for humans
       to notice generated text in, and how the amount of randomness in the generated text impacts how easy the game is.
       Your contributions will be used to answer these research questions.
-      <br /> <br />
-      If you want to use our tool in your research, please cite our EMNLP paper:
-      <pre>
-@article{dugan2020roft,
-  title={RoFT: A Tool for Evaluating Human Detection of Machine-Generated Text},
-  author={Dugan, Liam and Ippolito, Daphne and Kirubarajan, Arun and Callison-Burch, Chris},
-  booktitle={Empirical Methods in Natural Language Processing, Demo Track},
-  year={2020}
-}
-      </pre>
+      <br/> <br/>
+    </p>
+    <h2 style="margin-top: 1rem" class="text-muted"><strong>Data Sources & Models Used</strong></h2>
+    <table class="table">
+      <tr>
+      <th>Category</th>
+      <th>Data Source</th>
+      <th>Models Used</th>
+      </tr>
+      <tr>
+        <td>New York Times</td>
+        <td>New York Times Annotated Corpus <a href="https://catalog.ldc.upenn.edu/LDC2008T19">(Sandhaus, 2008)</a></td>
+        <td>GPT2-XL <a href="https://openai.com/blog/better-language-models/">(Radford et al., 2019)</a></td>
+      </tr>
+      <tr>
+        <td>Short Stories</td>
+        <td>Reddit Writing Prompts <a href="https://www.kaggle.com/ratthachat/writing-prompts">(Fan et al., 2018)</a></td>
+        <td>GPT2, GPT2-XL <a href="https://openai.com/blog/better-language-models/">(Radford et al., 2019)</a></td>
+      </tr>
+      <tr>
+        <td>Presidential Speeches</td>
+        <td>Corpus of Presidential Speeches <a href="http://www.thegrammarlab.com/?nor-portfolio=corpus-of-presidential-speeches-cops-and-a-clintontrump-corpus">(Brown, 2016)</a></td>
+        <td>CTRL <a href="https://arxiv.org/abs/1909.05858">(Keskar et al., 2019)</a></td>
+      </tr>
+      <tr>
+        <td>Recipes</td>
+        <td>Recipe1M+ <a href="http://pic2recipe.csail.mit.edu/">(Marin et al. 2019)</a></td>
+        <td>GPT2-XL <a href="https://openai.com/blog/better-language-models/">(Radford et al., 2019)</a></td>
+      </tr>
+    </table>
+    <h2 style="margin-top: 1rem" class="text-muted"><strong>Attribution</strong></h2>
+    <p class="text-muted">
+    If you want to use our tool in your research, please cite our EMNLP paper:
+    <pre>
+  @article{dugan2020roft,
+    title={RoFT: A Tool for Evaluating Human Detection of Machine-Generated Text},
+    author={Dugan, Liam and Ippolito, Daphne and Kirubarajan, Arun and Callison-Burch, Chris},
+    booktitle={Empirical Methods in Natural Language Processing, Demo Track},
+    year={2020}
+  }
+    </pre>
     </p>
   </div>
-  <div class="col-md-2"></div>
-
   <div class="col-md-12" style="margin-top: 3rem; text-align: center;">
     <small class="text-muted">
       Made by researchers at the University of Pennsylvania. Art credit to <a href="https://www.linkedin.com/in/trungtuanle">Trung Le</a>.

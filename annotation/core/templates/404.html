@@ -31,34 +31,18 @@
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light" style="padding: 2rem; padding-bottom: 1rem;">
-        <a class="navbar-brand text-muted" href="/">
-          <strong> Real or Fake Text? </strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            {% if user.is_authenticated %}
-              <li class="nav-item"> <a class="nav-link" href="/">Play</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/help">Help</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/about">About</a> </li>
-              <li class="nav-item"> <a class="nav-link" href="/leaderboard">Leaderboard</a> </li>
-              {% if not profile.is_temporary %}
-                <li class="nav-item"> <a class="nav-link" href="/profile/{{request.user.username}}">Profile</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="/logout">Log Out</a> </li>
-              {% else %}
-                <strong><li class="nav-item"> <a class="nav-link" href="/join">Log In</a> </li></strong>
-                <strong><li class="nav-item"> <a class="nav-link" href="/signup?save_progress=True">Save Progress</a> </li></strong>
-              {% endif %}
-            {% endif %}
-          </ul>
+      <div class="row" style="margin-top:5rem;">
+        <div class="col-sm text-center my-auto">
+          <img width="300" src="https://storage.googleapis.com/roft_datasets/robo_human_collab.png" />
         </div>
-      </nav>
-      {% block content %}
-      {% endblock %}
+        <div class="col-sm my-auto">
+          <h1 style="font-size:6rem">404</h1>
+          <h3 style="margin-top:0.25rem" class="text-muted"> Page Not Found </h3>
+          <div style="margin-top:1rem">
+            <h5 class="text-muted"> Sorry, the page you're looking for isn't Real </h5>
+            <a href="/" class="btn btn-primary">Return to Home Page</a>
+        </div>
+      </div>
     </div>
   </body>
 </html>
