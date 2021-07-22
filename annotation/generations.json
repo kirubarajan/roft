@@ -37,7 +37,10 @@
         "description": "Can you tell if an AI could pass as a master chef?",
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) with prompts taken from the [Recipe1M+ Corpus](http://pic2recipe.csail.mit.edu/).",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-gpt2-xl-recipes-dev.json",
-                      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-gpt2-xl-recipes-test.json"
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-gpt2-xl-recipes-test.json",
+		      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-finetuned-recipes-dev.json",
+		      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/extra_generations-gpt2-xl-recipes-dev.json",
+		      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/extra_generations-gpt2-xl-recipes-test.json"
                      ]
 
     }
