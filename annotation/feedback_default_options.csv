@@ -1,9 +1,9 @@
 shortname,category,description
 grammar,fluency,is not grammatical.
 repetition,fluency,substantially repeats previous text or itself.
-irrelevant,substance,is irrelevant or unrelated to the previous ones.
+irrelevant,substance,is irrelevant or unrelated to the previous sentences.
 contradicts_sentence,substance,contradicts the previous sentences.
 contradicts_knowledge,substance,contradicts your understanding of the people, events, or concepts involved.
-common_sense,substance,contains common-sense or basic logic errors.
-coreference,substance,mixes up or swaps agents (characters) mentioned previously.
+common_sense,substance,contains common-sense or basic logical errors.
+coreference,substance,mixes up characters' names or other attributes.
 generic,substance,contains language that is generic or uninteresting.
