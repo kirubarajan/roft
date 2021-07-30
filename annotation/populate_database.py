@@ -31,6 +31,12 @@ def _try_create_feedback_option(shortname, category, description):
     if not feedback_option:
         feedback_option = FeedbackOption.objects.create(shortname = shortname, description = description, category = category)
         print("Successful created new FeedbackOption of category {}: {}: {}".format(category, shortname, description))
+    else:
+        print("Updating FeedbackOption {}".format(shortname))
+        option = FeedbackOption.objects.get(shortname=shortname)
+        option.description = description
+        option.category = category
+        option.save()
     return feedback_option
 
 def _try_create_playlist(name, shortname, version, description, details):
@@ -116,7 +122,7 @@ def populate_db(generations_path, version):
                     description = row[2],
                 )
             line_count += 1
-
+    exit()
     # open saved generations and parse JSON
     click.echo("Loading generations...")
 
