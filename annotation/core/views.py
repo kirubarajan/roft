@@ -20,6 +20,8 @@ BATCH_SIZE = 10
 # The desired number of annotations per example. Each example will be
 # assigned to this many users before any new annotation gets assigned.
 GOAL_NUM_ANNOTATIONS = 3
+# The playlist version to show in the UI
+_PLAYLIST_VERSION = "0.2"
 
 # helper function taken from (https://gist.github.com/jcinis/2866253)
 def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
@@ -99,7 +101,7 @@ def play(request):
         profile = Profile.objects.create(user=user, is_temporary=True)
         login(request, user)
 
-    playlists = Playlist.objects.all()
+    playlists = Playlist.objects.filter(version=_PLAYLIST_VERSION)
     total_available = sum(len(playlist.generations.all()) for playlist in playlists)
     for playlist in playlists:
         playlist.description = markdown(playlist.description)
