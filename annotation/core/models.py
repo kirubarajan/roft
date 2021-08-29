@@ -93,6 +93,7 @@ class Annotation(models.Model):
     points = models.IntegerField()
     reason = models.ManyToManyField(FeedbackOption) 
     attention_check = models.BooleanField(default=False)
+    timestamps = models.CharField(max_length=256, default='')
 
     def __str__(self):
         return self.annotator.username + " " + str(self.timestamp)

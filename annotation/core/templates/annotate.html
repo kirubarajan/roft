@@ -236,7 +236,8 @@
           "generic": generic,
           "other_reason": other_reason,
           "points": points,
-          "attention_check": attention_check
+          "attention_check": attention_check,
+          "timestamps": timestamps.join(',')
         },
         success: function (response) {
           reveal_solutions();
@@ -260,12 +261,16 @@
           $("#human").show();
         }
       }
+
+      timestamps.push(Date.now());
     });
 
     $("#machine").click(function() {
       $("#selection").hide();
       $("#analysis").show();
       $("#revision").show();
+
+      timestamps.push(Date.now());
     });
 
     $("#go_back").click(function() {

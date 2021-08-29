@@ -278,7 +278,8 @@ def save(request):
         playlist = playlist_id,
         boundary=boundary,
         points=points,
-        attention_check=attention_check
+        attention_check=attention_check,
+        timestamps=request.POST['timestamps']
     )
 
     feedback_options  = [v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
