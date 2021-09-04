@@ -140,10 +140,10 @@ def profile(request, username):
 
     # GENERAL DATA
     counts['general'] = _build_counts_dict(user)
-    counts['reddit'] = _build_counts_dict(user, 1)
-    counts['nyt'] = _build_counts_dict(user, 2)
-    counts['speeches'] = _build_counts_dict(user, 3)
-    counts['recipes'] = _build_counts_dict(user, 4)
+    counts['reddit'] = _build_counts_dict(user, 5)
+    counts['nyt'] = _build_counts_dict(user, 6)
+    counts['speeches'] = _build_counts_dict(user, 7)
+    counts['recipes'] = _build_counts_dict(user, 8)
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
