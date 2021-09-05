@@ -43,13 +43,13 @@ def _sanitize_username(username):
 def str_to_list(text):
     return text.split(SEP)
 
-def _build_counts_dict(user, shortname=None, attention_check=False):
+def _build_counts_dict(user, playlist_name=None, attention_check=False):
   """Returns stats about the specified user's performance on the spacified playlist."""
   # Query for the data on annotations for the given playlist id
   if shortname:
     #find the playlist with this shortname and this version. There should be only 1.
     playlists = Playlist.objects.filter(
-        shortname=shortname, version=_PLAYLIST_VERSION)
+        shortname=playlist_name, version=_PLAYLIST_VERSION)
   else:
     # find the playlists with this version
     playlists = Playlist.objects.filter(
