@@ -43,15 +43,17 @@ def _sanitize_username(username):
 def str_to_list(text):
     return text.split(SEP)
 
-def _build_counts_dict(user, playlist_id=None, attention_check=False):
+def _build_counts_dict(user, shortname=None, attention_check=False):
 
   # Query for the data on annotations for the given playlist id
-  if playlist_id:
+  if shortname:
     user_annotations = Annotation.objects.filter(
-        annotator=user, attention_check=attention_check, playlist=playlist_id)
+        annotator=user, attention_check=attention_check,
+        shortname=shortname, version=_PLAYLIST_VERSION)
   else:
     user_annotations = Annotation.objects.filter(
-        annotator=user, attention_check=attention_check)
+        annotator=user, attention_check=attention_check,
+        version=_PLAYLIST_VERSION)
 
   # Calculate the average distance from boundary from the annotations
   dist_from_boundary = user_annotations.annotate(
@@ -140,10 +142,10 @@ def profile(request, username):
 
     # GENERAL DATA
     counts['general'] = _build_counts_dict(user)
-    counts['reddit'] = _build_counts_dict(user, 1)
-    counts['nyt'] = _build_counts_dict(user, 2)
-    counts['speeches'] = _build_counts_dict(user, 3)
-    counts['recipes'] = _build_counts_dict(user, 4)
+    counts['reddit'] = _build_counts_dict(user, "Short Stories")
+    counts['nyt'] = _build_counts_dict(user, "New York Times")
+    counts['speeches'] = _build_counts_dict(user, "Presidential Speeches")
+    counts['recipes'] = _build_counts_dict(user, "Recipes")
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
