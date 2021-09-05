@@ -2,6 +2,7 @@ import re
 import json
 import random
 from string import ascii_lowercase, digits
+import time
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -22,6 +23,11 @@ BATCH_SIZE = 10
 GOAL_NUM_ANNOTATIONS = 3
 # The playlist version to show in the UI
 _PLAYLIST_VERSION = "0.2"
+
+
+# The cached leaderboard.
+cached_leaderboard = None
+leaderboard_timestamp = None
 
 # helper function taken from (https://gist.github.com/jcinis/2866253)
 def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
@@ -113,20 +119,23 @@ def play(request):
         'profile': Profile.objects.get(user=request.user)
     })
 
-
+def leaderboard_is_stale():
+    current_time = time.gmtime()
+    return not leaderboard_timestamp or (current_time - leaderboard_timestamp) > 15:
+    
 def leaderboard(request):
     if not request.user.is_authenticated:
         return redirect('/login')
 
-    # slow, should be an offline job instead of re-computing on page request
-    users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
-    top_users = User.objects.filter(pk__in=users).annotate(points=Sum(F('annotation__points'))).order_by('-points')
-    username_point_pairs = [
-        (_sanitize_username(u.username), u.points)
-        for u in top_users if u.points is not None and u.has_usable_password()]
+    if leaderboard_is_stale():
+        users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
+        top_users = User.objects.annotate(points=Sum(F('annotation__points'))).order_by('-points').filter(pk__in=users)[:50]
+        cached_leaderboard = [
+            (_sanitize_username(u.username), u.points)
+            for u in top_users if u.points is not None and u.has_usable_password()]
 
     return render(request, 'leaderboard.html', {
-        'sorted_usernames': tuple(username_point_pairs),
+        'sorted_usernames': tuple(cached_leaderboard),
         'profile': Profile.objects.get(user=request.user)
     })
 
