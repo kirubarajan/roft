@@ -111,17 +111,17 @@ def _try_create_generation(gen_text, system, prompt, decoding_strategy):
 @click.option('--version', help='Version number.')
 def populate_db(generations_path, version):
     # populate pre-set feedback options
-    #with open('feedback_default_options.csv') as csv_file:
-    #    csv_reader = csv.reader(csv_file, delimiter=',')
-    #    line_count = 0
-    #    for row in csv_reader:
-    #        if line_count > 0:
-    #            new_option = _try_create_feedback_option(
-    #                shortname = row[0],
-    #                category = row[1],
-    #                description = row[2],
-    #            )
-    #        line_count += 1
+    with open('feedback_default_options.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count > 0:
+                new_option = _try_create_feedback_option(
+                    shortname = row[0],
+                    category = row[1],
+                    description = row[2],
+                )
+            line_count += 1
 
     # open saved generations and parse JSON
     click.echo("Loading generations for {}...".format(generations_path))
