@@ -43,15 +43,21 @@ def _sanitize_username(username):
 def str_to_list(text):
     return text.split(SEP)
 
-def _build_counts_dict(user, playlist_id=None, attention_check=False):
-
+def _build_counts_dict(user, playlist_name=None, attention_check=False):
+  """Returns stats about the specified user's performance on the spacified playlist."""
   # Query for the data on annotations for the given playlist id
-  if playlist_id:
-    user_annotations = Annotation.objects.filter(
-        annotator=user, attention_check=attention_check, playlist=playlist_id)
+  if shortname:
+    #find the playlist with this shortname and this version. There should be only 1.
+    playlists = Playlist.objects.filter(
+        shortname=playlist_name, version=_PLAYLIST_VERSION)
   else:
-    user_annotations = Annotation.objects.filter(
-        annotator=user, attention_check=attention_check)
+    # find the playlists with this version
+    playlists = Playlist.objects.filter(
+        version=_PLAYLIST_VERSION)
+
+  user_annotations = Annotation.objects.filter(
+      annotator=user, attention_check=attention_check,
+      playlist__in=playlists)
 
   # Calculate the average distance from boundary from the annotations
   dist_from_boundary = user_annotations.annotate(
@@ -134,16 +140,17 @@ def leaderboard(request):
 def profile(request, username):
     if not request.user.is_authenticated:
         return redirect('/')
+    # import pdb; pdb.set_trace()
 
     user = User.objects.get(username=username)
     counts = {}
 
     # GENERAL DATA
     counts['general'] = _build_counts_dict(user)
-    counts['reddit'] = _build_counts_dict(user, 1)
-    counts['nyt'] = _build_counts_dict(user, 2)
-    counts['speeches'] = _build_counts_dict(user, 3)
-    counts['recipes'] = _build_counts_dict(user, 4)
+    counts['reddit'] = _build_counts_dict(user, "Short Stories")
+    counts['nyt'] = _build_counts_dict(user, "New York Times")
+    counts['speeches'] = _build_counts_dict(user, "Presidential Speeches")
+    counts['recipes'] = _build_counts_dict(user, "Recipes")
 
     # Check if the user has a profile object
     if Profile.objects.filter(user=user).exists():
