@@ -12,7 +12,7 @@ from django.db import IntegrityError
 # kirubarajan: django model imports at bottom since you have to configure the environment first
 
 MIN_LENGTH = 10
-
+P_VALUES_TO_KEEP = [0.0, 0.4, 1.0]
 
 # helper function to fix malformatted JSON
 def _clean_json(string):
@@ -40,6 +40,7 @@ def _try_create_feedback_option(shortname, category, description):
     return feedback_option
 
 def _try_create_playlist(name, shortname, version, description, details):
+    print("Attempting to create playlist:", shortname, version)
     playlist = Playlist.objects.filter(shortname=shortname, version=version)
     playlist = playlist[0] if playlist else None
     if not playlist:
@@ -110,24 +111,24 @@ def _try_create_generation(gen_text, system, prompt, decoding_strategy):
 @click.option('--version', help='Version number.')
 def populate_db(generations_path, version):
     # populate pre-set feedback options
+    #with open('feedback_default_options.csv') as csv_file:
+    #    csv_reader = csv.reader(csv_file, delimiter=',')
+    #    line_count = 0
+    #    for row in csv_reader:
+    #        if line_count > 0:
+    #            new_option = _try_create_feedback_option(
+    #                shortname = row[0],
+    #                category = row[1],
+    #                description = row[2],
+    #            )
+    #        line_count += 1
 
-    with open('feedback_default_options.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            if line_count > 0:
-                new_option = _try_create_feedback_option(
-                    shortname = row[0],
-                    category = row[1],
-                    description = row[2],
-                )
-            line_count += 1
-    exit()
     # open saved generations and parse JSON
-    click.echo("Loading generations...")
+    click.echo("Loading generations for {}...".format(generations_path))
 
     with open(generations_path) as file:
         playlists_json = _read_json(file)
+    click.echo("Finished loading.")
 
     for playlist_json in playlists_json:
         # creating playlist
@@ -140,7 +141,10 @@ def populate_db(generations_path, version):
                 details=playlist_json["details"]
         )
 
+         
+        gen_count = 0
         for generation_url in playlist_json["locations"]:
+            print("Reading in generations from", generation_url)
             with urllib.request.urlopen(generation_url) as f:
                 generations_json = _read_json(f)
 
@@ -172,6 +176,9 @@ def populate_db(generations_path, version):
 
                 # Create deocding strategy if it does not already exist.
                 # TODO(daphne): Add support for others besides top-p.
+                if generation["p"] not in P_VALUES_TO_KEEP: 
+                    continue
+
                 decoding_strategy = _try_create_decoding_strategy(
                         "top-p", generation["p"])
                 try:
@@ -181,9 +188,13 @@ def populate_db(generations_path, version):
                         decoding_strategy=decoding_strategy,
                         gen_text=SEP.join(generation["generation"]))
                     playlist.generations.add(generation)
+                    gen_count += 1
+                    if gen_count % 100 == 0:
+                        print("Added {} so far.".format(gen_count))
                 except Exception as e:
                     print("failure adding generation")
                     print(e)
+        print("Added {} total.".format(gen_count))
 
 
 if __name__ == '__main__':
