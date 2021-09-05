@@ -44,16 +44,20 @@ def str_to_list(text):
     return text.split(SEP)
 
 def _build_counts_dict(user, shortname=None, attention_check=False):
-
+  """Returns stats about the specified user's performance on the spacified playlist."""
   # Query for the data on annotations for the given playlist id
   if shortname:
-    user_annotations = Annotation.objects.filter(
-        annotator=user, attention_check=attention_check,
+    #find the playlist with this shortname and this version. There should be only 1.
+    playlists = Playlist.objects.filter(
         shortname=shortname, version=_PLAYLIST_VERSION)
   else:
-    user_annotations = Annotation.objects.filter(
-        annotator=user, attention_check=attention_check,
+    # find the playlists with this version
+    playlists = Playlist.objects.filter(
         version=_PLAYLIST_VERSION)
+
+  user_annotations = Annotation.objects.filter(
+      annotator=user, attention_check=attention_check,
+      playlist__in=playlists)
 
   # Calculate the average distance from boundary from the annotations
   dist_from_boundary = user_annotations.annotate(
@@ -136,6 +140,7 @@ def leaderboard(request):
 def profile(request, username):
     if not request.user.is_authenticated:
         return redirect('/')
+    # import pdb; pdb.set_trace()
 
     user = User.objects.get(username=username)
     counts = {}
