@@ -15,17 +15,30 @@
     <div class="col-md" />
     <div class="col-md-6" style="padding: 1rem">
       <h1 class="text-muted"> <strong> Leaderboard </strong> </h1>
-      <p style="margin-bottom: 1rem" class="text-muted">RoFT's top players:</p>
+      <p style="margin-bottom: 1rem" class="text-muted">The leaderboard shows RoFT's top 50 players and is updated every 15 minutes. Remember, your played rounds only count if you're logged in.</p>
+      {% if request_user_rank >= 1 %}
+      <p class="text-info">🎉 Congrats!! You're ranked {{request_user_rank}}! 🎉</p>
+      {% else %}
+      <p class="text-red">
+        You're not on the leaderboard yet.<br/><a href="/">Play some rounds to improve your score.</a>
+      </p>
+      {% endif %}
       <table class="table">
         <thead>
           <tr>
+            <th scope="col">Position</th>
             <th scope="col">Username</th>
             <th scope="col">Score</th>
           </tr>
         </thead>
         <tbody>
           {% for username, score in sorted_usernames %}
-            <tr class="clickable" onclick="window.location='/profile/{{username}}';">
+	    {% if username == request_user %}
+              <tr class="clickable table-warning" onclick="window.location='/profile/{{username}}';">
+            {% else %}
+              <tr class="clickable" onclick="window.location='/profile/{{username}}';">
+            {% endif %}
+              <th scope="row">{{forloop.counter}}</th>
               <th scope="row">{{username}}</th>
               <td>{{score}}</td>
             </tr>

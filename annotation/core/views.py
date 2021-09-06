@@ -2,7 +2,7 @@ import re
 import json
 import random
 from string import ascii_lowercase, digits
-import time
+from datetime import datetime
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -27,7 +27,7 @@ _PLAYLIST_VERSION = "0.2"
 
 # The cached leaderboard.
 cached_leaderboard = None
-leaderboard_timestamp = None
+leaderboard_cache_time = None
 
 # helper function taken from (https://gist.github.com/jcinis/2866253)
 def generate_random_username(length=16, chars=ascii_lowercase+digits, split=4, delimiter='-'):
@@ -49,17 +49,20 @@ def _sanitize_username(username):
 def str_to_list(text):
     return text.split(SEP)
 
+def _is_temp(user):
+    """Returns true if the specified user is a temporary, non-real one."""
+    return Profile.objects.get(user=user).is_temporary
+
 def _build_counts_dict(user, playlist_name=None, attention_check=False):
   """Returns stats about the specified user's performance on the spacified playlist."""
   # Query for the data on annotations for the given playlist id
-  if shortname:
+  if playlist_name:
     #find the playlist with this shortname and this version. There should be only 1.
     playlists = Playlist.objects.filter(
         shortname=playlist_name, version=_PLAYLIST_VERSION)
   else:
     # find the playlists with this version
-    playlists = Playlist.objects.filter(
-        version=_PLAYLIST_VERSION)
+    playlists = Playlist.objects.filter(version=_PLAYLIST_VERSION)
 
   user_annotations = Annotation.objects.filter(
       annotator=user, attention_check=attention_check,
@@ -95,7 +98,7 @@ def about(request):
 
 def join(request):
     if request.user.is_authenticated:
-      if not Profile.objects.get(user=request.user).is_temporary:
+      if not _is_temp(request.user):
         return redirect('/play')
 
       return render(request, 'join.html', {
@@ -125,31 +128,48 @@ def play(request):
         'profile': Profile.objects.get(user=request.user)
     })
 
-def leaderboard_is_stale():
-    current_time = time.gmtime()
-    return not leaderboard_timestamp or (current_time - leaderboard_timestamp) > 15:
+def _leaderboard_is_stale():
+    current_time = datetime.now()
+    if leaderboard_cache_time:
+        elapsed_time = current_time - leaderboard_cache_time
+        elapsed_minutes = divmod(elapsed_time.total_seconds(), 60)
+        return elapsed_minutes > 15
+    else:
+        return True
     
 def leaderboard(request):
-    if not request.user.is_authenticated:
-        return redirect('/login')
-
-    if leaderboard_is_stale():
-        users = [user.id for user in User.objects.all() if not Profile.objects.get(user=user).is_temporary]
-        top_users = User.objects.annotate(points=Sum(F('annotation__points'))).order_by('-points').filter(pk__in=users)[:50]
+    if _leaderboard_is_stale():
+        profiles_with_points = Profile.objects.filter(is_temporary=False).annotate(
+            points=Sum(F('user__annotation__points')))
+        top_profiles = profiles_with_points.filter(points__gt=0)
+        # Only include profiles of valid, signed in users. This line is equivalent
+        # to checking that has_usable_password  is set to True for each user.
+        top_profiles = top_profiles.filter(Q(user__is_active=True) &
+                                           Q(user__password__isnull=False) &
+                                           ~Q(user__password__startswith='!'))
+        top_profiles = top_profiles.order_by('-points')[:50]
         cached_leaderboard = [
-            (_sanitize_username(u.username), u.points)
-            for u in top_users if u.points is not None and u.has_usable_password()]
+            (_sanitize_username(p.user.username), p.points) for p in top_profiles]
+        leaderboard_cache_time = datetime.now()
 
+    request_user_rank = -1
+    for rank, (user, score) in enumerate(cached_leaderboard):
+      if user == request.user:
+        request_user_rank = rank + 1
+        break
+
+    # TODO(daphne): Decide whether or not `request_user` should be sanitized.
+    show_user = request.user.is_authenticated and not _is_temp(request.user)
     return render(request, 'leaderboard.html', {
         'sorted_usernames': tuple(cached_leaderboard),
-        'profile': Profile.objects.get(user=request.user)
+        'request_user': request.user.username if show_user else "",
+        'request_user_rank': request_user_rank
     })
 
 
 def profile(request, username):
     if not request.user.is_authenticated:
         return redirect('/')
-    # import pdb; pdb.set_trace()
 
     user = User.objects.get(username=username)
     counts = {}
@@ -329,6 +349,9 @@ def log_in(request):
 
 
 def sign_up(request):
+    if request.user.is_authenticated and not _is_temp(request.user):
+      return redirect('/annotate')
+
     if request.method == 'GET':
       if 'error' in request.GET:
         return render(request, 'signup.html', {
@@ -369,7 +392,7 @@ def sign_up(request):
 
 
     # handle logic for saving progress
-    if request.user.is_authenticated and Profile.objects.get(user=request.user).is_temporary:
+    if request.user.is_authenticated and _is_temp(request.user):
         request.user.set_password(password)
         request.user.username = username
         request.user.save()
