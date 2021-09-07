@@ -163,7 +163,8 @@ def leaderboard(request):
     return render(request, 'leaderboard.html', {
         'sorted_usernames': tuple(cached_leaderboard),
         'request_user': request.user.username if show_user else "",
-        'request_user_rank': request_user_rank
+        'request_user_rank': request_user_rank,
+        'profile': None
     })
 
 
