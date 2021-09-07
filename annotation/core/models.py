@@ -74,6 +74,7 @@ class Generation(models.Model):
     def __str__(self):
         return self.body
 
+
 class FeedbackOption(models.Model):
     """The types of reasons people give for thinking sentence is machine generated text"""
     shortname = models.CharField(max_length=40, primary_key=True)
@@ -82,10 +83,11 @@ class FeedbackOption(models.Model):
     is_default = models.BooleanField(default=True)
     def __str__(self):
         return self.description
-    
+
+
 class Annotation(models.Model):
     """A human annotation of a prompt-continuation pair."""
-    timestamp = models.DateTimeField(auto_now=True, null=True)
+    date = models.DateTimeField(auto_now=True, null=True)
     annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     generation = models.ForeignKey(Generation, on_delete=models.DO_NOTHING)
     playlist = models.CharField(max_length=30, default ='')
@@ -93,10 +95,16 @@ class Annotation(models.Model):
     points = models.IntegerField()
     reason = models.ManyToManyField(FeedbackOption) 
     attention_check = models.BooleanField(default=False)
-    timestamps = models.CharField(max_length=256, default='')
 
     def __str__(self):
-        return self.annotator.username + " " + str(self.timestamp)
+        return self.annotator.username + " " + str(self.date)
+
+
+class Timestamp(models.Model):
+    """When a continuation/decision was made. First Timestamp is annotation start,
+    last is annotation submit, and in-between are for different continuations."""
+    annotation = models.ForeignKey(Annotation, on_delete=models.DO_NOTHING)
+    date = models.DateTimeField()
 
 
 class Playlist(models.Model):
