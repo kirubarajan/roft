@@ -160,7 +160,7 @@ def leaderboard(request):
 
     # TODO(daphne): Decide whether or not `request_user` should be sanitized.
     show_user = request.user.is_authenticated and not _is_temp(request.user)
-    profile = Profile.objects.filter(user=request.user).first()
+    profile = Profile.objects.get(user=request.user)
 
     return render(request, 'leaderboard.html', {
         'sorted_usernames': tuple(cached_leaderboard),
