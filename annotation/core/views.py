@@ -2,7 +2,7 @@ import re
 import json
 import random
 from string import ascii_lowercase, digits
-from datetime import datetime
+from datetime import datetime, time
 from collections import defaultdict
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import ValidationError, validate_password, password_validators_help_text_html
 from markdown2 import markdown
 
-from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, FeedbackOption
+from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, FeedbackOption, Timestamp
 
 
 # Batch examples into groupings of this size.
@@ -316,6 +316,13 @@ def save(request):
         points=points,
         attention_check=attention_check
     )
+
+    for timestamp in request.POST['timestamps'].split(','):
+        print(timestamp)
+        Timestamp.objects.create(
+            annotation=annotation,
+            date=datetime.fromtimestamp(int(timestamp) / 1000)
+        )
 
     feedback_options  = [v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
     for option in feedback_options:

@@ -27,6 +27,8 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
+USE_TZ = False
+
 
 # Application definition
 

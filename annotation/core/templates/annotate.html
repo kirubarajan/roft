@@ -10,6 +10,8 @@
   const name = "{{ name }}";
   const playlist = "{{ playlist }}";
 
+  // stores list of UNIX timestamps on button presses
+  let timestamps = [Date.now()];
   let current_sentence = 1;
 
   function update_params_in_url() {
@@ -168,6 +170,7 @@
   $(document).ready(function() {
     update_params_in_url();
 
+    // query param logic through django templating
     {% if annotation >= 0 %}
       current_sentence = {{ annotation }} + 1;
       reveal_solutions()
@@ -181,6 +184,71 @@
       redraw_sentences(current_sentence);
     {% endif %}
 
+    function submit_annotation(e) {
+      e.preventDefault();
+
+      // get checkbox values and reset
+      const grammar = $('#grammar').is(":checked");
+      const repetition = $('#repetition').is(":checked");
+      const irrelevant = $('#irrelevant').is(":checked");
+      const contradicts_sentence = $('#contradicts_sentence').is(":checked");
+      const contradicts_knowledge = $('#contradicts_knowledge').is(":checked");
+      const common_sense = $('#common_sense').is(":checked");
+      const coreference = $('#coreference').is(":checked");
+      const generic = $('#generic').is(":checked");
+      const other_reason = $("#other_reason").val();
+
+      $("#note").val('');
+      $('input[type=checkbox]').each(function() {
+        this.checked = false;
+      });
+
+      const max_points = 5;
+      let points = 0;
+
+      const current_sentence_index = current_sentence - 1;
+      if (attention_check) {
+        points = 0;
+      } else if (current_sentence_index == boundary) {
+        points = max_points;
+      } else if (current_sentence_index > boundary) {
+        points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0);
+      }
+
+      // make ajax request to log annotation
+      console.log('Making ajax call with boundary = ' + current_sentence_index);
+      const url = '{% url "save" %}';
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: {
+          "boundary": current_sentence_index,
+          "text": text_id,
+          "name": name,
+          "playlist_id": playlist,
+          "grammar": grammar,
+          "repetition": repetition,
+          "irrelevant": irrelevant,
+          "contradicts_sentence": contradicts_sentence,
+          "contradicts_knowledge": contradicts_knowledge,
+          "common_sense": common_sense,
+          "coreference": coreference,
+          "generic": generic,
+          "other_reason": other_reason,
+          "points": points,
+          "attention_check": attention_check,
+          "timestamps": timestamps.join(',')
+        },
+        success: function (response) {
+          reveal_solutions();
+          show_points(points);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    }
+
     // adding new sentence
     $("#next").click(function() {
       current_sentence += 1;
@@ -193,84 +261,16 @@
           $("#human").show();
         }
       }
+
+      timestamps.push(Date.now());
     });
-
-      function submit_annotation(e) {
-        e.preventDefault();
-
-        // get checkbox values and reset
-        const grammar = $('#grammar').is(":checked");
-        const repetition = $('#repetition').is(":checked");
-        const irrelevant = $('#irrelevant').is(":checked");
-        const contradicts_sentence = $('#contradicts_sentence').is(":checked");
-        const contradicts_knowledge = $('#contradicts_knowledge').is(":checked");
-        const common_sense = $('#common_sense').is(":checked");
-        const coreference = $('#coreference').is(":checked");
-        const generic = $('#generic').is(":checked");
-        const other_reason = $("#other_reason").val();
-
-        $("#note").val('');
-        $('input[type=checkbox]').each(function() {
-          this.checked = false;
-        });
-
-        const max_points = 5;
-        let points = 0;
-
-        const current_sentence_index = current_sentence - 1;
-        if (attention_check) {
-          points = 0;
-        } else if (current_sentence_index == boundary) {
-          points = max_points;
-        } else if (current_sentence_index > boundary) {
-          points = Math.max(max_points - Math.abs(boundary - current_sentence_index), 0);
-        }
-
-        // make ajax request to log annotation
-        console.log('Making ajax call with boundary = ' + current_sentence_index);
-        const url = '{% url "save" %}';
-        $.ajax({
-          type: 'POST',
-          url: url,
-          data: {
-            "boundary": current_sentence_index,
-            "text": text_id,
-            "name": name,
-            "playlist_id": playlist,
-            "grammar": grammar,
-            "repetition": repetition,
-            "irrelevant": irrelevant,
-            "contradicts_sentence": contradicts_sentence,
-            "contradicts_knowledge": contradicts_knowledge,
-            "common_sense": common_sense,
-            "coreference": coreference,
-            "generic": generic,
-            "other_reason": other_reason,
-            "points": points,
-            "attention_check": attention_check
-          },
-          success: function (response) {
-            reveal_solutions();
-            show_points(points);
-          },
-          error: function (error) {
-            console.log(error);
-          }
-        });
-      }
-    $("#continue").click(function() {
-      load_next_annotation()
-    })
-
-    $("#another").click(function() {
-      load_next_annotation()
-    })
 
     $("#machine").click(function() {
       $("#selection").hide();
       $("#analysis").show();
       $("#revision").show();
-      // $("#revision").val(all_sentences[current_sentence - 1]);
+
+      timestamps.push(Date.now());
     });
 
     $("#go_back").click(function() {
@@ -287,9 +287,16 @@
       submit_annotation(e);
     });
 
+    $("#continue").click(function() {
+      load_next_annotation()
+    })
+
+    $("#another").click(function() {
+      load_next_annotation()
+    })
+
     // processing annotator decision
     $("#revision-form").submit(submit_annotation);
-
   });
 </script>
 
