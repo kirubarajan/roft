@@ -12,7 +12,6 @@ class Profile(models.Model):
     is_turker = models.BooleanField(default=False)
     is_temporary = models.BooleanField(default=False)
     source = models.CharField(max_length=100)
-    
 
     def __str__(self):
         return self.user.username + " " + str(self.is_turker)
@@ -63,7 +62,8 @@ class Generation(models.Model):
     """The continuation associated with the prompt."""
     system = models.ForeignKey(System, on_delete=models.DO_NOTHING)
     prompt = models.ForeignKey(Prompt, on_delete=models.DO_NOTHING)
-    decoding_strategy = models.ForeignKey(DecodingStrategy, on_delete=models.DO_NOTHING)
+    decoding_strategy = models.ForeignKey(
+        DecodingStrategy, on_delete=models.DO_NOTHING)
     body = models.TextField()
 
     @property
@@ -81,6 +81,7 @@ class FeedbackOption(models.Model):
     description = models.CharField(max_length=250)
     category = models.CharField(max_length=20)
     is_default = models.BooleanField(default=True)
+
     def __str__(self):
         return self.description
 
@@ -90,10 +91,10 @@ class Annotation(models.Model):
     date = models.DateTimeField(auto_now=True, null=True)
     annotator = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     generation = models.ForeignKey(Generation, on_delete=models.DO_NOTHING)
-    playlist = models.CharField(max_length=30, default ='')
+    playlist = models.CharField(max_length=30, default='')
     boundary = models.IntegerField()
     points = models.IntegerField()
-    reason = models.ManyToManyField(FeedbackOption) 
+    reason = models.ManyToManyField(FeedbackOption)
     attention_check = models.BooleanField(default=False)
 
     def __str__(self):

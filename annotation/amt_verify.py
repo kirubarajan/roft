@@ -11,8 +11,10 @@
 #
 # Script must be run after setting up dependencies listed in annotation/README.md
 # In order to run with the live database, you must make sure to set your environment
-# variables appropriately (e.g. make an env.sh file and run "source env.sh" beforehand)
+# variables appropriately (e.g. make an env.sh file and run "source
+# env.sh" beforehand)
 
+from core.models import User, Annotation
 import sys
 import os
 import csv
@@ -24,26 +26,25 @@ from collections import defaultdict
 
 from amt.generate_usernames import generate_usernames
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','trick.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trick.settings')
 django.setup()
-from core.models import User, Annotation
 
 # Set this number to be the amount of annotations each MTurk worker needs to
 # complete in order for them to be accepted
 NUM_ANNOTATIONS_REQUIRED = 5
 
 if os.path.exists(sys.argv[1]):
-    new_rows = [] # 2D Array of edited rows to write to new csv for submission
-    readable_output = [] # 2D Array of rows to write to human readable csv
+    new_rows = []  # 2D Array of edited rows to write to new csv for submission
+    readable_output = []  # 2D Array of rows to write to human readable csv
     with open(sys.argv[1]) as f:
         reader = csv.reader(f)
 
         # Get the headers so we can find the columns of the csv we care about
         headers = reader.__next__()
         new_rows.append(headers)
-        readable_output.append(['username','workerId',
-                                'num_annotations','total_score',
-                                'approve','reject'])
+        readable_output.append(['username', 'workerId',
+                                'num_annotations', 'total_score',
+                                'approve', 'reject'])
 
         # Find the index for each column we care about in csv
         for i, value in enumerate(headers):
@@ -79,8 +80,7 @@ if os.path.exists(sys.argv[1]):
             else:
                 approve_string = ''
                 reject_string = 'Only completed {0} annotations ({1} required)'.format(
-                                 num_annotations[username],
-                                 str(NUM_ANNOTATIONS_REQUIRED))
+                    num_annotations[username], str(NUM_ANNOTATIONS_REQUIRED))
 
             # csv doesn't append '' when empty cells at end of row so we have to
             # work around cases where the Accept/Reject columns are at the end
