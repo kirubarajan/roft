@@ -54,35 +54,42 @@ def _is_temp(user):
     return Profile.objects.get(user=user).is_temporary
 
 def _build_counts_dict(user, playlist_name=None, attention_check=False):
-  """Returns stats about the specified user's performance on the spacified playlist."""
-  # Query for the data on annotations for the given playlist id
-  if playlist_name:
-    #find the playlist with this shortname and this version. There should be only 1.
-    playlists = Playlist.objects.filter(
-        shortname=playlist_name, version=_PLAYLIST_VERSION)
-  else:
-    # find the playlists with this version
-    playlists = Playlist.objects.filter(version=_PLAYLIST_VERSION)
+    """Returns stats about the specified user's performance on the spacified playlist."""
+    # Query for the data on annotations for the given playlist id
+    if playlist_name:
+        #find the playlist with this shortname and this version. There should be only 1.
+        playlists = Playlist.objects.filter(shortname=playlist_name, version=_PLAYLIST_VERSION)
+        user_annotations = Annotation.objects.filter(
+            annotator=user,
+            attention_check=attention_check,
+            playlist__in=playlists
+        )
+    else:
+        # find the playlists with this version
+        playlists = Playlist.objects.filter(version=_PLAYLIST_VERSION)
+        user_annotations = Annotation.objects.filter(
+            annotator=user,
+            attention_check=attention_check,
+            playlist__in=playlists
+        )
+        random_annotations = Annotation.objects.filter(playlist=-1, annotator=user)
+        user_annotations = random_annotations | user_annotations
 
-  user_annotations = Annotation.objects.filter(
-      annotator=user, attention_check=attention_check,
-      playlist__in=playlists)
+    # Calculate the average distance from boundary from the annotations
+    dist_from_boundary = user_annotations.annotate(
+        distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
 
-  # Calculate the average distance from boundary from the annotations
-  dist_from_boundary = user_annotations.annotate(
-      distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
+    # Fill in the dictionary with the appropriate values
+    counts = defaultdict(int)
+    counts['points'] = user_annotations.aggregate(Sum('points'))['points__sum']
+    counts['total'] = len(user_annotations)
+    counts['correct'] = len(user_annotations.filter(
+        boundary=F('generation__prompt__num_sentences')-1))
+    counts['past_boundary'] = len(user_annotations.filter(
+        boundary__gte=F('generation__prompt__num_sentences')))
+    counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
-  # Fill in the dictionary with the appropriate values
-  counts = defaultdict(int)
-  counts['points'] = user_annotations.aggregate(Sum('points'))['points__sum']
-  counts['total'] = len(user_annotations)
-  counts['correct'] = len(user_annotations.filter(
-      boundary=F('generation__prompt__num_sentences')-1))
-  counts['past_boundary'] = len(user_annotations.filter(
-      boundary__gte=F('generation__prompt__num_sentences')))
-  counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
-
-  return counts
+    return counts
 
 def help(request):
     return render(request, "help.html", {
@@ -321,7 +328,6 @@ def save(request):
     )
 
     for timestamp in request.POST['timestamps'].split(','):
-        print(timestamp)
         Timestamp.objects.create(
             annotation=annotation,
             date=datetime.fromtimestamp(int(timestamp) / 1000)
