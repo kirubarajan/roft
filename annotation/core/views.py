@@ -75,8 +75,7 @@ def _build_counts_dict(user, playlist_name=None, attention_check=False):
     if playlist_name:
         # find the playlist with this shortname and this version. There should
         # be only 1.
-        playlists = Playlist.objects.filter(
-            shortname=playlist_name, version=_PLAYLIST_VERSION)
+        playlists = Playlist.objects.filter(shortname=playlist_name, version=_PLAYLIST_VERSION)
         user_annotations = Annotation.objects.filter(
             annotator=user,
             attention_check=attention_check,
@@ -95,8 +94,8 @@ def _build_counts_dict(user, playlist_name=None, attention_check=False):
         user_annotations = random_annotations | user_annotations
 
     # Calculate the average distance from boundary from the annotations
-    dist_from_boundary = user_annotations.annotate(distance=(
-        (F('boundary') + 1 - F('generation__prompt__num_sentences'))))
+    dist_from_boundary = user_annotations.annotate(
+        distance=((F('boundary') + 1 - F('generation__prompt__num_sentences'))))
 
     # Fill in the dictionary with the appropriate values
     counts = defaultdict(int)
@@ -106,8 +105,7 @@ def _build_counts_dict(user, playlist_name=None, attention_check=False):
         boundary=F('generation__prompt__num_sentences') - 1))
     counts['past_boundary'] = len(user_annotations.filter(
         boundary__gte=F('generation__prompt__num_sentences')))
-    counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))[
-        'distance__avg']
+    counts['avg_distance'] = dist_from_boundary.aggregate(Avg('distance'))['distance__avg']
 
     return counts
 
@@ -146,8 +144,7 @@ def play(request):
         login(request, user)
 
     playlists = Playlist.objects.filter(version=_PLAYLIST_VERSION)
-    total_available = sum(len(playlist.generations.all())
-                          for playlist in playlists)
+    total_available = sum(len(playlist.generations.all()) for playlist in playlists)
     for playlist in playlists:
         playlist.description = markdown(playlist.description)
         playlist.details = markdown(playlist.details)
@@ -171,10 +168,9 @@ def _leaderboard_is_stale():
 
 def leaderboard(request):
     if _leaderboard_is_stale():
-        profiles_with_points = Profile.objects.filter(
-            is_temporary=False).annotate(
-            points=Sum(
-                F('user__annotation__points')))
+        profiles_with_points = Profile.objects.filter(is_temporary=False)
+        profiles_with_points = profiles_with_points.annotate(
+            points=Sum(F('user__annotation__points')))
         top_profiles = profiles_with_points.filter(points__gt=0)
         # Only include profiles of valid, signed in users. This line is equivalent
         # to checking that has_usable_password  is set to True for each user.
@@ -183,9 +179,7 @@ def leaderboard(request):
                                            ~Q(user__password__startswith='!'))
         top_profiles = top_profiles.order_by('-points')[:50]
         cached_leaderboard = [
-            (_sanitize_username(
-                p.user.username),
-                p.points) for p in top_profiles]
+            (_sanitize_username(p.user.username), p.points) for p in top_profiles]
         leaderboard_cache_time = datetime.now()
 
     request_user_rank = -1
@@ -229,13 +223,11 @@ def profile(request, username):
     trophies = []
 
     if counts['general']['total'] > 0:
-        trophies.append(
-            {'emoji': '🤖', 'description': 'Complete one annotation.'})
+        trophies.append({'emoji': '🤖', 'description': 'Complete one annotation.'})
     if counts['general']['points'] and counts['general']['points'] > 50:
         trophies.append({'emoji': '✨', 'description': 'Acheive 50 points.'})
     if counts['general']['correct'] and counts['general']['correct'] > 0:
-        trophies.append(
-            {'emoji': '🔎', 'description': 'Correctly identify one boundary.'})
+        trophies.append({'emoji': '🔎', 'description': 'Correctly identify one boundary.'})
 
     return render(request, 'profile.html', {
         'profile': Profile.objects.get(user=request.user),
@@ -258,8 +250,7 @@ def annotate(request):
     # counts should contain all examples that have between 1 and 3 annotations and
     # have not been seen before by this user.
     playlist, generations = None, None
-    counts = Annotation.objects.values(
-        'generation').annotate(count=Count('annotator'))
+    counts = Annotation.objects.values('generation').annotate(count=Count('annotator'))
     available_generations = counts.filter(
         count__gte=1,
         count__lte=GOAL_NUM_ANNOTATIONS,
@@ -308,8 +299,7 @@ def annotate(request):
     prompt_sentences[0] = prompt_sentences[0].replace("\n", "<br/>")
 
     # Check if the user has a profile object
-    if request.user.is_authenticated and Profile.objects.filter(
-            user=request.user).exists():
+    if request.user.is_authenticated and Profile.objects.filter(user=request.user).exists():
         is_turker = Profile.objects.get(user=request.user).is_turker
     else:
         is_turker = False
@@ -330,10 +320,8 @@ def annotate(request):
 
     print("Here with generation_id = {}".format(generation.pk))
 
-    fluency_reasons = FeedbackOption.objects.filter(
-        is_default=True, category="fluency")
-    substance_reasons = FeedbackOption.objects.filter(
-        is_default=True, category="substance")
+    fluency_reasons = FeedbackOption.objects.filter(is_default=True, category="fluency")
+    substance_reasons = FeedbackOption.objects.filter(is_default=True, category="substance")
 
     return render(request, "annotate.html", {
         # "remaining": remaining,
@@ -344,8 +332,7 @@ def annotate(request):
         "name": request.user.username,
         "max_sentences": len(continuation_sentences[:9]),
         "boundary": generation.boundary,
-        # Previous annotation given by user, else -1.
-        "annotation": annotation,
+        "annotation": annotation,# Previous annotation given by user, else -1.
         "attention_check": int(attention_check),
         "playlist": playlist_id,
         "fluency_reasons": fluency_reasons,
@@ -380,8 +367,7 @@ def save(request):
         )
 
     feedback_options = [
-        v[0] for v in FeedbackOption.objects.filter(
-            is_default=True).values_list("shortname")]
+        v[0] for v in FeedbackOption.objects.filter(is_default=True).values_list("shortname")]
     for option in feedback_options:
         if request.POST[option] == 'true':
             annotation.reason.add(FeedbackOption.objects.get(shortname=option))
@@ -440,9 +426,7 @@ def sign_up(request):
     if User.objects.filter(username=username).exists():
         return redirect('/signup?error=0')
 
-    if re.search(
-        '^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$',
-            username):
+    if re.search('^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$', username):
         return redirect('/signup?error=1')
 
     if password != password2:
