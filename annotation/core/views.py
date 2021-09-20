@@ -73,25 +73,18 @@ def _build_counts_dict(user, playlist_name=None, attention_check=False):
     """Returns stats about the specified user's performance on the spacified playlist."""
     # Query for the data on annotations for the given playlist id
     if playlist_name:
-        # find the playlist with this shortname and this version. There should
-        # be only 1.
+        # find all annotations in the correct playlist.
         playlists = Playlist.objects.filter(shortname=playlist_name, version=_PLAYLIST_VERSION)
-        user_annotations = Annotation.objects.filter(
-            annotator=user,
-            attention_check=attention_check,
-            playlist__in=playlists
-        )
+        generations_in_playlist = Generation.objects.filter(playlist__shortname=playlist_name)
+        annotations = Annotation.objects.filter(generation__in=generations_in_playlist)
     else:
-        # find the playlists with this version
-        playlists = Playlist.objects.filter(version=_PLAYLIST_VERSION)
-        user_annotations = Annotation.objects.filter(
-            annotator=user,
-            attention_check=attention_check,
-            playlist__in=playlists
-        )
-        random_annotations = Annotation.objects.filter(
-            playlist=-1, annotator=user)
-        user_annotations = random_annotations | user_annotations
+        annotations = Annotation.objects
+      
+
+    user_annotations = annotations.filter(
+        annotator=user,
+        attention_check=attention_check,
+    )
 
     # Calculate the average distance from boundary from the annotations
     dist_from_boundary = user_annotations.annotate(
