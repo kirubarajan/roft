@@ -15,7 +15,8 @@
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) and [GROVER](https://rowanzellers.com/grover/) with prompts taken from the [New York Times Corpus](https://catalog.ldc.upenn.edu/LDC2008T19).",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-dev.json",
                       "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-test.json",
-                      "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-train.json"
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-train.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-easy-nyt-train-truncated.json"
                      ]
 
     },
