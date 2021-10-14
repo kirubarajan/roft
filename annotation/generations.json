@@ -6,7 +6,8 @@
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-reddit-stories-dev.json",
                       "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-reddit-stories-test.json",
                       "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-xl-reddit-stories-dev.json",
-                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-xl-reddit-stories-test.json"
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-xl-reddit-stories-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-davinci-reddit-stories-dev.json"
                      ]
     },
     {
