@@ -132,6 +132,7 @@ def populate_db(generations_path, version):
         line_count = 0
         for row in csv_reader:
             if line_count > 0:
+                print(row[2])
                 new_option = _try_create_feedback_option(
                     shortname=row[0],
                     category=row[1],
@@ -139,6 +140,7 @@ def populate_db(generations_path, version):
                 )
             line_count += 1
 
+    exit()
     # open saved generations and parse JSON
     click.echo("Loading generations for {}...".format(generations_path))
 
@@ -192,13 +194,18 @@ def populate_db(generations_path, version):
                     num_sentences=len(generation["prompt"]),
                     dataset=dataset)
 
-                # Create deocding strategy if it does not already exist.
                 # TODO(daphne): Add support for others besides top-p.
-                if generation["p"] not in P_VALUES_TO_KEEP:
-                    continue
+                if generation["p"] == -1:
+                    decoding_strategy = _try_create_decoding_strategy(
+                        "na", -1)
+                else:
+                    # Skip invalid decoding strategies
+                    if generation["p"] not in P_VALUES_TO_KEEP:
+                        continue
+                    decoding_strategy = _try_create_decoding_strategy(
+                        "top-p", generation["p"])
 
-                decoding_strategy = _try_create_decoding_strategy(
-                    "top-p", generation["p"])
+                # Create deocding strategy if it does not already exist.
                 try:
                     generation = _try_create_generation(
                         prompt=prompt,
