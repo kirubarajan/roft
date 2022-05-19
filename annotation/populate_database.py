@@ -86,7 +86,7 @@ def _try_create_dataset(name, split):
 
 
 def _try_create_prompt(prompt_id, prompt_text, num_sentences, dataset):
-    prompt = Prompt.objects.filter(prompt_index=prompt_id, dataset=dataset)
+    prompt = Prompt.objects.filter(prompt_index=prompt_id, dataset=dataset, num_sentences=num_sentences)
     prompt = prompt[0] if prompt else None
     if not prompt:
         prompt = Prompt.objects.create(

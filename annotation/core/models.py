@@ -38,7 +38,7 @@ class Dataset(models.Model):
 class Prompt(models.Model):
     """Human written sentence that gets continued."""
     class Meta:
-        unique_together = (("dataset", "prompt_index"),)
+        unique_together = (("dataset", "prompt_index", "num_sentences"),)
 
     body = models.TextField()
     num_sentences = models.IntegerField()

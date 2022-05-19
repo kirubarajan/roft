@@ -22,7 +22,7 @@ BATCH_SIZE = 10
 # assigned to this many users before any new annotation gets assigned.
 GOAL_NUM_ANNOTATIONS = 3
 # The playlist version to show in the UI
-_PLAYLIST_VERSION = "0.3"
+_PLAYLIST_VERSION = "0.4"
 
 
 # The cached leaderboard.
@@ -282,9 +282,15 @@ def annotate(request):
         # for a playlist have been completed. This code will still fail in this
         # case.
         generation = random.choice(generations)
+    
+    print(generation.prompt)
 
     prompt_sentences = str_to_list(generation.prompt.body)
+    print("Prompt Sentences:")
+    print(prompt_sentences)
     generated_sentences = str_to_list(generation.body)
+    print("Gen Sentences:")
+    print(generated_sentences)
     continuation_sentences = prompt_sentences[1:] + generated_sentences
 
     # For some datasets, most importntly recipes, the first sentence of the prompt might
