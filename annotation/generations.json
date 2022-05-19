@@ -4,7 +4,7 @@
         "description": "Can a computer write a short story that makes sense?",
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) and [GPT-3](https://openai.com/api/) with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v4/generations-davinci-reddit-stories-test.json",
-                      "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-reddit-stories-test.json"
+                      "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-reddit-stories-dev.json"
                      ]
     },
     {
@@ -12,7 +12,9 @@
         "description": "Fake News has been a big worry lately. Can you spot when our computer wrote the news article?",
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) and [GPT-3](https://openai.com/api/) with prompts taken from the [New York Times Corpus](https://catalog.ldc.upenn.edu/LDC2008T19).",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v4/generations-davinci-nyt-train.json",
-                      "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-nyt-train.json"
+                      "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-nyt-train.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-nyt-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-nyt-test.json"
                      ]
 
     },
