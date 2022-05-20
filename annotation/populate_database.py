@@ -85,12 +85,13 @@ def _try_create_dataset(name, split):
     return dataset
 
 
-def _try_create_prompt(prompt_id, prompt_text, num_sentences, dataset):
+def _try_create_prompt(prompt_id, source_prompt_id, prompt_text, num_sentences, dataset):
     prompt = Prompt.objects.filter(prompt_index=prompt_id, dataset=dataset)
     prompt = prompt[0] if prompt else None
     if not prompt:
         prompt = Prompt.objects.create(
             prompt_index=int(prompt_id),
+            source_prompt_index=int(source_prompt_id),
             dataset=dataset,
             body=prompt_text,
             num_sentences=num_sentences)
@@ -186,8 +187,10 @@ def populate_db(generations_path, version):
                                                     len(generation["prompt"])]
 
                 # Create prompt if it does not already exist.
+                new_unique_id_hack=generation["prompt-index"] + 100000
                 prompt = _try_create_prompt(
-                    prompt_id=generation["prompt-index"],
+                    prompt_id=new_unique_id_hack,
+                    source_prompt_id=generation["prompt-index"],
                     prompt_text=SEP.join(generation["prompt"]),
                     num_sentences=len(generation["prompt"]),
                     dataset=dataset)

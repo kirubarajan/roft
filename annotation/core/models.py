@@ -44,6 +44,7 @@ class Prompt(models.Model):
     num_sentences = models.IntegerField()
     dataset = models.ForeignKey(Dataset, on_delete=models.DO_NOTHING)
     prompt_index = models.IntegerField()
+    source_prompt_index = models.IntegerField(default=None)
 
     def __str__(self):
         return self.body
