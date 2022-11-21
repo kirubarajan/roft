@@ -44,6 +44,7 @@ def _try_create_feedback_option(shortname, category, description):
     else:
         print("Updating FeedbackOption {}".format(shortname))
         option = FeedbackOption.objects.get(shortname=shortname)
+        print(description)
         option.description = description
         option.category = category
         option.save()
