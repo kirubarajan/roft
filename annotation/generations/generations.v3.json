@@ -1,0 +1,49 @@
+[
+    {
+        "name": "Short Stories",
+        "description": "Can a computer write a short story that makes sense?",
+        "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) with prompts taken from the [Reddit Writing Prompts](https://github.com/pytorch/fairseq/tree/master/examples/stories'>Reddit Writing Prompts) dataset.",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-reddit-stories-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-reddit-stories-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-xl-reddit-stories-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-gpt2-xl-reddit-stories-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/reddit-stories/generations-davinci-reddit-stories-dev.json"
+                     ]
+    },
+    {
+        "name": "New York Times",
+        "description": "Fake News has been a big worry lately. Can you spot when our computer wrote the news article?",
+        "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) and [GROVER](https://rowanzellers.com/grover/) with prompts taken from the [New York Times Corpus](https://catalog.ldc.upenn.edu/LDC2008T19).",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-gpt2-xl-nyt-train.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/nyt/generations-easy-nyt-train-truncated.json"
+                     ]
+
+    },
+    {
+        "name": "Presidential Speeches",
+        "description": "Some say Presidents have a very specific way of speaking. Could you tell if it was AI?",
+        "details": "Generations from [CTRL](https://blog.einstein.ai/introducing-a-conditional-transformer-language-model-for-controllable-generation/) with prompts taken from the [Corpus of Presidential Speeches](http://www.thegrammarlab.com/?nor-portfolio=corpus-of-presidential-speeches-cops-and-a-clintontrump-corpus).",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-Politics-speeches-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-Politics-speeches-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-Politics-speeches-train.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-nocode-speeches-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-nocode-speeches-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-nocode-speeches-train.json"
+                     ]
+
+    },
+    {
+        "name": "Recipes",
+        "description": "Can you tell if an AI could pass as a master chef?",
+        "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) with prompts taken from the [Recipe1M+ Corpus](http://pic2recipe.csail.mit.edu/).",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-gpt2-xl-recipes-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-gpt2-xl-recipes-test.json",
+		      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/generations-finetuned-recipes-dev.json",
+		      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/extra_generations-gpt2-xl-recipes-dev.json",
+		      "https://storage.googleapis.com/roft_datasets/generations_v3/recipes/extra_generations-gpt2-xl-recipes-test.json"
+                     ]
+
+    }
+]

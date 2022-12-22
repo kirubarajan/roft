@@ -20,9 +20,9 @@ from core.models import Prompt, Generation, Annotation, Playlist, Profile, SEP, 
 BATCH_SIZE = 10
 # The desired number of annotations per example. Each example will be
 # assigned to this many users before any new annotation gets assigned.
-GOAL_NUM_ANNOTATIONS = 3
+GOAL_NUM_ANNOTATIONS = 4
 # The playlist version to show in the UI
-_PLAYLIST_VERSION = "0.5"
+_PLAYLIST_VERSION = "0.6"
 
 
 # The cached leaderboard.

@@ -9,7 +9,7 @@
     },
     {
         "name": "New York Times",
-        "description": "Fake News has been a big worry lately. Can you spot when our computer wrote the news article?",
+        "description": "Fake News has been a big worry lately. Can you spot when a news article is fake?",
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) and [GPT-3](https://openai.com/api/) with prompts taken from the [New York Times Corpus](https://catalog.ldc.upenn.edu/LDC2008T19).",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v4/generations-davinci-nyt-train.json",
                       "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-nyt-train.json",
@@ -24,6 +24,19 @@
         "details": "Generations from [GPT-2 XL](https://github.com/openai/gpt-2) and [GPT-3](https://openai.com/api/) with prompts taken from the [Recipe1M+ Corpus](http://pic2recipe.csail.mit.edu/).",
         "locations": ["https://storage.googleapis.com/roft_datasets/generations_v4/generations-davinci-recipes-dev.json",
                       "https://storage.googleapis.com/roft_datasets/generations_v4/generations-gpt2-xl-recipes-test.json"
+                     ]
+
+    },
+    {
+        "name": "Presidential Speeches",
+        "description": "Some say Presidents have a very specific way of speaking. Could you tell if it was AI?",
+        "details": "Generations from [CTRL](https://blog.einstein.ai/introducing-a-conditional-transformer-language-model-for-controllable-generation/) with prompts taken from the [Corpus of Presidential Speeches](http://www.thegrammarlab.com/?nor-portfolio=corpus-of-presidential-speeches-cops-and-a-clintontrump-corpus).",
+        "locations": ["https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-Politics-speeches-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-Politics-speeches-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-Politics-speeches-train.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-nocode-speeches-dev.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-nocode-speeches-test.json",
+                      "https://storage.googleapis.com/roft_datasets/generations_v3/speeches/generations-ctrl-nocode-speeches-train.json"
                      ]
 
     }
